@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="konoha">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Salon de Beauté KONOHA | Excellence Afro-Cosmétique</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d00;
+            --secondary: #00ff88;
+            --dark: #0a0a0a;
+            --light: #f0f0f0;
+            --accent: #8a2be2;
+            --gold: #FFD700;
+            --font-title: 'Archivo Black', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Background Video */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+        }
+        
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Navigation Holographique */
+        .holographic-nav {
+            position: fixed;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .nav-item {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-item:hover {
+            transform: scale(1.2);
+            background: var(--primary);
+        }
+        
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-item:hover::before {
+            opacity: 0.3;
+        }
+        
+        .nav-item i {
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        /* Hero Section */
+        .beauty-hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+            position: relative;
+        }
+        
+        .beauty-hero-title {
+            font-family: var(--font-title);
+            font-size: 4.5rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+        
+        .beauty-hero-subtitle {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .beauty-hero-cta {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--primary);
+            color: var(--light);
+            border: none;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .beauty-hero-cta:hover {
+            background: #e64500;
+            transform: translateY(-5px);
+        }
+        
+        /* Salon Section with Carousel */
+        .beauty-salon {
+            padding: 6rem 10%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+        }
+        
+        .beauty-section-title {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .beauty-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background: var(--secondary);
+        }
+        
+        .salon-carousel {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .carousel-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+        }
+        
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .carousel-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-indicator.active {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+        
+        .salon-description {
+            margin-top: 3rem;
+            max-width: 800px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        /* Services Section */
+        .beauty-services {
+            padding: 6rem 10%;
+            background: var(--dark);
+        }
+        
+        .beauty-services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .beauty-service-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .beauty-service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 77, 0, 0.3);
+            border-color: var(--primary);
+        }
+        
+        .beauty-service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,77,0,0.1) 0%, rgba(0,0,0,0) 50%);
+            z-index: -1;
+        }
+        
+        .beauty-service-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+        
+        .beauty-service-title {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+        
+        .beauty-service-description {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .beauty-service-price {
+            color: var(--gold);
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        
+        .beauty-service-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .beauty-service-link i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .beauty-service-link:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* Team Section */
+        .beauty-team {
+            padding: 6rem 10%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .beauty-team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .beauty-team-member {
+            text-align: center;
+        }
+        
+        .beauty-team-avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .beauty-team-member:hover .beauty-team-avatar {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(255, 77, 0, 0.3);
+        }
+        
+        .beauty-team-name {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+        
+        .beauty-team-role {
+            color: var(--gold);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .beauty-team-bio {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Products Section */
+        .beauty-products {
+            padding: 6rem 10%;
+            background: var(--dark);
+        }
+        
+        .beauty-products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .beauty-product-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .beauty-product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .beauty-product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 77, 0, 0.3);
+        }
+        
+        .beauty-product-card:hover .beauty-product-image {
+            transform: scale(1.1);
+        }
+        
+        .beauty-product-title {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+        
+        .beauty-product-description {
+            font-size: 0.8rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .beauty-product-price {
+            color: var(--gold);
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* CTA Section */
+        .beauty-cta {
+            padding: 6rem 10%;
+            background: linear-gradient(135deg, rgba(255,77,0,0.1) 0%, rgba(10,10,10,1) 100%);
+            text-align: center;
+        }
+        
+        .beauty-cta-title {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+        
+        .beauty-cta-text {
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        /* Footer */
+        .beauty-footer {
+            background: #000;
+            padding: 3rem 10%;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+        
+        .beauty-social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .beauty-social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .beauty-social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .beauty-copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .beauty-hero-title {
+                font-size: 3.5rem;
+            }
+            
+            .salon-carousel {
+                height: 400px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .beauty-hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .beauty-hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .beauty-section-title {
+                font-size: 2.5rem;
+            }
+            
+            .holographic-nav {
+                right: 1rem;
+            }
+            
+            .nav-item {
+                width: 40px;
+                height: 40px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .beauty-hero-title {
+                font-size: 2rem;
+            }
+            
+            .beauty-section-title {
+                font-size: 2rem;
+            }
+            
+            .salon-carousel {
+                height: 300px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="assets/videos/konoha-beauty-bg.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la vidéo.
+        </video>
+    </div>
+    
+    <!-- Navigation Holographique -->
+    <nav class="holographic-nav">
+        <div class="nav-item" data-section="beauty-hero">
+            <i class="fas fa-home"></i>
+        </div>
+        <div class="nav-item" data-section="beauty-salon">
+            <i class="fas fa-spa"></i>
+        </div>
+        <div class="nav-item" data-section="beauty-services">
+            <i class="fas fa-cut"></i>
+        </div>
+        <div class="nav-item" data-section="beauty-team">
+            <i class="fas fa-users"></i>
+        </div>
+        <div class="nav-item" data-section="beauty-products">
+            <i class="fas fa-shopping-bag"></i>
+        </div>
+        <div class="nav-item" data-section="beauty-cta">
+            <i class="fas fa-phone"></i>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="beauty-hero" id="beauty-hero">
+        <h1 class="beauty-hero-title">Salon de Beauté KONOHA</h1>
+        <p class="beauty-hero-subtitle">L'art du maquillage afro-centré et des soins capillaires sur mesure pour révéler votre beauté naturelle</p>
+        <a href="#beauty-cta" class="beauty-hero-cta">Prendre rendez-vous</a>
+    </section>
+    
+    <!-- Salon Section with Carousel -->
+    <section class="beauty-salon" id="beauty-salon">
+        <h2 class="beauty-section-title">Le Salon</h2>
+        <div class="salon-carousel">
+            <div class="carousel-track">
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80" alt="Espace du salon">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1886&q=80" alt="Soins du visage">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Produits de beauté">
+                </div>
+            </div>
+            <div class="carousel-nav">
+                <div class="carousel-indicator active" data-slide="0"></div>
+                <div class="carousel-indicator" data-slide="1"></div>
+                <div class="carousel-indicator" data-slide="2"></div>
+            </div>
+        </div>
+        <div class="salon-description">
+            <p>Notre salon de beauté KONOHA est un havre de paix dédié à votre bien-être. Dans un cadre épuré et luxueux, nos experts mettent leur savoir-faire à votre service. Nous avons conçu chaque espace pour vous offrir une expérience unique, mêlant traditions africaines et techniques modernes.</p>
+            <p>Nos installations haut de gamme comprennent des cabines privées pour une intimité totale, une zone de relaxation avec des thés artisanaux, et un espace conseil personnalisé pour répondre à tous vos besoins beauté.</p>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section class="beauty-services" id="beauty-services">
+        <h2 class="beauty-section-title">Nos Prestations</h2>
+        <div class="beauty-services-grid">
+            <div class="beauty-service-card">
+                <div class="beauty-service-icon">
+                    <i class="fas fa-spa"></i>
+                </div>
+                <h3 class="beauty-service-title">Soins Visage</h3>
+                <p class="beauty-service-description">Nettoyage profond, gommage et masques adaptés aux peaux noires et métissées. Utilisation de produits riches en actifs naturels africains.</p>
+                <p class="beauty-service-price">À partir de 15.000 FCFA</p>
+                <a href="#beauty-cta" class="beauty-service-link">Réserver <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="beauty-service-card">
+                <div class="beauty-service-icon">
+                    <i class="fas fa-cut"></i>
+                </div>
+                <h3 class="beauty-service-title">Coiffure Afro</h3>
+                <p class="beauty-service-description">Tresses traditionnelles, locks, coupes modernes et soins capillaires intensifs. Protégeons et sublimons votre texture naturelle.</p>
+                <p class="beauty-service-price">À partir de 10.000 FCFA</p>
+                <a href="#beauty-cta" class="beauty-service-link">Réserver <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="beauty-service-card">
+                <div class="beauty-service-icon">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <h3 class="beauty-service-title">Maquillage Professionnel</h3>
+                <p class="beauty-service-description">Maquillage adapté aux peaux foncées pour tous vos événements. Nous mettons en valeur vos traits avec des produits haute pigmentation.</p>
+                <p class="beauty-service-price">À partir de 20.000 FCFA</p>
+                <a href="#beauty-cta" class="beauty-service-link">Réserver <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="beauty-service-card">
+                <div class="beauty-service-icon">
+                    <i class="fas fa-hand-sparkles"></i>
+                </div>
+                <h3 class="beauty-service-title">Soins des Mains & Pieds</h3>
+                <p class="beauty-service-description">Manucure, pédicure et soins spécifiques pour peaux mélanées. Vernis longue durée et motifs inspirés de l'art africain.</p>
+                <p class="beauty-service-price">À partir de 12.000 FCFA</p>
+                <a href="#beauty-cta" class="beauty-service-link">Réserver <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="beauty-service-card">
+                <div class="beauty-service-icon">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <h3 class="beauty-service-title">Épilation</h3>
+                <p class="beauty-service-description">Techniques douces adaptées aux peaux noires pour éviter les irritations et boutons. Cire chaude, épilation à la pince ou laser.</p>
+                <p class="beauty-service-price">À partir de 8.000 FCFA</p>
+                <a href="#beauty-cta" class="beauty-service-link">Réserver <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="beauty-service-card">
+                <div class="beauty-service-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h3 class="beauty-service-title">Pack Mariage</h3>
+                <p class="beauty-service-description">Forfait complet pour le jour J : coiffure, maquillage, soins du visage et conseils personnalisés. Essais préalables inclus.</p>
+                <p class="beauty-service-price">À partir de 75.000 FCFA</p>
+                <a href="#beauty-cta" class="beauty-service-link">Réserver <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Team Section -->
+    <section class="beauty-team" id="beauty-team">
+        <h2 class="beauty-section-title">Notre Équipe</h2>
+        <div class="beauty-team-grid">
+            <div class="beauty-team-member">
+                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=761&q=80" alt="Amina Diallo" class="beauty-team-avatar">
+                <h3 class="beauty-team-name">Amina Diallo</h3>
+                <p class="beauty-team-role">Experte en Coiffure Afro</p>
+                <p class="beauty-team-bio">Spécialiste des tresses traditionnelles et modernes, Amina maîtrise plus de 30 techniques de coiffage adaptées aux cheveux crépus.</p>
+            </div>
+            
+            <div class="beauty-team-member">
+                <img src="https://images.unsplash.com/photo-1583864697784-a0efc8379f70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Fatou N'Diaye" class="beauty-team-avatar">
+                <h3 class="beauty-team-name">Fatou N'Diaye</h3>
+                <p class="beauty-team-role">Maquilleuse Professionnelle</p>
+                <p class="beauty-team-bio">Formée aux techniques de maquillage haute définition pour peaux foncées, Fatou sublime vos traits pour chaque occasion.</p>
+            </div>
+            
+            <div class="beauty-team-member">
+                <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80" alt="Grace Mensah" class="beauty-team-avatar">
+                <h3 class="beauty-team-name">Grace Mensah</h3>
+                <p class="beauty-team-role">Esthéticienne Spécialisée</p>
+                <p class="beauty-team-bio">Expert en soins des peaux noires et métissées, Grace utilise des méthodes douces et des produits naturels pour des résultats visibles.</p>
+            </div>
+            
+            <div class="beauty-team-member">
+                <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=689&q=80" alt="Bintou Traoré" class="beauty-team-avatar">
+                <h3 class="beauty-team-name">Bintou Traoré</h3>
+                <p class="beauty-team-role">Spécialiste Onglerie</p>
+                <p class="beauty-team-bio">Artiste des mains, Bintou crée des designs uniques inspirés des motifs africains traditionnels, tout en préservant la santé de vos ongles.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Products Section -->
+    <section class="beauty-products" id="beauty-products">
+        <h2 class="beauty-section-title">Nos Produits Phares</h2>
+        <div class="beauty-products-grid">
+            <div class="beauty-product-card">
+                <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Huile Capillaire" class="beauty-product-image">
+                <h3 class="beauty-product-title">Huile Divine</h3>
+                <p class="beauty-product-description">Huile capillaire enrichie au karité et à l'huile de baobab pour nourrir en profondeur les cheveux crépus et bouclés.</p>
+                <p class="beauty-product-price">8.500 FCFA</p>
+            </div>
+            
+            <div class="beauty-product-card">
+                <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Masque Visage" class="beauty-product-image">
+                <h3 class="beauty-product-title">Masque Éclat</h3>
+                <p class="beauty-product-description">Masque purifiant à l'argile rouge du Bénin et extraits de neem pour un teint uniforme et lumineux.</p>
+                <p class="beauty-product-price">12.000 FCFA</p>
+            </div>
+            
+            <div class="beauty-product-card">
+                <img src="https://images.unsplash.com/photo-1625772452859-1c03d5bf1137?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Fond de Teint" class="beauty-product-image">
+                <h3 class="beauty-product-title">Teint Parfait</h3>
+                <p class="beauty-product-description">Fond de teint longue tenue avec SPF 30, spécialement formulé pour les peaux noires et métissées.</p>
+                <p class="beauty-product-price">15.000 FCFA</p>
+            </div>
+            
+            <div class="beauty-product-card">
+                <img src="https://images.unsplash.com/photo-1607602132700-06825894a1c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Beurre Corporel" class="beauty-product-image">
+                <h3 class="beauty-product-title">Beurre Nourricier</h3>
+                <p class="beauty-product-description">Beurre corporel au karité pur et huile de marula pour une hydratation intense des peaux sèches et assoiffées.</p>
+                <p class="beauty-product-price">10.000 FCFA</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="beauty-cta" id="beauty-cta">
+        <h2 class="beauty-cta-title">Prêt à vivre l'expérience KONOHA ?</h2>
+        <p class="beauty-cta-text">Réservez dès maintenant votre séance de beauté personnalisée. Nos experts sont à votre écoute pour créer le look qui vous ressemble.</p>
+        <a href="tel:+22912345678" class="beauty-hero-cta">Appelez-nous</a>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="beauty-footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>KONOHA</h3>
+                <div class="footer-links">
+                    <a href="index.html" class="footer-link">Accueil</a>
+                    <a href="a-propos.html" class="footer-link">À propos</a>
+                    <a href="blog.html" class="footer-link">Blog</a>
+                    <a href="formations.html" class="footer-link">Formations</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>MODE & STYLE</h3>
+                <div class="footer-links">
+                    <a href="boutique-mode.html" class="footer-link">Boutique Mode</a>
+                    <a href="mojo-black.html" class="footer-link">MOJO BLACK</a>
+                    <a href="atelier-styliste.html" class="footer-link">Atelier Styliste</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>BEAUTÉ & SOINS</h3>
+                <div class="footer-links">
+                    <a href="salon-coiffure.html" class="footer-link">Salon de Coiffure</a>
+                    <a href="salon-beaute.html" class="footer-link">Salon de Beauté</a>
+                    <a href="parfumerie.html" class="footer-link">Parfumerie</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>LIFESTYLE</h3>
+                <div class="footer-links">
+                    <a href="restaurant.html" class="footer-link">Restaurant-Glacier</a>
+                    <a href="menuiserie.html" class="footer-link">Menuiserie Moderne</a>
+                    <a href="atelier-photo.html" class="footer-link">Atelier Photo</a>
+                    <a href="librairie.html" class="footer-link">La Librairie</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="beauty-social-links">
+            <a href="#" class="beauty-social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="beauty-social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="beauty-social-link"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="beauty-social-link"><i class="fab fa-tiktok"></i></a>
+        </div>
+        
+        <p class="beauty-copyright">© 2023 Salon de Beauté KONOHA. Tous droits réservés.</p>
+    </footer>
+    
+    <script>
+        // Navigation holographique
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                document.getElementById(sectionId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Carousel functionality
+        const track = document.querySelector('.carousel-track');
+        const slides = Array.from(document.querySelectorAll('.carousel-slide'));
+        const indicators = Array.from(document.querySelectorAll('.carousel-indicator'));
+        
+        let currentSlide = 0;
+        const slideCount = slides.length;
+        
+        // Set up the carousel
+        function goToSlide(index) {
+            track.style.transform = `translateX(-${index * 100}%)`;
+            
+            // Update indicators
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+            indicators[index].classList.add('active');
+            
+            currentSlide = index;
+        }
+        
+        // Set up click events for indicators
+        indicators.forEach(indicator => {
+            indicator.addEventListener('click', function() {
+                const slideIndex = parseInt(this.getAttribute('data-slide'));
+                goToSlide(slideIndex);
+            });
+        });
+        
+        // Auto-advance carousel every 3 seconds
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slideCount;
+            goToSlide(currentSlide);
+        }
+        
+        let carouselInterval = setInterval(nextSlide, 3000);
+        
+        // Pause on hover
+        const carousel = document.querySelector('.salon-carousel');
+        carousel.addEventListener('mouseenter', () => {
+            clearInterval(carouselInterval);
+        });
+        
+        carousel.addEventListener('mouseleave', () => {
+            carouselInterval = setInterval(nextSlide, 3000);
+        });
+        
+        // Animation au scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.beauty-service-card, .beauty-team-member, .beauty-product-card').forEach(element => {
+            observer.observe(element);
+        });
+        
+        // Effet de survol audacieux (uniquement sur desktop)
+        if (!/Mobi|Android/i.test(navigator.userAgent)) {
+            document.querySelectorAll('a, button').forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    const x = Math.random() * 20 - 10;
+                    const y = Math.random() * 20 - 10;
+                    element.style.transform = `translate(${x}px, ${y}px)`;
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    element.style.transform = 'translate(0, 0)';
+                });
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="konoha">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>KONOHA - L'écosystème mode & lifestyle</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d00;
+            --secondary: #00ff88;
+            --dark: #0a0a0a;
+            --light: #f0f0f0;
+            --accent: #8a2be2;
+            --font-title: 'Archivo Black', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Background Video */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+        }
+        
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Navigation Holographique */
+        nav {
+            position: fixed;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .nav-item {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-item:hover {
+            transform: scale(1.2);
+            background: var(--primary);
+        }
+        
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-item:hover::before {
+            opacity: 0.3;
+        }
+        
+        .nav-item i {
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        /* Language Selector */
+        .language-selector {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        
+        .language-selector:hover {
+            transform: scale(1.2);
+            background: var(--primary);
+        }
+        
+        .language-toggle {
+            display: none;
+        }
+        
+        .language-current {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .language-dropdown {
+            position: absolute;
+            right: 0;
+            bottom: 60px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 0.5rem;
+            list-style: none;
+            display: none;
+            min-width: 120px;
+        }
+        
+        .language-toggle:checked ~ .language-dropdown {
+            display: block;
+        }
+        
+        .language-dropdown li a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            display: block;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .language-dropdown li a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .language-dropdown li a.active {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+            position: relative;
+        }
+        
+        .logo {
+            font-family: var(--font-title);
+            font-size: 8rem;
+            line-height: 0.9;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--primary);
+            letter-spacing: -0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo::after {
+            content: 'KONOHA';
+            position: absolute;
+            top: 0.3rem;
+            left: 0.3rem;
+            color: var(--primary);
+            z-index: -1;
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            max-width: 600px;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        .tagline::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--primary);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            margin-top: 2rem;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            color: var(--dark);
+            background: var(--primary);
+        }
+        
+        /* Services Grid */
+        .services {
+            padding: 5rem 10%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+        }
+        
+        .section-title {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background: var(--secondary);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 77, 0, 0.3);
+            border-color: var(--primary);
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,77,0,0.1) 0%, rgba(0,0,0,0) 50%);
+            z-index: -1;
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .service-title {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+        
+        .service-description {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .service-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .service-link i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .service-link:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* MOJO BLACK Highlight */
+        .mojo-black {
+            padding: 5rem 10%;
+            background: linear-gradient(135deg, rgba(10,10,10,0.9) 0%, rgba(30,30,30,0.9) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mojo-black::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(138,43,226,0.1) 0%, rgba(138,43,226,0) 70%);
+            animation: pulse 8s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.1;
+            }
+            100% {
+                transform: scale(1.2);
+                opacity: 0.3;
+            }
+        }
+        
+        .mojo-content {
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .mojo-image {
+            flex: 1;
+            min-height: 400px;
+            background: url('https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80') center/cover;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mojo-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(138,43,226,0.3) 0%, rgba(255,77,0,0.3) 100%);
+        }
+        
+        .mojo-text {
+            flex: 1;
+        }
+        
+        .mojo-logo {
+            font-family: var(--font-title);
+            font-size: 4rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        
+        .mojo-subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 5rem 10%;
+            background: rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+        }
+        
+        .testimonials-container {
+            position: relative;
+        }
+        
+        .testimonials-slider {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 1rem;
+        }
+        
+        .testimonials-slider::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .testimonials-slider::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .testimonials-slider::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+        
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 2rem;
+            position: relative;
+            min-width: 300px;
+            scroll-snap-align: start;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-family: var(--font-title);
+            font-size: 4rem;
+            color: rgba(255, 77, 0, 0.2);
+            line-height: 1;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+        }
+        
+        .author-info h4 {
+            font-family: var(--font-title);
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+        
+        .author-info p {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .leave-review-btn {
+            display: block;
+            margin: 2rem auto 0;
+            padding: 0.8rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-family: var(--font-body);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .leave-review-btn:hover {
+            background: #e64500;
+            transform: translateY(-3px);
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: var(--dark);
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--light);
+        }
+        
+        /* Contact */
+        .contact {
+            padding: 5rem 10%;
+            background: linear-gradient(135deg, rgba(255,77,0,0.1) 0%, rgba(10,10,10,1) 100%);
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 77, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        
+        .contact-text h4 {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-text p, .contact-text a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-text a:hover {
+            color: var(--primary);
+        }
+        
+        .book-appointment {
+            display: block;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .book-appointment-btn {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 0.8rem 1.5rem;
+            font-family: var(--font-body);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .book-appointment-btn:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+        
+        /* Form Styles (for modal) */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: white;
+            font-family: var(--font-body);
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 77, 0, 0.1);
+        }
+        
+        textarea.form-input {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            background: #e64500;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 77, 0, 0.4);
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 3rem 10%;
+            text-align: center;
+            position: relative;
+        }
+        
+        .footer-logo {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .logo {
+                font-size: 6rem;
+            }
+            
+            .mojo-content {
+                flex-direction: column;
+                gap: 3rem;
+            }
+            
+            .mojo-image {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 4rem;
+                letter-spacing: -0.3rem;
+            }
+            
+            nav {
+                right: 1rem;
+            }
+            
+            .nav-item {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .mojo-logo {
+                font-size: 3rem;
+            }
+            
+            .footer-links {
+                gap: 1rem;
+            }
+            
+            .language-dropdown {
+                bottom: auto;
+                top: 60px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 0 5%;
+            }
+            
+            .logo {
+                font-size: 3rem;
+                letter-spacing: -0.2rem;
+                -webkit-text-stroke: 1px var(--primary);
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .services, .mojo-black, .testimonials, .contact {
+                padding: 3rem 5%;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .testimonial-card {
+                min-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="assets/videos/konoha-background.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la vidéo.
+        </video>
+    </div>
+    
+    <!-- Navigation Holographique -->
+    <nav>
+        <!-- Language Selector -->
+        <div class="language-selector">
+            <input type="checkbox" id="language-toggle" class="language-toggle">
+            <label for="language-toggle" class="language-current">
+                <i class="fas fa-globe"></i>
+                <span id="current-lang">FR</span>
+            </label>
+            <ul class="language-dropdown">
+                <li><a href="index-fr.html" class="active" title="Français">Français</a></li>
+                <li><a href="index-en.html" title="English">English</a></li>
+            </ul>
+        </div>
+        
+        <div class="nav-item" data-section="home">
+            <i class="fas fa-home"></i>
+        </div>
+        <div class="nav-item" data-section="services">
+            <i class="fas fa-tshirt"></i>
+        </div>
+        <div class="nav-item" data-section="mojo">
+            <i class="fas fa-ring"></i>
+        </div>
+        <div class="nav-item" data-section="testimonials">
+            <i class="fas fa-quote-right"></i>
+        </div>
+        <div class="nav-item" data-section="contact">
+            <i class="fas fa-envelope"></i>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1 class="logo floating">KONOHA</h1>
+        <p class="tagline">L'écosystème ultime où mode africaine, beauté et lifestyle se rencontrent pour créer une expérience unique.</p>
+        <button class="cta-button">Explorer l'univers</button>
+    </section>
+    
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <h2 class="section-title">Notre Écosystème</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <h3 class="service-title">Boutique Mode</h3>
+                <p class="service-description">Découvrez notre sélection pointue de vêtements et chaussures allant du dripstyle au look gentleman, avec une touche africaine authentique.</p>
+                <a href="boutique-mode.html" class="service-link">Voir la collection <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-cut"></i>
+                </div>
+                <h3 class="service-title">Salon de Coiffure</h3>
+                <p class="service-description">Des professionnels pour sculpter votre style capillaire, du plus classique au plus avant-gardiste, avec des techniques afro contemporaines.</p>
+                <a href="salon-coiffure.html" class="service-link">Visiter le salon <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3 class="service-title">Salon de Beauté</h3>
+                <p class="service-description">Maquillage, soins et make-up par des artistes passionnés qui sublimeront votre beauté naturelle avec des produits adaptés.</p>
+                <a href="salon-beaute.html" class="service-link">Découvrir <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-spray-can"></i>
+                </div>
+                <h3 class="service-title">Parfumerie</h3>
+                <p class="service-description">Une olfaction raffinée avec des fragrances exclusives qui deviendront votre signature, inspirées des essences africaines.</p>
+                <a href="parfumerie.html" class="service-link">Explorer <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-vest"></i>
+                </div>
+                <h3 class="service-title">Atelier Styliste</h3>
+                <p class="service-description">Des tenues sur mesure conçues pour vous, par nos designers talentueux, mêlant modernité et tradition africaine.</p>
+                <a href="atelier-styliste.html" class="service-link">Découvrir l'atelier <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3 class="service-title">Librairie</h3>
+                <p class="service-description">Une sélection éclectique d'ouvrages en français, avec un focus sur la littérature ouest-africaine et les cultures locales.</p>
+                <a href="librairie.html" class="service-link">Découvrir <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <h3 class="service-title">Restaurant-Glacier</h3>
+                <p class="service-description">Une pause gourmande avec des créations culinaires et des glaces artisanales aux saveurs locales revisitées.</p>
+                <a href="restaurant.html" class="service-link">Voir le menu <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <h3 class="service-title">Atelier Photo</h3>
+                <p class="service-description">Immortalisez votre style avec des shootings professionnels et créatifs mettant en valeur votre personnalité.</p>
+                <a href="portfolio.html" class="service-link">Portfolio <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-chair"></i>
+                </div>
+                <h3 class="service-title">Menuiserie Moderne</h3>
+                <p class="service-description">Des objets design et fonctionnels qui habilleront votre intérieur avec élégance, inspirés de l'artisanat béninois.</p>
+                <a href="menuiserie.html" class="service-link">Voir les créations <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3 class="service-title">Boutique Bien-être</h3>
+                <p class="service-description">Découvrez notre sélection de jouets et gadgets essentiels pour votre épanouissement et plaisir intime.</p>
+                <a href="boutique-bienetre.html" class="service-link">Découvrir <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3 class="service-title">Nos Formations</h3>
+                <p class="service-description">Apprenez les métiers de la mode, du make-up et de la coiffure avec nos professionnels certifiés.</p>
+                <a href="formations.html" class="service-link">Voir les formations <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- MOJO BLACK Highlight -->
+    <section class="mojo-black" id="mojo">
+        <div class="mojo-content">
+            <div class="mojo-image"></div>
+            <div class="mojo-text">
+                <h2 class="mojo-logo">MOJO BLACK</h2>
+                <p class="mojo-subtitle">La marque signature de KONOHA</p>
+                <p class="service-description">MOJO BLACK incarne l'essence même de la création vestimentaire africaine contemporaine. Notre atelier de stylisme ne se contente pas de confectionner des tenues sur mesure - nous redonnons vie à vos pièces préférées grâce à notre approche innovante de redesign et de recyclage, en nous inspirant des textiles traditionnels béninois.</p>
+                <p class="service-description">Chaque création MOJO BLACK est une pièce unique, mêlant savoir-faire traditionnel et vision avant-gardiste. Nos designers travaillent main dans la main avec vous pour concevoir des vêtements qui ne vous habillent pas, mais vous révèlent.</p>
+                <a href="mojo-black.html" class="service-link">Découvrir MOJO BLACK <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <h2 class="section-title">Ils parlent de nous</h2>
+        <div class="testimonials-container">
+            <div class="testimonials-slider">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">KONOHA a révolutionné ma garde-robe. Leur boutique mode propose des pièces uniques qu'on ne trouve nulle part ailleurs, et leur salon de coiffure connaît parfaitement les dernières tendances africaines.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JD</div>
+                        <div class="author-info">
+                            <h4>Jean D.</h4>
+                            <p>Client depuis 2021</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">L'atelier MOJO BLACK a transformé mes vieux pagnes en pièces haute couture. Leur vision du recyclage vestimentaire est tout simplement géniale. Je ne jure que par eux maintenant.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MA</div>
+                        <div class="author-info">
+                            <h4>Marie A.</h4>
+                            <p>Client MOJO BLACK</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Entre la boutique, le salon de beauté et le restaurant, KONOHA est devenu mon lieu incontournable. Tout est sous un même toit, avec une qualité et un service irréprochables.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SP</div>
+                        <div class="author-info">
+                            <h4>Sarah P.</h4>
+                            <p>Fidèle depuis 2 ans</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Les formations en coiffure afro de KONOHA m'ont permis de lancer mon propre salon. Un enseignement de qualité avec un vrai savoir-faire local.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">KB</div>
+                        <div class="author-info">
+                            <h4>Kévin B.</h4>
+                            <p>Ancien élève</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="leave-review-btn">Laissez un Avis</button>
+        </div>
+    </section>
+    
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <h2 class="section-title">Entrons en contact</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="contact-text">
+                    <h4>Adresse</h4>
+                    <p>123 Rue des Artisans, Cotonou, Bénin</p>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <div class="contact-text">
+                    <h4>Téléphone</h4>
+                    <p><a href="tel:+22912345678">+229 12 34 56 78</a></p>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="contact-text">
+                    <h4>Email</h4>
+                    <p><a href="mailto:contact@konoha.bj">contact@konoha.bj</a></p>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="contact-text">
+                    <h4>Horaires</h4>
+                    <p>Lundi - Samedi: 8h - 20h</p>
+                    <p>Dimanche: 10h - 18h</p>
+                </div>
+            </div>
+            
+            <div class="book-appointment">
+                <button class="book-appointment-btn">Prendre Rdv</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">KONOHA</div>
+        <div class="footer-links">
+            <a href="formations.html" class="footer-link">Nos Formations</a>
+            <a href="offres-emploi.html" class="footer-link">Nos Offres d'Emploi</a>
+            <a href="a-propos.html" class="footer-link">À Propos</a>
+            <a href="blog.html" class="footer-link">Blog</a>
+            <a href="mentions-legales.html" class="footer-link">Mentions légales</a>
+        </div>
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <p class="copyright">© 2023 KONOHA. Tous droits réservés.</p>
+    </footer>
+    
+    <!-- Review Modal -->
+    <div class="modal" id="reviewModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Laissez votre avis</h3>
+            <form id="reviewForm">
+                <div class="form-group">
+                    <label for="reviewName" class="form-label">Votre nom</label>
+                    <input type="text" id="reviewName" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reviewService" class="form-label">Service concerné</label>
+                    <select id="reviewService" class="form-input">
+                        <option value="">Sélectionnez un service</option>
+                        <option value="boutique">Boutique Mode</option>
+                        <option value="coiffure">Salon de Coiffure</option>
+                        <option value="beaute">Salon de Beauté</option>
+                        <option value="parfumerie">Parfumerie</option>
+                        <option value="mojo">MOJO BLACK</option>
+                        <option value="restaurant">Restaurant-Glacier</option>
+                        <option value="photo">Atelier Photo</option>
+                        <option value="menuiserie">Menuiserie</option>
+                        <option value="bienetre">Boutique Bien-être</option>
+                        <option value="librairie">Librairie</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reviewRating" class="form-label">Note (sur 5)</label>
+                    <select id="reviewRating" class="form-input" required>
+                        <option value="">Sélectionnez une note</option>
+                        <option value="5">★★★★★ - Excellent</option>
+                        <option value="4">★★★★☆ - Très bien</option>
+                        <option value="3">★★★☆☆ - Bien</option>
+                        <option value="2">★★☆☆☆ - Moyen</option>
+                        <option value="1">★☆☆☆☆ - Décevant</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reviewMessage" class="form-label">Votre avis</label>
+                    <textarea id="reviewMessage" class="form-input" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Envoyer l'avis</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Appointment Modal -->
+    <div class="modal" id="appointmentModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Prendre un rendez-vous</h3>
+            <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="appointmentForm">
+                <div class="form-group">
+                    <label for="appointmentName" class="form-label">Votre nom</label>
+                    <input type="text" id="appointmentName" name="name" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="appointmentEmail" class="form-label">Votre email</label>
+                    <input type="email" id="appointmentEmail" name="email" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="appointmentPhone" class="form-label">Téléphone</label>
+                    <input type="tel" id="appointmentPhone" name="phone" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="appointmentService" class="form-label">Service</label>
+                    <select id="appointmentService" name="service" class="form-input" required>
+                        <option value="">Sélectionnez un service</option>
+                        <option value="coiffure">Salon de Coiffure</option>
+                        <option value="beaute">Salon de Beauté</option>
+                        <option value="mojo">MOJO BLACK (Stylisme)</option>
+                        <option value="photo">Atelier Photo</option>
+                        <option value="librairie">Librairie</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="appointmentDate" class="form-label">Date souhaitée</label>
+                    <input type="date" id="appointmentDate" name="date" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="appointmentMessage" class="form-label">Message (optionnel)</label>
+                    <textarea id="appointmentMessage" name="message" class="form-input"></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Confirmer le RDV</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        Merci pour votre avis ! Nous l'apprécions énormément.
+    </div>
+    
+<script>
+    // =============================================
+    // Détection de langue et redirection automatique
+    // =============================================
+    (function() {
+        const supportedLangs = ['fr', 'en'];
+        const browserLang = navigator.language.split('-')[0]; 
+        const defaultLang = 'fr';
+        const targetLang = supportedLangs.includes(browserLang) ? browserLang : defaultLang;
+        
+        if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
+            window.location.href = `index-${targetLang}.html`;
+        }
+    })();
+
+    // =============================================
+    // Fonction d'affichage des notifications
+    // =============================================
+    function showNotification(message, isSuccess = true) {
+        const notification = document.createElement('div');
+        notification.className = `notification ${isSuccess ? 'success' : 'error'}`;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 100);
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                notification.remove();
+            }, 300);
+        }, 3000);
+    }
+
+    // =============================================
+    // Initialisation après chargement du DOM
+    // =============================================
+    document.addEventListener('DOMContentLoaded', function() {
+        // Gestion du sélecteur de langue
+        const currentLang = document.documentElement.lang || 'fr';
+        document.getElementById('current-lang').textContent = currentLang.toUpperCase();
+        
+        document.querySelectorAll('.language-dropdown a').forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href').includes(currentLang));
+        });
+
+        // Navigation holographique
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        
+        // Animation au scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => entry.target.classList.toggle('animate', entry.isIntersecting));
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.service-card, .testimonial-card').forEach(observer.observe.bind(observer));
+        
+        // Effet de survol (desktop seulement)
+        if (!/Mobi|Android/i.test(navigator.userAgent)) {
+            document.querySelectorAll('a, button').forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    element.style.transform = `translate(${Math.random() * 20 - 10}px, ${Math.random() * 20 - 10}px)`;
+                });
+                element.addEventListener('mouseleave', () => {
+                    element.style.transform = 'translate(0, 0)';
+                });
+            });
+        }
+        
+        // =============================================
+        // Gestion des formulaires avec notifications
+        // =============================================
+        // Formulaire d'avis
+        const reviewForm = document.getElementById('reviewForm');
+        if (reviewForm) {
+            reviewForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                showNotification("Merci pour votre avis ! Nous l'avons bien reçu.");
+                this.reset();
+                document.getElementById('reviewModal').style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+        }
+        
+        // Formulaire de rendez-vous
+        const appointmentForm = document.getElementById('appointmentForm');
+        if (appointmentForm) {
+            appointmentForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                showNotification("Votre demande de rendez-vous a été enregistrée. Nous vous contacterons rapidement.");
+                this.reset();
+                document.getElementById('appointmentModal').style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+        }
+        
+        // Gestion des modals
+        const setupModal = (btnId, modalId) => {
+            const btn = document.querySelector(btnId);
+            const modal = document.getElementById(modalId);
+            if (!btn || !modal) return;
+            
+            const closeBtn = modal.querySelector('.close-modal');
+            
+            btn.addEventListener('click', () => {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+            
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+            
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        };
+        
+        setupModal('.leave-review-btn', 'reviewModal');
+        setupModal('.book-appointment-btn', 'appointmentModal');
+    });
+</script>
+
+<style>
+    /* Styles pour les notifications */
+    .notification {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 15px 25px;
+        border-radius: 5px;
+        color: white;
+        font-family: var(--font-body);
+        transform: translateY(100px);
+        opacity: 0;
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
+    
+    .notification.show {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+    .notification.success {
+        background-color: var(--secondary);
+    }
+    
+    .notification.error {
+        background-color: #ff3333;
+    }
+</style>
+</body>
+</html>
+        if (appointmentModal && appointmentBtn) {
+            const appointmentClose = appointmentModal.querySelector('.close-modal');
+            const appointmentForm = document.getElementById('appointmentForm');
+            
+            appointmentBtn.addEventListener('click', () => {
+                appointmentModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+            
+            appointmentClose.addEventListener('click', () => {
+                appointmentModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+        }
+        
+        // =============================================
+        // Fermer les modals en cliquant à l'extérieur
+        // =============================================
+        window.addEventListener('click', (e) => {
+            const reviewModal = document.getElementById('reviewModal');
+            const appointmentModal = document.getElementById('appointmentModal');
+            
+            if (reviewModal && e.target === reviewModal) {
+                reviewModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            
+            if (appointmentModal && e.target === appointmentModal) {
+                appointmentModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    });
+</script>
+</body>
+</html>

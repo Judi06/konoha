@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="konoha-photo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Atelier Photo | KONOHA - Capturer l'essence de votre style</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d00;
+            --secondary: #00ff88;
+            --dark: #0a0a0a;
+            --light: #f0f0f0;
+            --accent: #8a2be2;
+            --film-grain: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.12 0"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.8"/></svg>');
+            --font-title: 'Archivo Black', sans-serif;
+            --font-subtitle: 'Bebas Neue', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Background Video */
+        .photo-video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .photo-video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(50%) contrast(120%);
+        }
+        
+        /* Film Grain Overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: var(--film-grain);
+            pointer-events: none;
+            z-index: 100;
+            mix-blend-mode: overlay;
+        }
+        
+        /* Navigation */
+        .photo-nav {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 100;
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .photo-nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-family: var(--font-subtitle);
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .photo-nav a:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        /* Hero Section */
+        .photo-hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+            position: relative;
+        }
+        
+        .photo-title {
+            font-family: var(--font-title);
+            font-size: 8rem;
+            line-height: 0.9;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--primary);
+            letter-spacing: -0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .photo-title::after {
+            content: 'ATELIER PHOTO';
+            position: absolute;
+            top: 0.3rem;
+            left: 0.3rem;
+            color: var(--primary);
+            z-index: -1;
+        }
+        
+        .photo-subtitle {
+            font-family: var(--font-subtitle);
+            font-size: 2rem;
+            letter-spacing: 5px;
+            margin-bottom: 2rem;
+            color: var(--light);
+            position: relative;
+        }
+        
+        .photo-subtitle::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .photo-cta {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--primary);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            margin-top: 2rem;
+        }
+        
+        .photo-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+        
+        .photo-cta:hover::before {
+            left: 100%;
+        }
+        
+        .photo-cta:hover {
+            color: var(--dark);
+            background: var(--primary);
+        }
+        
+        /* Polaroid Gallery */
+        .polaroid-section {
+            padding: 5rem 10%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+        
+        .section-heading {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background: var(--secondary);
+        }
+        
+        .polaroid-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+        
+        .polaroid {
+            background: white;
+            padding: 1rem 1rem 3rem 1rem;
+            transform: rotate(2deg);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        
+        .polaroid:nth-child(even) {
+            transform: rotate(-1deg);
+        }
+        
+        .polaroid:nth-child(3n) {
+            transform: rotate(3deg);
+        }
+        
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.05);
+            z-index: 10;
+        }
+        
+        .polaroid-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            filter: sepia(0.3) contrast(1.1);
+        }
+        
+        .polaroid-caption {
+            font-family: var(--font-subtitle);
+            font-size: 1.2rem;
+            color: var(--dark);
+            text-align: center;
+            margin-top: 1rem;
+            letter-spacing: 1px;
+        }
+        
+        /* Services */
+        .services-section {
+            padding: 5rem 10%;
+            background: linear-gradient(135deg, rgba(10,10,10,0.9) 0%, rgba(30,30,30,0.9) 100%);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,77,0,0.1) 0%, rgba(0,0,0,0) 50%);
+            z-index: -1;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 77, 0, 0.3);
+            border-color: var(--primary);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .service-title {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+        
+        .service-description {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Photographer Spotlight */
+        .photographer-section {
+            padding: 5rem 10%;
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .photographer-image {
+            flex: 1;
+            min-height: 500px;
+            background: url('https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1143&q=80') center/cover;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .photographer-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(138,43,226,0.3) 0%, rgba(255,77,0,0.3) 100%);
+        }
+        
+        .photographer-info {
+            flex: 1;
+        }
+        
+        .photographer-name {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .photographer-title {
+            font-family: var(--font-subtitle);
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+        }
+        
+        /* Booking Section */
+        .booking-section {
+            padding: 5rem 10%;
+            background: linear-gradient(135deg, rgba(255,77,0,0.1) 0%, rgba(10,10,10,1) 100%);
+            text-align: center;
+        }
+        
+        .booking-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: white;
+            font-family: var(--font-body);
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 77, 0, 0.1);
+        }
+        
+        textarea.form-input {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            background: #e64500;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 77, 0, 0.4);
+        }
+        
+        /* Footer */
+        .photo-footer {
+            background: #000;
+            padding: 3rem 10%;
+            text-align: center;
+            position: relative;
+        }
+        
+        .footer-logo {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .photo-title {
+                font-size: 6rem;
+            }
+            
+            .photographer-section {
+                flex-direction: column;
+                gap: 3rem;
+            }
+            
+            .photographer-image {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .photo-title {
+                font-size: 4rem;
+                letter-spacing: -0.3rem;
+            }
+            
+            .photo-subtitle {
+                font-size: 1.5rem;
+            }
+            
+            .section-heading {
+                font-size: 2.5rem;
+            }
+            
+            .photographer-name {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .photo-hero {
+                padding: 0 5%;
+            }
+            
+            .photo-title {
+                font-size: 3rem;
+                letter-spacing: -0.2rem;
+                -webkit-text-stroke: 1px var(--primary);
+            }
+            
+            .photo-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .polaroid-section, .services-section, .photographer-section, .booking-section {
+                padding: 3rem 5%;
+            }
+            
+            .section-heading {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <div class="photo-video-background">
+        <video autoplay muted loop>
+            <source src="assets/videos/photo-studio.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la vidéo.
+        </video>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="photo-nav">
+        <a href="index.html">Retour à KONOHA</a>
+        <a href="portfolio.html">Portfolio</a>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="photo-hero">
+        <h1 class="photo-title floating">ATELIER PHOTO</h1>
+        <h2 class="photo-subtitle">CAPTURER L'ESSENCE DE VOTRE STYLE</h2>
+        <p class="tagline">Des shootings uniques qui révèlent votre personnalité, avec une esthétique afro-urbaine distinctive</p>
+        <a href="#booking" class="photo-cta">Réserver une séance</a>
+    </section>
+    
+    <!-- Polaroid Gallery -->
+    <section class="polaroid-section">
+        <h2 class="section-heading">Notre Portfolio</h2>
+        <div class="polaroid-grid">
+            <div class="polaroid">
+                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Portrait mode" class="polaroid-img">
+                <p class="polaroid-caption">Portrait Mode</p>
+            </div>
+            
+            <div class="polaroid">
+                <img src="https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Lookbook" class="polaroid-img">
+                <p class="polaroid-caption">Lookbook Éditorial</p>
+            </div>
+            
+            <div class="polaroid">
+                <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Beauté" class="polaroid-img">
+                <p class="polaroid-caption">Beauté & Makeup</p>
+            </div>
+            
+            <div class="polaroid">
+                <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Couple" class="polaroid-img">
+                <p class="polaroid-caption">Séance Couple</p>
+            </div>
+            
+            <div class="polaroid">
+                <img src="https://images.unsplash.com/photo-1493863641943-9b68992a8d07?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1158&q=80" alt="Groupe" class="polaroid-img">
+                <p class="polaroid-caption">Shooting Groupe</p>
+            </div>
+            
+            <div class="polaroid">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Produit" class="polaroid-img">
+                <p class="polaroid-caption">Photographie Produit</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section class="services-section">
+        <h2 class="section-heading">Nos Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-camera-retro"></i>
+                </div>
+                <h3 class="service-title">Portrait Professionnel</h3>
+                <p class="service-description">Des portraits qui capturent votre essence avec une lumière étudiée et des compositions artistiques. Parfait pour votre image professionnelle ou vos réseaux sociaux.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <h3 class="service-title">Lookbook Mode</h3>
+                <p class="service-description">Mettez en valeur vos créations ou votre style personnel avec des photos éditoriales qui racontent une histoire. Idéal pour les créateurs et influenceurs.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-ring"></i>
+                </div>
+                <h3 class="service-title">Séance Couple</h3>
+                <p class="service-description">Capturez la magie de votre relation avec des photos naturelles et émouvantes. En studio ou en extérieur, nous immortalisons votre amour.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3 class="service-title">Beauté & Makeup</h3>
+                <p class="service-description">Des photos qui mettent en valeur votre transformation beauté, avec des éclairages professionnels qui subliment chaque détail.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-box-open"></i>
+                </div>
+                <h3 class="service-title">Photographie Produit</h3>
+                <p class="service-description">Présentez vos produits sous leur meilleur jour avec des compositions soignées et des éclairages professionnels pour vos boutiques en ligne.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="service-title">Shooting Groupe</h3>
+                <p class="service-description">Réunissez votre équipe, votre famille ou vos amis pour une séance photo mémorable qui capture l'esprit du groupe.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Photographer Spotlight -->
+    <section class="photographer-section">
+        <div class="photographer-image"></div>
+        <div class="photographer-info">
+            <h2 class="photographer-name">Amadou Diallo</h2>
+            <h3 class="photographer-title">PHOTOGRAPHE PRINCIPAL</h3>
+            <p class="service-description">Avec plus de 10 ans d'expérience dans la photographie de mode et portrait, Amadou apporte une vision unique mêlant esthétique africaine contemporaine et techniques de pointe.</p>
+            <p class="service-description">Spécialiste de la lumière et des compositions audacieuses, il sait capturer l'authenticité de chaque personne devant son objectif.</p>
+            <p class="service-description">"Pour moi, chaque séance est une collaboration artistique où nous révélons ensemble votre essence la plus vraie."</p>
+        </div>
+    </section>
+    
+    <!-- Booking Section -->
+    <section class="booking-section" id="booking">
+        <h2 class="section-heading">Réserver une Séance</h2>
+        <div class="booking-form">
+            <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <div class="form-group">
+                    <label for="bookingName" class="form-label">Votre nom complet</label>
+                    <input type="text" id="bookingName" name="name" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="bookingEmail" class="form-label">Votre email</label>
+                    <input type="email" id="bookingEmail" name="email" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="bookingPhone" class="form-label">Téléphone</label>
+                    <input type="tel" id="bookingPhone" name="phone" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="bookingService" class="form-label">Type de séance</label>
+                    <select id="bookingService" name="service" class="form-input" required>
+                        <option value="">Sélectionnez un service</option>
+                        <option value="portrait">Portrait Professionnel</option>
+                        <option value="lookbook">Lookbook Mode</option>
+                        <option value="couple">Séance Couple</option>
+                        <option value="beauty">Beauté & Makeup</option>
+                        <option value="product">Photographie Produit</option>
+                        <option value="group">Shooting Groupe</option>
+                        <option value="other">Autre (précisez ci-dessous)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="bookingDate" class="form-label">Date souhaitée</label>
+                    <input type="date" id="bookingDate" name="date" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="bookingMessage" class="form-label">Vos attentes et demandes spéciales</label>
+                    <textarea id="bookingMessage" name="message" class="form-input"></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Envoyer la demande</button>
+            </form>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="photo-footer">
+        <div class="footer-logo">KONOHA PHOTO</div>
+        <div class="footer-links">
+            <a href="index.html">Accueil KONOHA</a>
+            <a href="portfolio.html">Portfolio Complet</a>
+            <a href="tarifs.html">Tarifs</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-pinterest-p"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-behance"></i></a>
+        </div>
+        <p class="copyright">© 2023 Atelier Photo KONOHA. Tous droits réservés.</p>
+    </footer>
+    
+    <script>
+        // Animation au scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.polaroid, .service-card').forEach(element => {
+            observer.observe(element);
+        });
+        
+        // Effet de survol audacieux (uniquement sur desktop)
+        if (!/Mobi|Android/i.test(navigator.userAgent)) {
+            document.querySelectorAll('a, button').forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    const x = Math.random() * 20 - 10;
+                    const y = Math.random() * 20 - 10;
+                    element.style.transform = `translate(${x}px, ${y}px)`;
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    element.style.transform = 'translate(0, 0)';
+                });
+            });
+        }
+    </script>
+</body>
+</html>

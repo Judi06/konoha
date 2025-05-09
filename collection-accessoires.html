@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="konoha">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Collection Accessoires | KONOHA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d00;
+            --secondary: #00ff88;
+            --dark: #0a0a0a;
+            --light: #f0f0f0;
+            --accent: #8a2be2;
+            --font-title: 'Archivo Black', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Header */
+        .header {
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-logo {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: -0.1rem;
+        }
+        
+        .header-nav {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .header-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .header-link:hover {
+            color: var(--primary);
+        }
+        
+        .header-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .header-link:hover::after {
+            width: 100%;
+        }
+        
+        .header-cart {
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .header-cart:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        /* Hero Collection - Improved for mobile */
+        .collection-hero {
+            height: 100vh;
+            min-height: 600px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1592155931584-901ac15763e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            padding-top: 80px;
+            box-sizing: border-box;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            margin-top: -50px;
+        }
+        
+        .hero-title {
+            font-family: var(--font-title);
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            color: white;
+            margin-bottom: 1rem;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+        }
+        
+        .hero-cta {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+        }
+        
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 77, 0, 0.3);
+        }
+        
+        /* Introduction Section */
+        .intro-section {
+            padding: 5rem 10%;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .intro-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .intro-title {
+            font-family: var(--font-title);
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+        }
+        
+        /* Collection Sections */
+        .collection-section {
+            padding: 5rem 10%;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-family: var(--font-title);
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            text-transform: uppercase;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background: var(--secondary);
+        }
+        
+        .view-all {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            font-size: clamp(0.8rem, 3vw, 1rem);
+        }
+        
+        .view-all i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .view-all:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* Collection Slider - Fixed functionality */
+        .collection-slider {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        .collection-track {
+            display: flex;
+            gap: 2rem;
+            transition: transform 0.5s ease;
+            will-change: transform;
+        }
+        
+        .collection-item {
+            min-width: calc(25% - 1.5rem);
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .collection-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 77, 0, 0.2);
+        }
+        
+        .collection-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .collection-item:hover .collection-image {
+            transform: scale(1.05);
+        }
+        
+        .collection-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        }
+        
+        .collection-name {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .collection-price {
+            font-weight: bold;
+            color: var(--secondary);
+            font-size: clamp(0.9rem, 3vw, 1rem);
+        }
+        
+        .collection-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+        
+        .slider-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .slider-control:hover {
+            background: var(--primary);
+        }
+        
+        .slider-prev {
+            left: 10px;
+        }
+        
+        .slider-next {
+            right: 10px;
+        }
+        
+        .slider-control:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Feminine Accessories Section - Subtle styling */
+        .feminine-section {
+            padding: 5rem 10%;
+            background: linear-gradient(135deg, rgba(138,43,226,0.1) 0%, rgba(10,10,10,1) 100%);
+        }
+        
+        /* Lookbook Section */
+        .lookbook {
+            padding: 5rem 10%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .lookbook-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .lookbook-item {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        
+        .lookbook-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .lookbook-item:hover .lookbook-image {
+            transform: scale(1.1);
+        }
+        
+        .lookbook-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        }
+        
+        .lookbook-title {
+            font-family: var(--font-title);
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        /* Featured Brands - Pinterest Style */
+        .brands {
+            padding: 5rem 10%;
+        }
+        
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-auto-rows: 150px;
+            gap: 1.5rem;
+            grid-auto-flow: dense;
+        }
+        
+        .brand-item {
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .brand-item:nth-child(3n) {
+            grid-row: span 2;
+        }
+        
+        .brand-item:nth-child(5n) {
+            grid-column: span 2;
+        }
+        
+        .brand-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .brand-item:hover .brand-image {
+            transform: scale(1.1);
+        }
+        
+        /* Footer */
+        .footer {
+            background: #000;
+            padding: 3rem 10%;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .collection-item {
+                min-width: calc(33.333% - 1.5rem);
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .collection-hero {
+                min-height: 500px;
+            }
+            
+            .lookbook-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .lookbook-item {
+                height: 400px;
+            }
+            
+            .brands-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                grid-auto-rows: 130px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-nav {
+                display: none;
+            }
+            
+            .collection-item {
+                min-width: calc(50% - 1rem);
+            }
+            
+            .collection-image {
+                height: 300px;
+            }
+            
+            .lookbook-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .lookbook-item {
+                height: 350px;
+            }
+            
+            .brands-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                grid-auto-rows: 110px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .collection-hero {
+                min-height: 400px;
+                padding-top: 70px;
+            }
+            
+            .hero-content {
+                margin-top: 0;
+            }
+            
+            .intro-section, .collection-section, .feminine-section, .lookbook, .brands {
+                padding: 3rem 5%;
+            }
+            
+            .collection-item {
+                min-width: calc(100% - 1rem);
+            }
+            
+            .brands-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                grid-auto-rows: 90px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <a href="index.html" class="header-logo">KONOHA</a>
+        <nav class="header-nav">
+            <a href="index.html" class="header-link">Accueil</a>
+            <a href="boutique-mode.html" class="header-link">Mode</a>
+            <a href="salon-coiffure.html" class="header-link">Coiffure</a>
+            <a href="salon-beaute.html" class="header-link">Beauté</a>
+            <a href="atelier-photo.html" class="header-link">Photographie</a>
+            <a href="mojo-black.html" class="header-link">MOJO BLACK</a>
+        </nav>
+        <a href="https://www.jumia.sn/" target="_blank" class="header-cart">
+            <i class="fas fa-shopping-bag"></i>
+        </a>
+    </header>
+    
+    <!-- Hero Collection - Improved -->
+    <section class="collection-hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Collection Accessoires</h1>
+            <p class="hero-subtitle">Des pièces uniques pour compléter votre style avec élégance</p>
+            <a href="#featured" class="hero-cta">Découvrir</a>
+        </div>
+    </section>
+    
+    <!-- Introduction Section -->
+    <section class="intro-section">
+        <div class="intro-content">
+            <h2 class="intro-title">L'Art des Accessoires</h2>
+            <p class="intro-text">
+                Chez KONOHA, nous croyons que les accessoires sont bien plus que de simples compléments vestimentaires. 
+                Ce sont des expressions de personnalité, des touches finales qui transforment une tenue en une déclaration de style. 
+                Notre collection d'accessoires soigneusement sélectionnés allie qualité artisanale et design contemporain.
+            </p>
+            <p class="intro-text">
+                Des montres minimalistes aux bijoux élégants, chaque pièce a été choisie pour son caractère unique et sa capacité 
+                à sublimer votre apparence au quotidien comme pour les occasions spéciales.
+            </p>
+        </div>
+    </section>
+    
+    <!-- Montres -->
+    <section class="collection-section" id="featured">
+        <div class="section-header">
+            <h2 class="section-title">Montres</h2>
+            <a href="#" class="view-all">Tout voir <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="collection-slider">
+            <button class="slider-control slider-prev" aria-label="Précédent"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-control slider-next" aria-label="Suivant"><i class="fas fa-chevron-right"></i></button>
+            <div class="collection-track">
+                <div class="collection-item">
+                    <span class="collection-badge">Nouveau</span>
+                    <img src="https://images.unsplash.com/photo-1611591437281-4608be122683?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Montre minimaliste" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Montre Minimaliste</h3>
+                        <span class="collection-price">35.000 FCFA</span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80" alt="Montre sport" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Montre Sport Premium</h3>
+                        <span class="collection-price">45.000 FCFA</span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <span class="collection-badge">Best-seller</span>
+                    <img src="https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Montre classique" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Montre Classique</h3>
+                        <span class="collection-price">55.000 FCFA</span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="https://images.unsplash.com/photo-1526045431048-f857369baa09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Montre connectée" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Montre Connectée</h3>
+                        <span class="collection-price">75.000 FCFA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Bijoux -->
+    <section class="collection-section">
+        <div class="section-header">
+            <h2 class="section-title">Bijoux</h2>
+            <a href="#" class="view-all">Tout voir <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="collection-slider">
+            <button class="slider-control slider-prev" aria-label="Précédent"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-control slider-next" aria-label="Suivant"><i class="fas fa-chevron-right"></i></button>
+            <div class="collection-track">
+                <div class="collection-item">
+                    <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80" alt="Bracelet homme" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Bracelet Cuir Homme</h3>
+                        <span class="collection-price">25.000 FCFA</span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <span class="collection-badge">-20%</span>
+                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Collier argent" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Collier Argent 925</h3>
+                        <span class="collection-price">32.000 FCFA <small style="text-decoration: line-through; color: rgba(255,255,255,0.5); margin-left: 0.5rem;">40.000 FCFA</small></span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="https://images.unsplash.com/photo-1603974372035-96a1d6f0948a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Bague homme" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Bague Homme Élégante</h3>
+                        <span class="collection-price">28.000 FCFA</span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Boucles d'oreilles" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Boucles d'Oreilles Or</h3>
+                        <span class="collection-price">45.000 FCFA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Accessoires Féminins - Section discrète -->
+    <section class="feminine-section">
+        <div class="section-header">
+            <h2 class="section-title">Élégance Raffinée</h2>
+            <a href="#" class="view-all">Tout voir <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="collection-slider">
+            <button class="slider-control slider-prev" aria-label="Précédent"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-control slider-next" aria-label="Suivant"><i class="fas fa-chevron-right"></i></button>
+            <div class="collection-track">
+                <div class="collection-item">
+                    <span class="collection-badge">Nouveau</span>
+                    <img src="https://images.unsplash.com/photo-1603974372035-96a1d6f0948a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Collier délicat" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Collier Délicat</h3>
+                        <span class="collection-price">38.000 FCFA</span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Boucles nacrées" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Boucles Nacrées</h3>
+                        <span class="collection-price">28.000 FCFA</span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <span class="collection-badge">Best-seller</span>
+                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Bracelet or" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Bracelet Or 18K</h3>
+                        <span class="collection-price">65.000 FCFA</span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80" alt="Écharpe soie" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Écharpe en Soie</h3>
+                        <span class="collection-price">32.000 FCFA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Ceintures -->
+    <section class="collection-section">
+        <div class="section-header">
+            <h2 class="section-title">Ceintures</h2>
+            <a href="#" class="view-all">Tout voir <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="collection-slider">
+            <button class="slider-control slider-prev" aria-label="Précédent"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-control slider-next" aria-label="Suivant"><i class="fas fa-chevron-right"></i></button>
+            <div class="collection-track">
+                <div class="collection-item">
+                    <span class="collection-badge">Nouveau</span>
+                    <img src="https://images.unsplash.com/photo-1592155931584-901ac15763e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Ceinture cuir" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Ceinture Cuir Noir</h3>
+                        <span class="collection-price">25.000 FCFA</span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="https://images.unsplash.com/photo-1592078615290-033ee584e267?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80" alt="Ceinture tissu" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Ceinture Tissu Élégante</h3>
+                        <span class="collection-price">18.000 FCFA</span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <span class="collection-badge">-15%</span>
+                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Ceinture cuir marron" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Ceinture Cuir Marron</h3>
+                        <span class="collection-price">22.000 FCFA <small style="text-decoration: line-through; color: rgba(255,255,255,0.5); margin-left: 0.5rem;">26.000 FCFA</small></span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80" alt="Ceinture fantaisie" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Ceinture Fantaisie</h3>
+                        <span class="collection-price">15.000 FCFA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Lunettes -->
+    <section class="collection-section">
+        <div class="section-header">
+            <h2 class="section-title">Lunettes</h2>
+            <a href="#" class="view-all">Tout voir <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="collection-slider">
+            <button class="slider-control slider-prev" aria-label="Précédent"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-control slider-next" aria-label="Suivant"><i class="fas fa-chevron-right"></i></button>
+            <div class="collection-track">
+                <div class="collection-item">
+                    <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Lunettes de soleil" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Lunettes de Soleil Classiques</h3>
+                        <span class="collection-price">30.000 FCFA</span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <span class="collection-badge">Best-seller</span>
+                    <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80" alt="Lunettes rondes" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Lunettes Rondes Vintage</h3>
+                        <span class="collection-price">35.000 FCFA</span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="https://images.unsplash.com/photo-1591073113121-e2d6a2e0c43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Lunettes rectangulaires" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Lunettes Rectangulaires</h3>
+                        <span class="collection-price">28.000 FCFA</span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <span class="collection-badge">-25%</span>
+                    <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80" alt="Lunettes aviateur" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Lunettes Aviateur</h3>
+                        <span class="collection-price">40.000 FCFA <small style="text-decoration: line-through; color: rgba(255,255,255,0.5); margin-left: 0.5rem;">53.000 FCFA</small></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Portefeuilles -->
+    <section class="collection-section">
+        <div class="section-header">
+            <h2 class="section-title">Portefeuilles</h2>
+            <a href="#" class="view-all">Tout voir <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="collection-slider">
+            <button class="slider-control slider-prev" aria-label="Précédent"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-control slider-next" aria-label="Suivant"><i class="fas fa-chevron-right"></i></button>
+            <div class="collection-track">
+                <div class="collection-item">
+                    <img src="https://images.unsplash.com/photo-1592078615290-033ee584e267?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80" alt="Portefeuille cuir" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Portefeuille Cuir Noir</h3>
+                        <span class="collection-price">40.000 FCFA</span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <span class="collection-badge">Nouveau</span>
+                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80" alt="Portefeuille slim" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Portefeuille Slim</h3>
+                        <span class="collection-price">35.000 FCFA</span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Portefeuille marron" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Portefeuille Cuir Marron</h3>
+                        <span class="collection-price">45.000 FCFA</span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <span class="collection-badge">-30%</span>
+                    <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80" alt="Portefeuille multifonction" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Portefeuille Multifonction</h3>
+                        <span class="collection-price">50.000 FCFA <small style="text-decoration: line-through; color: rgba(255,255,255,0.5); margin-left: 0.5rem;">72.000 FCFA</small></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Chapeaux & Casquettes -->
+    <section class="collection-section">
+        <div class="section-header">
+            <h2 class="section-title">Chapeaux & Casquettes</h2>
+            <a href="#" class="view-all">Tout voir <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="collection-slider">
+            <button class="slider-control slider-prev" aria-label="Précédent"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-control slider-next" aria-label="Suivant"><i class="fas fa-chevron-right"></i></button>
+            <div class="collection-track">
+                <div class="collection-item">
+                    <img src="https://images.unsplash.com/photo-1521369909029-2afed882baee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Casquette plate" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Casquette Plate Urbaine</h3>
+                        <span class="collection-price">18.000 FCFA</span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <span class="collection-badge">Best-seller</span>
+                    <img src="https://images.unsplash.com/photo-1534215754734-18e55d13e346?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Chapeau Panama" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Chapeau Panama</h3>
+                        <span class="collection-price">25.000 FCFA</span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Bob" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Bob Style Urbain</h3>
+                        <span class="collection-price">20.000 FCFA</span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <span class="collection-badge">-15%</span>
+                    <img src="https://images.unsplash.com/photo-1533050487297-09b450131914?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Fedora" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Chapeau Fedora</h3>
+                        <span class="collection-price">30.000 FCFA <small style="text-decoration: line-through; color: rgba(255,255,255,0.5); margin-left: 0.5rem;">35.000 FCFA</small></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Lookbook -->
+    <section class="lookbook">
+        <h2 class="section-title">Lookbook Accessoires</h2>
+        <p class="section-intro">
+            Découvrez comment nos accessoires peuvent transformer une tenue simple en un style remarquable. Mixez et associez pour créer des looks uniques.
+        </p>
+        
+        <div class="lookbook-grid">
+            <div class="lookbook-item">
+                <img src="https://images.unsplash.com/photo-1592155931584-901ac15763e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Style urbain" class="lookbook-image">
+                <div class="lookbook-overlay">
+                    <h3 class="lookbook-title">Style Urbain</h3>
+                </div>
+            </div>
+            
+            <div class="lookbook-item">
+                <img src="https://images.unsplash.com/photo-1526045431048-f857369baa09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Style élégant" class="lookbook-image">
+                <div class="lookbook-overlay">
+                    <h3 class="lookbook-title">Élégance Moderne</h3>
+                </div>
+            </div>
+            
+            <div class="lookbook-item">
+                <img src="https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Style classique" class="lookbook-image">
+                <div class="lookbook-overlay">
+                    <h3 class="lookbook-title">Classique Intemporel</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Marques phares - Pinterest Style -->
+    <section class="brands">
+        <h2 class="section-title">Nos Marques Phares</h2>
+        
+        <div class="brands-grid">
+            <div class="brand-item">
+                <img src="https://via.placeholder.com/400x300/ff4d00/ffffff?text=ACCESSOIRE+1" alt="Marque 1" class="brand-image">
+            </div>
+            <div class="brand-item">
+                <img src="https://via.placeholder.com/300x400/00ff88/ffffff?text=ACCESSOIRE+2" alt="Marque 2" class="brand-image">
+            </div>
+            <div class="brand-item">
+                <img src="https://via.placeholder.com/400x400/8a2be2/ffffff?text=ACCESSOIRE+3" alt="Marque 3" class="brand-image">
+            </div>
+            <div class="brand-item">
+                <img src="https://via.placeholder.com/300x300/0a0a0a/ffffff?text=ACCESSOIRE+4" alt="Marque 4" class="brand-image">
+            </div>
+            <div class="brand-item">
+                <img src="https://via.placeholder.com/400x500/f0f0f0/0a0a0a?text=ACCESSOIRE+5" alt="Marque 5" class="brand-image">
+            </div>
+            <div class="brand-item">
+                <img src="https://via.placeholder.com/500x300/ff4d00/ffffff?text=ACCESSOIRE+6" alt="Marque 6" class="brand-image">
+            </div>
+            <div class="brand-item">
+                <img src="https://via.placeholder.com/300x500/00ff88/ffffff?text=ACCESSOIRE+7" alt="Marque 7" class="brand-image">
+            </div>
+            <div class="brand-item">
+                <img src="https://via.placeholder.com/400x400/8a2be2/ffffff?text=ACCESSOIRE+8" alt="Marque 8" class="brand-image">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">KONOHA</div>
+        <div class="footer-links">
+            <a href="index.html" class="footer-link">Accueil</a>
+            <a href="boutique-mode.html" class="footer-link">Mode</a>
+            <a href="salon-coiffure.html" class="footer-link">Coiffure</a>
+            <a href="salon-beaute.html" class="footer-link">Beauté</a>
+            <a href="atelier-photo.html" class="footer-link">Photographie</a>
+            <a href="mojo-black.html" class="footer-link">MOJO BLACK</a>
+        </div>
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-snapchat"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <p class="copyright">© 2023 KONOHA. Tous droits réservés.</p>
+    </footer>
+    
+    <script>
+        // Fixed Slider functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const sliders = document.querySelectorAll('.collection-slider');
+            
+            sliders.forEach(slider => {
+                const track = slider.querySelector('.collection-track');
+                const prevBtn = slider.querySelector('.slider-prev');
+                const nextBtn = slider.querySelector('.slider-next');
+                const items = Array.from(slider.querySelectorAll('.collection-item'));
+                const itemWidth = items[0].offsetWidth + 32; // width + gap
+                let currentPosition = 0;
+                let itemsToShow = 4;
+                
+                // Update items to show based on screen size
+                function updateItemsToShow() {
+                    if (window.innerWidth < 768) {
+                        itemsToShow = 1;
+                    } else if (window.innerWidth < 1200) {
+                        itemsToShow = 2;
+                    } else {
+                        itemsToShow = 4;
+                    }
+                }
+                
+                // Initialize
+                updateItemsToShow();
+                updateSlider();
+                
+                function updateSlider() {
+                    track.style.transform = `translateX(${currentPosition}px)`;
+                    
+                    // Disable/enable buttons based on position
+                    prevBtn.disabled = currentPosition >= 0;
+                    nextBtn.disabled = currentPosition <= -((items.length - itemsToShow) * itemWidth);
+                }
+                
+                prevBtn.addEventListener('click', () => {
+                    currentPosition += itemWidth * itemsToShow;
+                    if (currentPosition > 0) currentPosition = 0;
+                    updateSlider();
+                });
+                
+                nextBtn.addEventListener('click', () => {
+                    currentPosition -= itemWidth * itemsToShow;
+                    const maxPosition = -((items.length - itemsToShow) * itemWidth);
+                    if (currentPosition < maxPosition) currentPosition = maxPosition;
+                    updateSlider();
+                });
+                
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    const newItemWidth = items[0].offsetWidth + 32;
+                    if (newItemWidth !== itemWidth) {
+                        // Recalculate current position based on new item width
+                        const oldItemWidth = itemWidth;
+                        currentPosition = (currentPosition / oldItemWidth) * newItemWidth;
+                        itemWidth = newItemWidth;
+                        updateItemsToShow();
+                        updateSlider();
+                    }
+                });
+                
+                // Touch events for mobile swipe
+                let touchStartX = 0;
+                let touchEndX = 0;
+                
+                track.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                }, {passive: true});
+                
+                track.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe();
+                }, {passive: true});
+                
+                function handleSwipe() {
+                    const threshold = 50;
+                    const swipeDistance = touchEndX - touchStartX;
+                    
+                    if (swipeDistance > threshold) {
+                        // Swipe right - go previous
+                        prevBtn.click();
+                    } else if (swipeDistance < -threshold) {
+                        // Swipe left - go next
+                        nextBtn.click();
+                    }
+                }
+            });
+        });
+        
+        // Animation au scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.collection-item, .lookbook-item, .brand-item').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
+            </div>
+            <div class="brand-item">
+                <img src="https://via.placeholder.com/400x400/8a2be2/ffffff?text=ACCESSOIRE+8" alt="Marque 8" class="brand-image">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">KONOHA</div>
+        <div class="footer-links">
+            <a href="index.html" class="footer-link">Accueil</a>
+            <a href="boutique-mode.html" class="footer-link">Mode</a>
+            <a href="salon-coiffure.html" class="footer-link">Coiffure</a>
+            <a href="salon-beaute.html" class="footer-link">Beauté</a>
+            <a href="atelier-photo.html" class="footer-link">Photographie</a>
+            <a href="mojo-black.html" class="footer-link">MOJO BLACK</a>
+        </div>
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-snapchat"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <p class="copyright">© 2023 KONOHA. Tous droits réservés.</p>
+    </footer>
+    
+    <script>
+        // Fixed Slider functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const sliders = document.querySelectorAll('.collection-slider');
+            
+            sliders.forEach(slider => {
+                const track = slider.querySelector('.collection-track');
+                const prevBtn = slider.querySelector('.slider-prev');
+                const nextBtn = slider.querySelector('.slider-next');
+                const items = Array.from(slider.querySelectorAll('.collection-item'));
+                const itemWidth = items[0].offsetWidth + 32; // width + gap
+                let currentPosition = 0;
+                let itemsToShow = 4;
+                
+                // Update items to show based on screen size
+                function updateItemsToShow() {
+                    if (window.innerWidth < 768) {
+                        itemsToShow = 1;
+                    } else if (window.innerWidth < 1200) {
+                        itemsToShow = 2;
+                    } else {
+                        itemsToShow = 4;
+                    }
+                }
+                
+                // Initialize
+                updateItemsToShow();
+                updateSlider();
+                
+                function updateSlider() {
+                    track.style.transform = `translateX(${currentPosition}px)`;
+                    
+                    // Disable/enable buttons based on position
+                    prevBtn.disabled = currentPosition >= 0;
+                    nextBtn.disabled = currentPosition <= -((items.length - itemsToShow) * itemWidth);
+                }
+                
+                prevBtn.addEventListener('click', () => {
+                    currentPosition += itemWidth * itemsToShow;
+                    if (currentPosition > 0) currentPosition = 0;
+                    updateSlider();
+                });
+                
+                nextBtn.addEventListener('click', () => {
+                    currentPosition -= itemWidth * itemsToShow;
+                    const maxPosition = -((items.length - itemsToShow) * itemWidth);
+                    if (currentPosition < maxPosition) currentPosition = maxPosition;
+                    updateSlider();
+                });
+                
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    const newItemWidth = items[0].offsetWidth + 32;
+                    if (newItemWidth !== itemWidth) {
+                        // Recalculate current position based on new item width
+                        const oldItemWidth = itemWidth;
+                        currentPosition = (currentPosition / oldItemWidth) * newItemWidth;
+                        itemWidth = newItemWidth;
+                        updateItemsToShow();
+                        updateSlider();
+                    }
+                });
+                
+                // Touch events for mobile swipe
+                let touchStartX = 0;
+                let touchEndX = 0;
+                
+                track.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                }, {passive: true});
+                
+                track.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe();
+                }, {passive: true});
+                
+                function handleSwipe() {
+                    const threshold = 50;
+                    const swipeDistance = touchEndX - touchStartX;
+                    
+                    if (swipeDistance > threshold) {
+                        // Swipe right - go previous
+                        prevBtn.click();
+                    } else if (swipeDistance < -threshold) {
+                        // Swipe left - go next
+                        nextBtn.click();
+                    }
+                }
+            });
+        });
+        
+        // Animation au scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.collection-item, .lookbook-item, .brand-item').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>

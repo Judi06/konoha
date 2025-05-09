@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="konoha-photo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Atelier Photo KONOHA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d00;
+            --secondary: #00ff88;
+            --dark: #0a0a0a;
+            --light: #f0f0f0;
+            --accent: #8a2be2;
+            --font-title: 'Archivo Black', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Background Video */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+        }
+        
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Navigation Holographique */
+        nav {
+            position: fixed;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .nav-item {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-item:hover {
+            transform: scale(1.2);
+            background: var(--primary);
+        }
+        
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-item:hover::before {
+            opacity: 0.3;
+        }
+        
+        .nav-item i {
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        /* Hero Section */
+        .photo-hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+            position: relative;
+        }
+        
+        .photo-title {
+            font-family: var(--font-title);
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+        
+        .photo-subtitle {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 10%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .section-title {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .about-content {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .about-carousel {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            cursor: grab;
+            user-select: none;
+            touch-action: pan-y;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 400px;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 5rem 10%;
+            background: rgba(10, 10, 10, 0.8);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 77, 0, 0.2);
+            border-color: var(--primary);
+        }
+
+        .service-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .service-title {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+
+        .service-desc {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+        
+        /* Portfolio Section */
+        .portfolio {
+            padding: 5rem 10%;
+            background: rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+        }
+
+        .portfolio-intro {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+
+        .portfolio-intro p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+        
+        .portfolio-slider {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s ease;
+            gap: 1.5rem;
+            padding-bottom: 1rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .slider-track::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .slider-track::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .slider-track::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+        
+        .portfolio-slide {
+            min-width: 300px;
+            scroll-snap-align: start;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .portfolio-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .portfolio-slide:hover .portfolio-img {
+            transform: scale(1.05);
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+        }
+        
+        .portfolio-category {
+            color: var(--primary);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        
+        .portfolio-name {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 5rem 10%;
+            background: linear-gradient(135deg, rgba(255,77,0,0.1) 0%, rgba(10,10,10,1) 100%);
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-family: var(--font-title);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .cta p {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .cta-btn:hover {
+            background: #e64500;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 77, 0, 0.4);
+        }
+        
+        /* Footer */
+        .photo-footer {
+            background: #000;
+            padding: 3rem 10%;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-family: var(--font-title);
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+        
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .footer-logo {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .photo-title {
+                font-size: 4rem;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-slide {
+                min-width: 250px;
+            }
+
+            nav {
+                right: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .photo-title {
+                font-size: 3rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .nav-item {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .photo-title {
+                font-size: 2.5rem;
+            }
+
+            .photo-subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="assets/videos/konoha-background.mp4" type="video/mp4">
+        </video>
+    </div>
+    
+    <!-- Navigation Holographique -->
+    <nav>
+        <div class="nav-item" data-section="photo-hero">
+            <i class="fas fa-home"></i>
+        </div>
+        <div class="nav-item" data-section="about">
+            <i class="fas fa-info-circle"></i>
+        </div>
+        <div class="nav-item" data-section="services">
+            <i class="fas fa-camera"></i>
+        </div>
+        <div class="nav-item" data-section="portfolio">
+            <i class="fas fa-images"></i>
+        </div>
+        <div class="nav-item" data-section="cta">
+            <i class="fas fa-phone"></i>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="photo-hero" id="photo-hero">
+        <h1 class="photo-title floating">CAPTURER L'ESSENCE</h1>
+        <p class="photo-subtitle">Notre atelier photo transforme chaque instant en œuvre d'art visuelle, mêlant esthétique africaine contemporaine et vision avant-gardiste.</p>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <h2 class="section-title">L'Atelier Photo</h2>
+        
+        <div class="about-content">
+            <div class="about-text">
+                <p>Fondé en 2020, l'Atelier Photo KONOHA s'est rapidement imposé comme une référence en matière de photographie créative en Afrique de l'Ouest. Notre équipe de photographes passionnés combine savoir-faire technique et sens artistique aiguisé.</p>
+                <p>Spécialisés dans la mise en valeur des cultures africaines contemporaines, nous capturons l'authenticité avec une touche avant-gardiste. Que ce soit pour des portraits intimistes, des défilés de mode ou des événements culturels, notre approche est toujours personnalisée.</p>
+                <p>Notre studio est équipé des dernières technologies, mais c'est notre œil artistique et notre compréhension des nuances culturelles qui font la différence.</p>
+            </div>
+            
+            <div class="about-carousel" id="carousel">
+                <div class="carousel-track">
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1493863641943-9b68992a8d07?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1458&q=80" alt="Studio KONOHA">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1522206024047-9c925421675b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Équipe de photographes">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1527689368864-3a821dbccc34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Matériel professionnel">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <h2 class="section-title">Nos Services</h2>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3 class="service-title">Portraits</h3>
+                <p class="service-desc">Séances photo personnalisées qui capturent votre essence avec des éclairages travaillés et des décors uniques.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <h3 class="service-title">Photographie de Mode</h3>
+                <p class="service-desc">Mise en valeur des collections avec des compositions audacieuses et un travail minutieux sur les textures.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <h3 class="service-title">Projets Créatifs</h3>
+                <p class="service-desc">Collaborations artistiques pour des concepts visuels innovants et des mises en scène originales.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3 class="service-title">Événements</h3>
+                <p class="service-desc">Couverture complète de vos événements avec une approche à la fois discrète et percutante.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <h2 class="section-title">Notre Portfolio</h2>
+        
+        <div class="portfolio-intro">
+            <p>Découvrez une sélection de nos œuvres les plus frappantes, témoignant de notre diversité créative et de notre excellence technique. Chaque image raconte une histoire, capture une émotion, immortalise un instant unique.</p>
+        </div>
+        
+        <div class="portfolio-slider">
+            <div class="slider-track">
+                <!-- Portrait 1 -->
+                <div class="portfolio-slide">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Portrait masculin" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">Portrait</span>
+                        <h3 class="portfolio-name">Élégance Masculine</h3>
+                    </div>
+                </div>
+                
+                <!-- Mode 1 -->
+                <div class="portfolio-slide">
+                    <img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80" alt="Photographie de mode" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">Mode</span>
+                        <h3 class="portfolio-name">Collection Afro-Urbaine</h3>
+                    </div>
+                </div>
+                
+                <!-- Créatif 1 -->
+                <div class="portfolio-slide">
+                    <img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Photo créative" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">Créatif</span>
+                        <h3 class="portfolio-name">Lumière Nocturne</h3>
+                    </div>
+                </div>
+                
+                <!-- Événement 1 -->
+                <div class="portfolio-slide">
+                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Photo d'événement" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">Événement</span>
+                        <h3 class="portfolio-name">Festival des Lumières</h3>
+                    </div>
+                </div>
+                
+                <!-- Portrait 2 -->
+                <div class="portfolio-slide">
+                    <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Portrait féminin" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">Portrait</span>
+                        <h3 class="portfolio-name">Beauté Naturelle</h3>
+                    </div>
+                </div>
+                
+                <!-- Mode 2 -->
+                <div class="portfolio-slide">
+                    <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Photographie de mode" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">Mode</span>
+                        <h3 class="portfolio-name">Silhouettes Urbaines</h3>
+                    </div>
+                </div>
+                
+                <!-- Créatif 2 -->
+                <div class="portfolio-slide">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Photo créative" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">Créatif</span>
+                        <h3 class="portfolio-name">Reflets d'Identité</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="cta">
+        <h2>Prêt à capturer votre histoire ?</h2>
+        <p>Que ce soit pour un shooting personnel, une campagne professionnelle ou un événement spécial, notre équipe est à votre disposition pour créer des images mémorables.</p>
+        <a href="tel:+22912345678" class="cta-btn">Appelez-nous</a>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="photo-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>KONOHA</h3>
+                <div class="footer-links">
+                    <a href="index.html" class="footer-link">Accueil</a>
+                    <a href="a-propos.html" class="footer-link">À propos</a>
+                    <a href="blog.html" class="footer-link">Blog</a>
+                    <a href="formations.html" class="footer-link">Formations</a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Mode & Style</h3>
+                <div class="footer-links">
+                    <a href="boutique-mode.html" class="footer-link">Boutique Mode</a>
+                    <a href="mojo-black.html" class="footer-link">MOJO BLACK</a>
+                    <a href="atelier-styliste.html" class="footer-link">Atelier Styliste</a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Beauté & Soins</h3>
+                <div class="footer-links">
+                    <a href="salon-coiffure.html" class="footer-link">Salon de Coiffure</a>
+                    <a href="salon-beaute.html" class="footer-link">Salon de Beauté</a>
+                    <a href="parfumerie.html" class="footer-link">Parfumerie</a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Lifestyle</h3>
+                <div class="footer-links">
+                    <a href="restaurant.html" class="footer-link">Restaurant-Glacier</a>
+                    <a href="menuiserie.html" class="footer-link">Menuiserie Moderne</a>
+                    <a href="atelier-photo.html" class="footer-link">Atelier Photo</a>
+                    <a href="librairie.html" class="footer-link">La Librairie</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-logo">KONOHA</div>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-snapchat"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <p class="copyright">© 2023 KONOHA PHOTO. Tous droits réservés.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Navigation holographique
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                document.getElementById(sectionId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Carousel About - Défilement automatique et par glissement
+        const carousel = document.getElementById('carousel');
+        const track = document.querySelector('.carousel-track');
+        const slides = document.querySelectorAll('.carousel-slide');
+        let isDragging = false;
+        let startPos = 0;
+        let currentTranslate = 0;
+        let prevTranslate = 0;
+        let animationID;
+        let currentIndex = 0;
+        let autoSlideInterval;
+
+        // Fonction pour démarrer le défilement automatique
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(() => {
+                currentIndex = (currentIndex + 1) % slides.length;
+                setPositionByIndex();
+            }, 3000);
+        }
+
+        // Fonction pour arrêter le défilement automatique
+        function stopAutoSlide() {
+            clearInterval(autoSlideInterval);
+        }
+
+        // Démarrer le défilement automatique au chargement
+        startAutoSlide();
+
+        slides.forEach((slide, index) => {
+            // Touch events
+            slide.addEventListener('touchstart', touchStart(index));
+            slide.addEventListener('touchend', touchEnd);
+            slide.addEventListener('touchmove', touchMove);
+
+            // Mouse events
+            slide.addEventListener('mousedown', touchStart(index));
+            slide.addEventListener('mouseup', touchEnd);
+            slide.addEventListener('mouseleave', touchEnd);
+            slide.addEventListener('mousemove', touchMove);
+        });
+
+        // Désactiver le menu contextuel
+        window.oncontextmenu = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+
+        function touchStart(index) {
+            return function(e) {
+                stopAutoSlide(); // Arrêter le défilement automatique pendant l'interaction
+                currentIndex = index;
+                startPos = getPositionX(e);
+                isDragging = true;
+                animationID = requestAnimationFrame(animation);
+                track.style.cursor = 'grabbing';
+            }
+        }
+
+        function touchEnd() {
+            isDragging = false;
+            cancelAnimationFrame(animationID);
+            
+            const movedBy = currentTranslate - prevTranslate;
+            
+            if (movedBy < -100 && currentIndex < slides.length - 1) {
+                currentIndex += 1;
+            }
+            
+            if (movedBy > 100 && currentIndex > 0) {
+                currentIndex -= 1;
+            }
+            
+            setPositionByIndex();
+            track.style.cursor = 'grab';
+            startAutoSlide(); // Redémarrer le défilement automatique après l'interaction
+        }
+
+        function touchMove(e) {
+            if (isDragging) {
+                const currentPosition = getPositionX(e);
+                currentTranslate = prevTranslate + currentPosition - startPos;
+            }
+        }
+
+        function getPositionX(e) {
+            return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+        }
+
+        function animation() {
+            setSliderPosition();
+            if (isDragging) requestAnimationFrame(animation);
+        }
+
+        function setSliderPosition() {
+            track.style.transform = `translateX(${currentTranslate}px)`;
+        }
+
+        function setPositionByIndex() {
+            currentTranslate = currentIndex * -track.clientWidth;
+            prevTranslate = currentTranslate;
+            setSliderPosition();
+        }
+
+        // Redémarrer le défilement automatique lorsque la fenêtre reprend le focus
+        window.addEventListener('focus', startAutoSlide);
+        window.addEventListener('blur', stopAutoSlide);
+    </script>
+</body>
+</html>

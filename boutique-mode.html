@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="konoha">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique Mode - KONOHA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d00;
+            --secondary: #00ff88;
+            --dark: #0a0a0a;
+            --light: #f0f0f0;
+            --accent: #8a2be2;
+            --font-title: 'Archivo Black', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        /* Video Background */
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .video-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Navigation Holographique */
+        nav {
+            position: fixed;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .nav-item {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-item:hover {
+            transform: scale(1.2);
+            background: var(--primary);
+        }
+        
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-item:hover::before {
+            opacity: 0.3;
+        }
+        
+        .nav-item i {
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7));
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+            position: relative;
+        }
+        
+        .header-title {
+            font-family: var(--font-title);
+            font-size: 4rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .header-subtitle {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+        
+        /* Presentation */
+        .presentation {
+            padding: 5rem 10%;
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+            background: rgba(0,0,0,0.8);
+            position: relative;
+        }
+        
+        .presentation-slider {
+            flex: 1;
+            min-height: 400px;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .presentation-text {
+            flex: 1;
+        }
+        
+        .section-title {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background: var(--secondary);
+        }
+        
+        .presentation-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        /* Categories */
+        .categories {
+            padding: 5rem 10%;
+            background: linear-gradient(135deg, rgba(10,10,10,0.9) 0%, rgba(30,30,30,0.9) 100%);
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .category-card {
+            position: relative;
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(255,77,0,0.3);
+        }
+        
+        .category-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .category-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 2rem;
+            color: white;
+        }
+        
+        .category-title {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .category-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+        
+        .category-link i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .category-link:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* Exclusivites */
+        .exclusivites {
+            padding: 5rem 10%;
+            background: rgba(0,0,0,0.8);
+        }
+        
+        .exclusivites-slider {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding: 2rem 0;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .exclusivites-slider::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .exclusivites-slider::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .exclusivites-slider::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+        
+        .exclusivite-card {
+            min-width: 300px;
+            scroll-snap-align: start;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .exclusivite-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .exclusivite-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .exclusivite-info {
+            padding: 1.5rem;
+        }
+        
+        .exclusivite-title {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .exclusivite-price {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .exclusivite-cta {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .exclusivite-cta:hover {
+            background: #e64500;
+            transform: translateY(-3px);
+        }
+        
+        /* Guide */
+        .guide {
+            padding: 5rem 10%;
+            background: linear-gradient(135deg, rgba(255,77,0,0.1) 0%, rgba(10,10,10,1) 100%);
+        }
+        
+        .guide-text {
+            margin-bottom: 3rem;
+        }
+        
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-auto-rows: 200px;
+            gap: 1rem;
+            grid-auto-flow: dense;
+        }
+        
+        .guide-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        
+        .guide-item:nth-child(3n) {
+            grid-row: span 2;
+        }
+        
+        .guide-item:nth-child(4n) {
+            grid-column: span 2;
+        }
+        
+        .guide-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .guide-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .guide-tips {
+            margin-top: 2rem;
+        }
+        
+        .guide-tip {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .guide-tip-icon {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-top: 0.3rem;
+        }
+        
+        .guide-tip-content h4 {
+            font-family: var(--font-title);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* CTA */
+        .cta-section {
+            padding: 5rem 10%;
+            text-align: center;
+            background: rgba(0,0,0,0.8);
+        }
+        
+        .cta-title {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .cta-subtitle {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background: #e64500;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255,77,0,0.3);
+        }
+        
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 5rem 10%;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-title {
+            font-family: var(--font-title);
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .presentation {
+                flex-direction: column;
+                gap: 3rem;
+            }
+            
+            .presentation-slider {
+                width: 100%;
+            }
+            
+            .header-title {
+                font-size: 3rem;
+            }
+            
+            .guide-item:nth-child(4n) {
+                grid-column: span 1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2.5rem;
+            }
+            
+            .header-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            nav {
+                right: 1rem;
+            }
+            
+            .nav-item {
+                width: 40px;
+                height: 40px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header {
+                height: 50vh;
+            }
+            
+            .header-title {
+                font-size: 2rem;
+            }
+            
+            .presentation, .categories, .exclusivites, .guide, .cta-section {
+                padding: 3rem 5%;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="video-bg">
+        <video autoplay muted loop>
+            <source src="assets/videos/konoha-fashion-bg.mp4" type="video/mp4">
+        </video>
+    </div>
+    
+    <!-- Navigation Holographique -->
+    <nav>
+        <div class="nav-item" data-section="header">
+            <i class="fas fa-home"></i>
+        </div>
+        <div class="nav-item" data-section="presentation">
+            <i class="fas fa-info-circle"></i>
+        </div>
+        <div class="nav-item" data-section="categories">
+            <i class="fas fa-tshirt"></i>
+        </div>
+        <div class="nav-item" data-section="exclusivites">
+            <i class="fas fa-star"></i>
+        </div>
+        <div class="nav-item" data-section="guide">
+            <i class="fas fa-lightbulb"></i>
+        </div>
+    </nav>
+    
+    <!-- Header -->
+    <header class="header" id="header">
+        <h1 class="header-title">Boutique Mode KONOHA</h1>
+        <p class="header-subtitle">Découvrez une sélection exclusive de pièces uniques qui marient tradition africaine et modernité</p>
+    </header>
+    
+    <!-- Presentation -->
+    <section class="presentation" id="presentation">
+        <div class="presentation-slider">
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80')"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80')"></div>
+        </div>
+        <div class="presentation-text">
+            <h2 class="section-title">Notre Univers Mode</h2>
+            <p class="presentation-description">
+                La boutique mode KONOHA est bien plus qu'un simple espace de vente - c'est un lieu de création et d'expression. 
+                Nous sélectionnons avec passion des pièces qui racontent une histoire, mêlant savoir-faire artisanal béninois 
+                et tendances internationales. Nos collections reflètent l'énergie vibrante de la mode africaine contemporaine.
+            </p>
+            <p class="presentation-description">
+                Chaque vêtement dans notre boutique a été choisi pour son authenticité, sa qualité et sa capacité à vous faire 
+                rayonner. Des tissus wax aux créations sur mesure MOJO BLACK, nous célébrons la diversité des styles et des 
+                silhouettes.
+            </p>
+        </div>
+    </section>
+    
+    <!-- Categories -->
+    <section class="categories" id="categories">
+        <h2 class="section-title">Nos Catégories</h2>
+        <div class="categories-grid">
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80" alt="Mode Homme" class="category-image">
+                <div class="category-overlay">
+                    <h3 class="category-title">Homme</h3>
+                    <p>Élégance et audace pour l'homme moderne</p>
+                    <a href="#" class="category-link">Découvrir <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Mode Femme" class="category-image">
+                <div class="category-overlay">
+                    <h3 class="category-title">Femme</h3>
+                    <p>Féminité puissante et styles variés</p>
+                    <a href="#" class="category-link">Explorer <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1604917018610-3849a54b4b5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Enfant" class="category-image">
+                <div class="category-overlay">
+                    <h3 class="category-title">Enfant</h3>
+                    <p>Style et confort pour les plus jeunes</p>
+                    <a href="#" class="category-link">Voir <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=765&q=80" alt="Chaussures" class="category-image">
+                <div class="category-overlay">
+                    <h3 class="category-title">Chaussures</h3>
+                    <p>Des pas stylés pour chaque occasion</p>
+                    <a href="#" class="category-link">Parcourir <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1591348278863-a8fb3887e2aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Accessoires" class="category-image">
+                <div class="category-overlay">
+                    <h3 class="category-title">Accessoires</h3>
+                    <p>La touche finale qui fait la différence</p>
+                    <a href="#" class="category-link">Découvrir <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Exclusivites -->
+    <section class="exclusivites" id="exclusivites">
+        <h2 class="section-title">Exclusivités KONOHA</h2>
+        <div class="exclusivites-slider">
+            <div class="exclusivite-card">
+                <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Robe africaine" class="exclusivite-image">
+                <div class="exclusivite-info">
+                    <h3 class="exclusivite-title">Robe "Fierté"</h3>
+                    <p class="exclusivite-price">25,000 FCFA</p>
+                    <p>Robe en wax imprimé unique, coupée et cousue main à Cotonou</p>
+                    <a href="#" class="exclusivite-cta">Acheter maintenant</a>
+                </div>
+            </div>
+            
+            <div class="exclusivite-card">
+                <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" alt="Costume africain" class="exclusivite-image">
+                <div class="exclusivite-info">
+                    <h3 class="exclusivite-title">Costume "Heritage"</h3>
+                    <p class="exclusivite-price">45,000 FCFA</p>
+                    <p>Costume trois pièces en tissu traditionnel réinterprété</p>
+                    <a href="#" class="exclusivite-cta">Acheter maintenant</a>
+                </div>
+            </div>
+            
+            <div class="exclusivite-card">
+                <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Chaussures artisanales" class="exclusivite-image">
+                <div class="exclusivite-info">
+                    <h3 class="exclusivite-title">Sandales "Teranga"</h3>
+                    <p class="exclusivite-price">18,000 FCFA</p>
+                    <p>Sandales en cuir travaillé main par artisans locaux</p>
+                    <a href="#" class="exclusivite-cta">Acheter maintenant</a>
+                </div>
+            </div>
+            
+            <div class="exclusivite-card">
+                <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" alt="Sac à main" class="exclusivite-image">
+                <div class="exclusivite-info">
+                    <h3 class="exclusivite-title">Sac "Nubia"</h3>
+                    <p class="exclusivite-price">22,000 FCFA</p>
+                    <p>Sac en raphia et perles, pièce unique signée MOJO BLACK</p>
+                    <a href="#" class="exclusivite-cta">Acheter maintenant</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Guide de Style -->
+    <section class="guide" id="guide">
+        <div class="guide-text">
+            <h2 class="section-title">Guide de Style KONOHA</h2>
+            <p>Notre équipe de stylistes partage ses conseils pour sublimer votre garde-robe avec nos pièces phares.</p>
+            
+            <div class="guide-tips">
+                <div class="guide-tip">
+                    <div class="guide-tip-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="guide-tip-content">
+                        <h4>Mix & Match</h4>
+                        <p>Osez mélanger les imprimés traditionnels avec des pièces plus sobres pour un look équilibré.</p>
+                    </div>
+                </div>
+                
+                <div class="guide-tip">
+                    <div class="guide-tip-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <div class="guide-tip-content">
+                        <h4>Accessoirisez</h4>
+                        <p>Un seul accessoire audacieux peut transformer une tenue simple en déclaration de style.</p>
+                    </div>
+                </div>
+                
+                <div class="guide-tip">
+                    <div class="guide-tip-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <div class="guide-tip-content">
+                        <h4>Couleurs Locales</h4>
+                        <p>Nos teintures naturelles offrent des nuances uniques qui mettent en valeur tous les tons de peau.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="guide-grid">
+            <div class="guide-item">
+                <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Style KONOHA">
+            </div>
+            <div class="guide-item">
+                <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" alt="Style KONOHA">
+            </div>
+            <div class="guide-item">
+                <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Style KONOHA">
+            </div>
+            <div class="guide-item">
+                <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Style KONOHA">
+            </div>
+            <div class="guide-item">
+                <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80" alt="Style KONOHA">
+            </div>
+            <div class="guide-item">
+                <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Style KONOHA">
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2 class="cta-title">Une question sur nos collections ?</h2>
+        <p class="cta-subtitle">
+            Notre équipe est disponible pour vous conseiller et répondre à toutes vos questions sur nos créations.
+        </p>
+        <a href="tel:+22912345678" class="cta-button">Appelez-nous</a>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h3 class="footer-title">KONOHA</h3>
+                <div class="footer-links">
+                    <a href="index.html" class="footer-link">Accueil</a>
+                    <a href="a-propos.html" class="footer-link">À propos</a>
+                    <a href="blog.html" class="footer-link">Blog</a>
+                    <a href="formations.html" class="footer-link">Formations</a>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="footer-title">MODE & STYLE</h3>
+                <div class="footer-links">
+                    <a href="boutique-mode.html" class="footer-link">Boutique Mode</a>
+                    <a href="mojo-black.html" class="footer-link">MOJO BLACK</a>
+                    <a href="atelier-styliste.html" class="footer-link">Atelier Styliste</a>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="footer-title">BEAUTÉ & SOINS</h3>
+                <div class="footer-links">
+                    <a href="salon-coiffure.html" class="footer-link">Salon de Coiffure</a>
+                    <a href="salon-beaute.html" class="footer-link">Salon de Beauté</a>
+                    <a href="parfumerie.html" class="footer-link">Parfumerie</a>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="footer-title">LIFESTYLE</h3>
+                <div class="footer-links">
+                    <a href="restaurant.html" class="footer-link">Restaurant-Glacier</a>
+                    <a href="menuiserie.html" class="footer-link">Menuiserie Moderne</a>
+                    <a href="atelier-photo.html" class="footer-link">Atelier Photo</a>
+                    <a href="librairie.html" class="footer-link">La Librairie</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+        </div>
+        
+        <p class="copyright">© 2023 KONOHA. Tous droits réservés.</p>
+    </footer>
+    
+    <script>
+        // Navigation holographique
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                document.getElementById(sectionId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Diaporama présentation
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+        
+        // Changement automatique toutes les 3 secondes
+        setInterval(nextSlide, 3000);
+        
+        // Animation au scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.category-card, .exclusivite-card, .guide-item, .guide-tip').forEach(element => {
+            observer.observe(element);
+        });
+        
+        // Effet de survol audacieux (uniquement sur desktop)
+        if (!/Mobi|Android/i.test(navigator.userAgent)) {
+            document.querySelectorAll('a, button').forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    const x = Math.random() * 10 - 5;
+                    const y = Math.random() * 10 - 5;
+                    element.style.transform = `translate(${x}px, ${y}px)`;
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    element.style.transform = 'translate(0, 0)';
+                });
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="konoha">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>KONOHA Blog - L'actualité Mode & Lifestyle</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d00;
+            --secondary: #00ff88;
+            --dark: #0a0a0a;
+            --light: #f0f0f0;
+            --accent: #8a2be2;
+            --font-title: 'Archivo Black', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Header */
+        .blog-header {
+            padding: 5rem 10% 3rem;
+            background: linear-gradient(135deg, rgba(255,77,0,0.2) 0%, rgba(10,10,10,1) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .blog-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1483181957632-8bda974cbc91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') center/cover;
+            opacity: 0.2;
+            z-index: -1;
+        }
+        
+        .blog-title {
+            font-family: var(--font-title);
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+        
+        .blog-subtitle {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .blog-categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .category-btn {
+            padding: 0.5rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--light);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        /* Articles Grid */
+        .blog-articles {
+            padding: 5rem 10%;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+        
+        .article-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(255, 77, 0, 0.2);
+            border-color: var(--primary);
+        }
+        
+        .article-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .article-content {
+            padding: 1.5rem;
+        }
+        
+        .article-category {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .category-mojoblack {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .category-beaute {
+            background: #ff6b6b;
+            color: white;
+        }
+        
+        .category-lifestyle {
+            background: #4ecdc4;
+            color: white;
+        }
+        
+        .category-mode {
+            background: #ff9f1c;
+            color: white;
+        }
+        
+        .category-evenements {
+            background: #a663cc;
+            color: white;
+        }
+        
+        .category-formations {
+            background: #2ec4b6;
+            color: white;
+        }
+        
+        .article-title {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+        
+        .article-excerpt {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+        
+        .article-author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .author-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        /* Featured Article */
+        .featured-article {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .featured-article .article-image {
+            height: 400px;
+        }
+        
+        .featured-article .article-content {
+            padding: 2rem;
+        }
+        
+        .featured-article .article-title {
+            font-size: 2rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 3rem 10%;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .featured-article {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-article .article-image {
+                height: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .blog-title {
+                font-size: 3rem;
+            }
+            
+            .blog-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .blog-header, .blog-articles {
+                padding: 3rem 5%;
+            }
+            
+            .blog-title {
+                font-size: 2.5rem;
+            }
+            
+            .featured-article .article-title {
+                font-size: 1.8rem;
+            }
+            
+            .footer-links {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="blog-header">
+        <h1 class="blog-title">KONOHA BLOG</h1>
+        <p class="blog-subtitle">L'essentiel de la mode africaine contemporaine, des tendances beauté et des inspirations lifestyle</p>
+        
+        <div class="blog-categories">
+            <a href="#all" class="category-btn active">Tous les articles</a>
+            <a href="#mojoblack" class="category-btn">MOJO BLACK</a>
+            <a href="#beaute" class="category-btn">Beauté</a>
+            <a href="#mode" class="category-btn">Mode</a>
+            <a href="#lifestyle" class="category-btn">Lifestyle</a>
+            <a href="#evenements" class="category-btn">Événements</a>
+            <a href="#formations" class="category-btn">Formations</a>
+        </div>
+    </header>
+    
+    <!-- Articles Grid -->
+    <main class="blog-articles">
+        <!-- MOJO BLACK Articles -->
+        <article id="mojoblack" class="article-card">
+            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Défilé MOJO BLACK" class="article-image">
+            <div class="article-content">
+                <span class="article-category category-mojoblack">MOJO BLACK</span>
+                <h2 class="article-title">La collection "Wakanda Forever" de MOJO BLACK fait sensation</h2>
+                <p class="article-excerpt">Découvrez comment notre marque signature a revisité les textiles traditionnels béninois pour créer une collection qui fusionne patrimoine culturel et design avant-gardiste.</p>
+                <div class="article-meta">
+                    <div class="article-author">
+                        <div class="author-avatar">AD</div>
+                        <span>Par Amina Diallo</span>
+                    </div>
+                    <span>15 Mars 2023</span>
+                </div>
+            </div>
+        </article>
+        
+        <article id="mojoblack" class="article-card">
+            <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Atelier MOJO BLACK" class="article-image">
+            <div class="article-content">
+                <span class="article-category category-mojoblack">MOJO BLACK</span>
+                <h2 class="article-title">Dans les coulisses de l'atelier MOJO BLACK</h2>
+                <p class="article-excerpt">Reportage exclusif sur notre processus de création unique, du croquis à la pièce finale. Rencontrez nos artisans et découvrez leur savoir-faire exceptionnel.</p>
+                <div class="article-meta">
+                    <div class="article-author">
+                        <div class="author-avatar">ED</div>
+                        <span>Par Eric Dossou</span>
+                    </div>
+                    <span>5 Mars 2023</span>
+                </div>
+            </div>
+        </article>
+        
+        <!-- Beauté Articles -->
+        <article id="beaute" class="article-card">
+            <img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80" alt="Tendances coiffures afro" class="article-image">
+            <div class="article-content">
+                <span class="article-category category-beaute">Beauté</span>
+                <h2 class="article-title">Les 5 tendances coiffures afro de l'été 2023</h2>
+                <p class="article-excerpt">Notre styliste capillaire en chef vous dévoile les coupes et styles qui vont dominer cet été. Des looks naturels aux créations audacieuses.</p>
+                <div class="article-meta">
+                    <div class="article-author">
+                        <div class="author-avatar">KB</div>
+                        <span>Par Koffi Bello</span>
+                    </div>
+                    <span>10 Mars 2023</span>
+                </div>
+            </div>
+        </article>
+        
+        <article id="beaute" class="article-card">
+            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=720&q=80" alt="Make-up artiste" class="article-image">
+            <div class="article-content">
+                <span class="article-category category-beaute">Beauté</span>
+                <h2 class="article-title">Les secrets du maquillage adapté aux peaux noires</h2>
+                <p class="article-excerpt">Notre experte en make-up partage ses techniques et produits préférés pour sublimer les peaux mates à foncées.</p>
+                <div class="article-meta">
+                    <div class="article-author">
+                        <div class="author-avatar">FA</div>
+                        <span>Par Fatou Akossiwa</span>
+                    </div>
+                    <span>20 Février 2023</span>
+                </div>
+            </div>
+        </article>
+        
+        <!-- Mode Articles -->
+        <article id="mode" class="article-card">
+            <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Atelier de stylisme" class="article-image">
+            <div class="article-content">
+                <span class="article-category category-mode">Mode</span>
+                <h2 class="article-title">Le retour du wax dans la mode urbaine</h2>
+                <p class="article-excerpt">Comment les jeunes créateurs réinventent les tissus traditionnels africains pour une clientèle moderne et exigeante.</p>
+                <div class="article-meta">
+                    <div class="article-author">
+                        <div class="author-avatar">SD</div>
+                        <span>Par Sèna Dossou</span>
+                    </div>
+                    <span>5 Mars 2023</span>
+                </div>
+            </div>
+        </article>
+        
+        <article id="mode" class="article-card">
+            <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Accessoires faits main" class="article-image">
+            <div class="article-content">
+                <span class="article-category category-mode">Mode</span>
+                <h2 class="article-title">Accessoires mode : l'artisanat local à l'honneur</h2>
+                <p class="article-excerpt">Découvrez notre sélection de pièces uniques fabriquées par des artisans béninois qui allient tradition et modernité.</p>
+                <div class="article-meta">
+                    <div class="article-author">
+                        <div class="author-avatar">MA</div>
+                        <span>Par Moussa Akplogan</span>
+                    </div>
+                    <span>28 Février 2023</span>
+                </div>
+            </div>
+        </article>
+        
+        <!-- Lifestyle Articles -->
+        <article id="lifestyle" class="article-card">
+            <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" alt="Photographie de mode" class="article-image">
+            <div class="article-content">
+                <span class="article-category category-lifestyle">Lifestyle</span>
+                <h2 class="article-title">L'art de recevoir à l'africaine</h2>
+                <p class="article-excerpt">Nos conseils pour organiser des dîners élégants qui mettent en valeur les saveurs et les traditions culinaires locales.</p>
+                <div class="article-meta">
+                    <div class="article-author">
+                        <div class="author-avatar">ED</div>
+                        <span>Par Eric Dossou</span>
+                    </div>
+                    <span>15 Février 2023</span>
+                </div>
+            </div>
+        </article>
+        
+        <article id="lifestyle" class="article-card">
+            <img src="https://images.unsplash.com/photo-1556909212-d5b604d0c90d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Décor intérieur" class="article-image">
+            <div class="article-content">
+                <span class="article-category category-lifestyle">Lifestyle</span>
+                <h2 class="article-title">Décoration intérieure : mélanger styles moderne et africain</h2>
+                <p class="article-excerpt">Comment créer un intérieur chaleureux qui intègre des éléments traditionnels africains dans un design contemporain.</p>
+                <div class="article-meta">
+                    <div class="article-author">
+                        <div class="author-avatar">AD</div>
+                        <span>Par Amina Diallo</span>
+                    </div>
+                    <span>10 Février 2023</span>
+                </div>
+            </div>
+        </article>
+        
+        <!-- Événements Articles -->
+        <article id="evenements" class="article-card">
+            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Événement KONOHA" class="article-image">
+            <div class="article-content">
+                <span class="article-category category-evenements">Événements</span>
+                <h2 class="article-title">Retour en images sur notre soirée "African Drip"</h2>
+                <p class="article-excerpt">La première édition de notre événement phare a rassemblé plus de 300 passionnés de mode.</p>
+                <div class="article-meta">
+                    <div class="article-author">
+                        <div class="author-avatar">ED</div>
+                        <span>Par Eric Dossou</span>
+                    </div>
+                    <span>15 Février 2023</span>
+                </div>
+            </div>
+        </article>
+        
+        <article id="evenements" class="article-card">
+            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Festival de mode" class="article-image">
+            <div class="article-content">
+                <span class="article-category category-evenements">Événements</span>
+                <h2 class="article-title">KONOHA au Festival International de la Mode Africaine</h2>
+                <p class="article-excerpt">Comment notre équipe a représenté le Bénin lors de ce prestigieux événement panafricain.</p>
+                <div class="article-meta">
+                    <div class="article-author">
+                        <div class="author-avatar">KB</div>
+                        <span>Par Koffi Bello</span>
+                    </div>
+                    <span>5 Février 2023</span>
+                </div>
+            </div>
+        </article>
+        
+        <!-- Formations Articles -->
+        <article id="formations" class="article-card">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Atelier de formation" class="article-image">
+            <div class="article-content">
+                <span class="article-category category-formations">Formations</span>
+                <h2 class="article-title">Comment devenir styliste de mode au Bénin ?</h2>
+                <p class="article-excerpt">Notre programme de formation en stylisme et design textile a déjà diplômé plus de 50 talents locaux.</p>
+                <div class="article-meta">
+                    <div class="article-author">
+                        <div class="author-avatar">SD</div>
+                        <span>Par Sèna Dossou</span>
+                    </div>
+                    <span>5 Mars 2023</span>
+                </div>
+            </div>
+        </article>
+        
+        <article id="formations" class="article-card">
+            <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Formation maquillage" class="article-image">
+            <div class="article-content">
+                <span class="article-category category-formations">Formations</span>
+                <h2 class="article-title">Formation professionnelle en maquillage : témoignages</h2>
+                <p class="article-excerpt">Rencontrez nos anciens élèves qui ont fait carrière dans l'univers de la beauté après leur passage à KONOHA.</p>
+                <div class="article-meta">
+                    <div class="article-author">
+                        <div class="author-avatar">FA</div>
+                        <span>Par Fatou Akossiwa</span>
+                    </div>
+                    <span>20 Février 2023</span>
+                </div>
+            </div>
+        </article>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">KONOHA</div>
+        <div class="footer-links">
+            <a href="index.html" class="footer-link">Accueil</a>
+            <a href="a-propos.html" class="footer-link">À Propos</a>
+            <a href="blog.html" class="footer-link">Blog</a>
+            <a href="offres-emploi.html" class="footer-link">Offres d'emploi</a>
+            <a href="formations.html" class="footer-link">Formations</a>
+        </div>
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-snapchat"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <p class="copyright">© 2023 KONOHA. Tous droits réservés.</p>
+    </footer>
+    
+    <script>
+        // Filtrage des catégories
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector('.category-btn.active').classList.remove('active');
+                this.classList.add('active');
+                
+                const category = this.getAttribute('href').substring(1);
+                const articles = document.querySelectorAll('.article-card');
+                
+                articles.forEach(article => {
+                    if (category === 'all') {
+                        article.style.display = 'block';
+                    } else {
+                        if (article.id === category) {
+                            article.style.display = 'block';
+                        } else {
+                            article.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+        
+        // Animation des cartes d'articles
+        const articleCards = document.querySelectorAll('.article-card');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        articleCards.forEach(card => {
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.5s ease';
+            observer.observe(card);
+        });
+        
+        // Redirection vers les pages d'article au clic
+        document.querySelectorAll('.article-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Ici vous pourriez ajouter la logique pour rediriger vers la page détaillée de l'article
+                // Par exemple : window.location.href = 'article-' + this.id + '.html';
+                console.log('Redirection vers la page de l\'article');
+            });
+        });
+    </script>
+</body>
+</html>

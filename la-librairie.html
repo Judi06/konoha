@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="konoha">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>KONOHA Librairie - Havre littéraire</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Cormorant+Garamond:wght@400;700&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d00;
+            --secondary: #00ff88;
+            --dark: #0a0a0a;
+            --light: #f0f0f0;
+            --accent: #8a2be2;
+            --paper: #f5f0e6;
+            --ink: #333;
+            --font-title: 'Archivo Black', sans-serif;
+            --font-literary: 'Cormorant Garamond', serif;
+            --font-body: 'Space Grotesk', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Video Background */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .nav-item {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            transform: scale(1.2);
+            background: var(--primary);
+        }
+
+        /* Header */
+        .library-header {
+            padding: 8rem 10% 4rem;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.5) 100%);
+        }
+
+        .library-title {
+            font-family: var(--font-literary);
+            font-size: 4.5rem;
+            color: var(--paper);
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        .library-subtitle {
+            font-family: var(--font-literary);
+            font-size: 1.8rem;
+            color: var(--secondary);
+            font-style: italic;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.4;
+        }
+
+        /* Sections communes */
+        .section {
+            padding: 5rem 10%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .section-title {
+            font-family: var(--font-literary);
+            font-size: 3rem;
+            color: var(--paper);
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 2px;
+            background: var(--primary);
+            margin: 1rem auto 0;
+        }
+
+        /* Espace Librairie */
+        .library-space {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .library-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .library-highlight {
+            font-family: var(--font-literary);
+            font-size: 1.3rem;
+            color: var(--secondary);
+            font-style: italic;
+            margin: 2rem 0;
+            padding-left: 2rem;
+            border-left: 3px solid var(--primary);
+        }
+
+        .library-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            transition: transform 0.5s ease;
+        }
+
+        .library-image:hover {
+            transform: scale(1.03);
+        }
+
+        .library-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Catégories */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .category-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 20px rgba(255, 77, 0, 0.2);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            font-family: var(--font-literary);
+            font-size: 1.5rem;
+            color: var(--paper);
+            margin-bottom: 1rem;
+        }
+
+        /* Charte du lecteur */
+        .charte-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .charte-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+        }
+
+        .charte-number {
+            font-family: var(--font-literary);
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-right: 1.5rem;
+            line-height: 1;
+        }
+
+        .charte-text {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Top livres */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .book-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .book-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 77, 0, 0.3);
+        }
+
+        .book-cover {
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .book-cover:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);
+        }
+
+        .book-info {
+            padding: 1.5rem;
+        }
+
+        .book-title {
+            font-family: var(--font-literary);
+            font-size: 1.3rem;
+            color: var(--paper);
+            margin-bottom: 0.5rem;
+        }
+
+        .book-author {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            font-style: italic;
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            padding: 6rem 10%;
+            background: linear-gradient(135deg, rgba(138,43,226,0.1) 0%, rgba(10,10,10,1) 100%);
+        }
+
+        .cta-title {
+            font-family: var(--font-literary);
+            font-size: 2.5rem;
+            color: var(--paper);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 2.5rem;
+            background: var(--primary);
+            color: var(--dark);
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 77, 0, 0.4);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: var(--dark);
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: var(--light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--paper);
+            font-family: var(--font-body);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 5px;
+            color: white;
+            font-family: var(--font-body);
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 77, 0, 0.1);
+        }
+
+        select.form-input {
+            height: auto;
+            min-height: 40px;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 4rem 10% 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-title {
+            font-family: var(--font-literary);
+            font-size: 1.5rem;
+            color: var(--paper);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-title:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50%;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            display: block;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 0.8rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: var(--font-body);
+        }
+
+        .footer-link:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            font-family: var(--font-body);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            font-family: var(--font-body);
+        }
+
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .library-title {
+                font-size: 3rem;
+            }
+            
+            .library-subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .section {
+                padding: 3rem 5%;
+            }
+            
+            nav {
+                right: 1rem;
+            }
+            
+            .modal-content {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .library-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="assets/videos/konoha-background.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-item" data-section="home">
+            <i class="fas fa-home"></i>
+        </div>
+        <div class="nav-item" data-section="categories">
+            <i class="fas fa-book"></i>
+        </div>
+        <div class="nav-item" data-section="charte">
+            <i class="fas fa-scroll"></i>
+        </div>
+        <div class="nav-item" data-section="top-books">
+            <i class="fas fa-star"></i>
+        </div>
+        <div class="nav-item" data-section="cta">
+            <i class="fas fa-user-plus"></i>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="library-header">
+        <h1 class="library-title">L'Atelier des Mots</h1>
+        <p class="library-subtitle">"Un livre ouvert est un cerveau qui parle ; fermé, un ami qui attend."</p>
+    </header>
+
+    <!-- Espace Librairie -->
+    <section class="section" id="home">
+        <div class="library-space">
+            <div>
+                <h2 class="section-title">Notre Havre Littéraire</h2>
+                <p class="library-description">
+                    Nichée au cœur de KONOHA, notre librairie est bien plus qu'un simple espace de lecture. 
+                    C'est un sanctuaire où les mots prennent vie, où chaque page tournée est une nouvelle aventure.
+                </p>
+                <p class="library-highlight">
+                    Confortablement installés dans nos fauteuils design, venez vous perdre dans les méandres 
+                    de la littérature africaine contemporaine et des classiques intemporels.
+                </p>
+                <p class="library-description">
+                    Ouvert du mardi au dimanche, notre espace vous accueille dans une ambiance feutrée, 
+                    propice à la découverte et à la réflexion. Wi-Fi gratuit, boissons chaudes offertes 
+                    et sélection musicale douce complètent cette expérience unique.
+                </p>
+            </div>
+            <div class="library-image">
+                <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Espace librairie KONOHA">
+            </div>
+        </div>
+    </section>
+
+    <!-- Catégories -->
+    <section class="section" id="categories" style="background: rgba(10,10,10,0.8);">
+        <h2 class="section-title">Nos Univers Littéraires</h2>
+        <div class="categories-grid">
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-mask"></i>
+                </div>
+                <h3 class="category-title">Littérature Africaine</h3>
+                <p>Des voix puissantes du continent, de Senghor à Fatou Diome en passant par Alain Mabanckou.</p>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-globe-africa"></i>
+                </div>
+                <h3 class="category-title">Histoire & Société</h3>
+                <p>Comprendre les enjeux contemporains à travers le prisme des penseurs africains.</p>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <h3 class="category-title">Contes & Légendes</h3>
+                <p>La tradition orale transcrite, des récits qui traversent les générations.</p>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-pen-fancy"></i>
+                </div>
+                <h3 class="category-title">Poésie</h3>
+                <p>La musicalité des mots, de Léopold Sédar Senghor à Véronique Tadjo.</p>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h3 class="category-title">Jeunesse</h3>
+                <p>Des albums illustrés aux romans adolescents, pour cultiver l'amour de la lecture.</p>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3 class="category-title">Développement Personnel</h3>
+                <p>Des ouvrages pour grandir, s'épanouir et repenser sa place dans le monde.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Charte du Lecteur -->
+    <section class="section" id="charte">
+        <h2 class="section-title">La Charte du Bon Lecteur</h2>
+        <div class="charte-list">
+            <div class="charte-item">
+                <div class="charte-number">I</div>
+                <div class="charte-text">
+                    Chaque livre est un trésor à traiter avec respect. Nous vous demandons de manipuler 
+                    les ouvrages avec soin, mains propres et sans plier les pages.
+                </div>
+            </div>
+            <div class="charte-item">
+                <div class="charte-number">II</div>
+                <div class="charte-text">
+                    Le silence est l'allié de la lecture. Parlez à voix basse pour ne pas perturber 
+                    la concentration des autres lecteurs.
+                </div>
+            </div>
+            <div class="charte-item">
+                <div class="charte-number">III</div>
+                <div class="charte-text">
+                    Les livres consultés doivent être remis à leur place ou déposés sur les tables 
+                    dédiées. Notre équipe se chargera de leur rangement.
+                </div>
+            </div>
+            <div class="charte-item">
+                <div class="charte-number">IV</div>
+                <div class="charte-text">
+                    La nourriture est interdite dans l'espace lecture. Seules les boissons dans 
+                    des contenants fermés sont autorisées.
+                </div>
+            </div>
+            <div class="charte-item">
+                <div class="charte-number">V</div>
+                <div class="charte-text">
+                    Les appareils électroniques doivent être en mode silencieux. Les appels téléphoniques 
+                    se font à l'extérieur de l'espace lecture.
+                </div>
+            </div>
+            <div class="charte-item">
+                <div class="charte-number">VI</div>
+                <div class="charte-text">
+                    Les enfants de moins de 12 ans doivent être accompagnés d'un adulte responsable.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top Livres -->
+    <section class="section" id="top-books" style="background: rgba(20,20,20,0.8);">
+        <h2 class="section-title">Les Incontournables</h2>
+        <div class="books-grid">
+            <div class="book-card">
+                <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/71O6Y1P7p3L._AC_UF1000,1000_QL80_.jpg');"></div>
+                <div class="book-info">
+                    <h3 class="book-title">L'Enfant Noir</h3>
+                    <p class="book-author">Camara Laye</p>
+                </div>
+            </div>
+            <div class="book-card">
+                <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/81XQ7+kD5GL._AC_UF1000,1000_QL80_.jpg');"></div>
+                <div class="book-info">
+                    <h3 class="book-title">Une Si Longue Lettre</h3>
+                    <p class="book-author">Mariama Bâ</p>
+                </div>
+            </div>
+            <div class="book-card">
+                <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/71m+8D5HkVL._AC_UF1000,1000_QL80_.jpg');"></div>
+                <div class="book-info">
+                    <h3 class="book-title">Le Pleurer-Rire</h3>
+                    <p class="book-author">Henri Lopès</p>
+                </div>
+            </div>
+            <div class="book-card">
+                <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/81xH0IYQ6VL._AC_UF1000,1000_QL80_.jpg');"></div>
+                <div class="book-info">
+                    <h3 class="book-title">Petit Pays</h3>
+                    <p class="book-author">Gaël Faye</p>
+                </div>
+            </div>
+            <div class="book-card">
+                <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/71m1+W5QK4L._AC_UF1000,1000_QL80_.jpg');"></div>
+                <div class="book-info">
+                    <h3 class="book-title">La Divine Chanson</h3>
+                    <p class="book-author">Abdourahman Waberi</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="cta">
+        <h2 class="cta-title">Devenez Membre Privilégié</h2>
+        <p class="cta-subtitle">
+            Accédez à des avantages exclusifs : emprunts illimités, invitations aux rencontres d'auteurs, 
+            réductions sur les ateliers d'écriture et bien plus encore. Rejoignez notre communauté 
+            de passionnés de littérature.
+        </p>
+        <button class="cta-button" id="membershipButton">Devenez Membre</button>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal" id="membershipModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 style="font-family: var(--font-literary); margin-bottom: 2rem; color: var(--paper);">Adhésion à la Librairie KONOHA</h2>
+            <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="membershipForm">
+                <div class="form-group">
+                    <label for="name" class="form-label">Nom Complet</label>
+                    <input type="text" id="name" name="name" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone" class="form-label">Téléphone</label>
+                    <input type="tel" id="phone" name="phone" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="genre" class="form-label">Genres Littéraires Préférés</label>
+                    <select id="genre" name="genre" class="form-input">
+                        <option value="africaine">Littérature Africaine</option>
+                        <option value="histoire">Histoire & Société</option>
+                        <option value="contes">Contes & Légendes</option>
+                        <option value="poesie">Poésie</option>
+                        <option value="jeunesse">Jeunesse</option>
+                        <option value="devperso">Développement Personnel</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message" class="form-label">Pourquoi souhaitez-vous nous rejoindre ?</label>
+                    <textarea id="message" name="message" class="form-input" rows="4"></textarea>
+                </div>
+                <button type="submit" class="cta-button" style="width: 100%; margin-top: 1rem;">Soumettre ma Demande</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        Merci pour votre demande d'adhésion ! Nous vous contacterons sous peu.
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h3 class="footer-title">Explorer</h3>
+                <ul class="footer-links">
+                    <li><a href="index-fr.html" class="footer-link">Accueil</a></li>
+                    <li><a href="a-propos.html" class="footer-link">À Propos</a></li>
+                    <li><a href="blog.html" class="footer-link">Blog Littéraire</a></li>
+                    <li><a href="events.html" class="footer-link">Événements</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="footer-title">Lifestyle</h3>
+                <ul class="footer-links">
+                    <li><a href="boutique-mode.html" class="footer-link">Boutique Mode</a></li>
+                    <li><a href="mojo-black.html" class="footer-link">MOJO BLACK</a></li>
+                    <li><a href="restaurant.html" class="footer-link">Restaurant-Glacier</a></li>
+                    <li><a href="salon-beaute.html" class="footer-link">Salon de Beauté</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="footer-title">Ateliers</h3>
+                <ul class="footer-links">
+                    <li><a href="atelier-ecriture.html" class="footer-link">Atelier d'Écriture</a></li>
+                    <li><a href="atelier-lecture.html" class="footer-link">Cercle de Lecture</a></li>
+                    <li><a href="atelier-styliste.html" class="footer-link">Stylisme</a></li>
+                    <li><a href="formations.html" class="footer-link">Formations</a></li>
+                </ul>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-snapchat"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2023 KONOHA Librairie. Tous droits réservés.
+        </div>
+    </footer>
+
+    <script>
+        // Gestion du modal avec animation
+        const membershipButton = document.getElementById('membershipButton');
+        const membershipModal = document.getElementById('membershipModal');
+        const closeModal = membershipModal.querySelector('.close-modal');
+        const membershipForm = document.getElementById('membershipForm');
+        const notification = document.getElementById('notification');
+
+        membershipButton.addEventListener('click', () => {
+            membershipModal.style.display = 'flex';
+            setTimeout(() => {
+                membershipModal.classList.add('active');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeModal.addEventListener('click', () => {
+            membershipModal.classList.remove('active');
+            setTimeout(() => {
+                membershipModal.style.display = 'none';
+            }, 300);
+            document.body.style.overflow = 'auto';
+        });
+
+        // Fermer le modal en cliquant à l'extérieur
+        window.addEventListener('click', (e) => {
+            if (e.target === membershipModal) {
+                membershipModal.classList.remove('active');
+                setTimeout(() => {
+                    membershipModal.style.display = 'none';
+                }, 300);
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Gestion de la soumission du formulaire
+        membershipForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Simulation d'envoi
+            setTimeout(() => {
+                membershipModal.classList.remove('active');
+                setTimeout(() => {
+                    membershipModal.style.display = 'none';
+                }, 300);
+                document.body.style.overflow = 'auto';
+                
+                // Afficher la notification
+                notification.classList.add('show');
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+                
+                // Réinitialiser le formulaire
+                membershipForm.reset();
+            }, 1000);
+        });
+
+        // Navigation ancrée
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                document.getElementById(sectionId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Correction des caractères spéciaux
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('p, h1, h2, h3, span, li, a');
+            elements.forEach(el => {
+                el.innerHTML = el.innerHTML.replace(//g, "'");
+            });
+        });
+    </script>
+</body>
+</html>

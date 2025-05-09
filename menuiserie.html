@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="konoha">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KONOHA - Menuiserie Moderne</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <style>
+        :root {
+            --primary: #ff4d00;
+            --secondary: #00ff88;
+            --dark: #0a0a0a;
+            --light: #f0f0f0;
+            --accent: #8a2be2;
+            --wood: #c19a6b;
+            --font-title: 'Archivo Black', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Background Video */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Navigation Holographique */
+        .holographic-nav {
+            position: fixed;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .nav-item {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-item:hover {
+            transform: scale(1.2);
+            background: var(--primary);
+        }
+        
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-item:hover::before {
+            opacity: 0.3;
+        }
+        
+        .nav-item i {
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+            position: relative;
+        }
+        
+        .hero-title {
+            font-family: var(--font-title);
+            font-size: 5rem;
+            line-height: 1;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            color: var(--wood);
+            text-shadow: 0 0 10px rgba(193, 154, 107, 0.5);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* About Section */
+        .about {
+            padding: 8rem 10%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+        
+        .section-title {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            color: var(--wood);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .swiper {
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+        }
+        
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Gallery Section */
+        .gallery {
+            padding: 8rem 10%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .swiper-gallery {
+            width: 100%;
+            height: 500px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            height: 100%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+        }
+        
+        /* Process Section */
+        .process {
+            padding: 8rem 10%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .process-step {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(193, 154, 107, 0.3);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .process-step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(193, 154, 107, 0.1) 0%, rgba(0,0,0,0) 50%);
+            z-index: -1;
+        }
+        
+        .process-step:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+        }
+        
+        .process-number {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            color: var(--wood);
+            margin-bottom: 1rem;
+        }
+        
+        .process-title {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+        
+        .process-description {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Artists Section */
+        .artists {
+            padding: 8rem 10%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .artists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .artist-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .artist-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 77, 0, 0.2);
+        }
+        
+        .artist-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .artist-info {
+            padding: 1.5rem;
+        }
+        
+        .artist-name {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--wood);
+        }
+        
+        .artist-title {
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        
+        .artist-bio {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 8rem 10%;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(193, 154, 107, 0.1) 0%, rgba(10,10,10,1) 100%);
+        }
+        
+        .cta-title {
+            font-family: var(--font-title);
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--wood);
+        }
+        
+        .cta-text {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: transparent;
+            color: var(--wood);
+            border: 2px solid var(--wood);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+        }
+        
+        .cta-button:hover {
+            background: var(--wood);
+            color: var(--dark);
+            box-shadow: 0 0 20px rgba(193, 154, 107, 0.5);
+        }
+        
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 5rem 10%;
+            position: relative;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--wood);
+            transform: translateX(5px);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Phone Link */
+        .phone-link {
+            color: var(--wood);
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .phone-link:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 4rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .swiper {
+                order: -1;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+            
+            .holographic-nav {
+                right: 1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .swiper, .swiper-gallery {
+                height: 350px;
+            }
+            
+            .holographic-nav {
+                /* display: none; */
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 0 5%;
+                height: 90vh;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .about, .gallery, .process, .artists, .cta {
+                padding: 5rem 5%;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="assets/videos/woodworking-background.mp4" type="video/mp4">
+        </video>
+    </div>
+    
+    <!-- Navigation Holographique -->
+    <div class="holographic-nav">
+        <div class="nav-item" data-section="hero">
+            <i class="fas fa-home"></i>
+        </div>
+        <div class="nav-item" data-section="about">
+            <i class="fas fa-hammer"></i>
+        </div>
+        <div class="nav-item" data-section="gallery">
+            <i class="fas fa-images"></i>
+        </div>
+        <div class="nav-item" data-section="process">
+            <i class="fas fa-cogs"></i>
+        </div>
+        <div class="nav-item" data-section="artists">
+            <i class="fas fa-users"></i>
+        </div>
+    </div>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <h1 class="hero-title">Menuiserie Moderne</h1>
+        <p class="hero-subtitle">Où l'artisanat traditionnel rencontre le design futuriste pour créer des pièces uniques qui défient le temps</p>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about" id="about">
+        <h2 class="section-title">Notre Atelier</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Dans notre atelier de menuiserie moderne, nous fusionnons les techniques ancestrales du travail du bois avec les technologies les plus avancées pour créer des pièces qui racontent une histoire.</p>
+                <p>Chaque création est le résultat d'un processus méticuleux où chaque courbe, chaque angle et chaque finition est pensé pour évoquer à la fois la chaleur du bois naturel et l'audace du design contemporain.</p>
+                <p>Nous travaillons avec des essences locales et durables, transformant des matériaux bruts en œuvres fonctionnelles qui embellissent votre espace de vie.</p>
+            </div>
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Atelier de menuiserie">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Outils de menuiserie">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1583845112203-4541b01c57a8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Bois sélectionnés">
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <h2 class="section-title">Nos Créations</h2>
+        <div class="swiper swiper-gallery">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Table en bois époxy">
+                        <div class="gallery-caption">
+                            <h3>Table River</h3>
+                            <p>Bois massif et résine époxy</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Chaise design">
+                        <div class="gallery-caption">
+                            <h3>Siège Orbital</h3>
+                            <p>Noyer et acier brossé</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1558&q=80" alt="Bibliothèque moderne">
+                        <div class="gallery-caption">
+                            <h3>Bibliothécaire</h3>
+                            <p>Chêne et verre trempé</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1430&q=80" alt="Table basse">
+                        <div class="gallery-caption">
+                            <h3>Table Nebula</h3>
+                            <p>Acacia et métal</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+    
+    <!-- Process Section -->
+    <section class="process" id="process">
+        <h2 class="section-title">Notre Processus</h2>
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="process-number">01</div>
+                <h3 class="process-title">Conception</h3>
+                <p class="process-description">Nous collaborons avec vous pour concevoir une pièce unique qui répond à vos besoins tout en repoussant les limites du design.</p>
+            </div>
+            <div class="process-step">
+                <div class="process-number">02</div>
+                <h3 class="process-title">Sélection</h3>
+                <p class="process-description">Choix méticuleux des essences de bois et matériaux complémentaires pour leur beauté et leur durabilité.</p>
+            </div>
+            <div class="process-step">
+                <div class="process-number">03</div>
+                <h3 class="process-title">Fabrication</h3>
+                <p class="process-description">Assemblage artisanal combinant outils traditionnels et technologies de pointe pour une précision absolue.</p>
+            </div>
+            <div class="process-step">
+                <div class="process-number">04</div>
+                <h3 class="process-title">Finition</h3>
+                <p class="process-description">Application méticuleuse de finitions naturelles qui protègent le bois tout en mettant en valeur sa texture unique.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Artists Section -->
+    <section class="artists" id="artists">
+        <h2 class="section-title">Nos Artistes</h2>
+        <div class="artists-grid">
+            <div class="artist-card">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Artiste menuisier" class="artist-image">
+                <div class="artist-info">
+                    <h3 class="artist-name">Jean-Luc Dossou</h3>
+                    <p class="artist-title">Maître Artisan</p>
+                    <p class="artist-bio">Avec 25 ans d'expérience, Jean-Luc perpétue les techniques traditionnelles tout en innovant constamment. Spécialiste des assemblages complexes.</p>
+                </div>
+            </div>
+            <div class="artist-card">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Artiste menuisière" class="artist-image">
+                <div class="artist-info">
+                    <h3 class="artist-name">Amina Touré</h3>
+                    <p class="artist-title">Designer & Sculptrice</p>
+                    <p class="artist-bio">Diplômée des Beaux-Arts, Amina apporte une sensibilité artistique unique à chaque projet, transformant le bois en véritables œuvres d'art.</p>
+                </div>
+            </div>
+            <div class="artist-card">
+                <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Artiste menuisier" class="artist-image">
+                <div class="artist-info">
+                    <h3 class="artist-name">Koffi Gbedjinou</h3>
+                    <p class="artist-title">Expert Finitions</p>
+                    <p class="artist-bio">Koffi maîtrise l'art des finitions parfaites. Son travail minutieux révèle la beauté naturelle du grain du bois tout en le protégeant pour les générations futures.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta">
+        <h2 class="cta-title">Prêt à donner vie à votre vision ?</h2>
+        <p class="cta-text">Que vous ayez un projet précis en tête ou que vous souhaitiez simplement explorer les possibilités, notre équipe est là pour vous guider à chaque étape.</p>
+        <a href="tel:+22912345678" class="cta-button">Appelez-nous au <span class="phone-link">+229 12 34 56 78</span></a>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>KONOHA</h3>
+                <div class="footer-links">
+                    <a href="index.html" class="footer-link">Accueil</a>
+                    <a href="a-propos.html" class="footer-link">À propos</a>
+                    <a href="blog.html" class="footer-link">Blog</a>
+                    <a href="formations.html" class="footer-link">Formations</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>MODE & STYLE</h3>
+                <div class="footer-links">
+                    <a href="boutique-mode.html" class="footer-link">Boutique Mode</a>
+                    <a href="mojo-black.html" class="footer-link">MOJO BLACK</a>
+                    <a href="atelier-styliste.html" class="footer-link">Atelier Styliste</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>BEAUTÉ & SOINS</h3>
+                <div class="footer-links">
+                    <a href="salon-coiffure.html" class="footer-link">Salon de Coiffure</a>
+                    <a href="salon-beaute.html" class="footer-link">Salon de Beauté</a>
+                    <a href="parfumerie.html" class="footer-link">Parfumerie</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>LIFESTYLE</h3>
+                <div class="footer-links">
+                    <a href="restaurant.html" class="footer-link">Restaurant-Glacier</a>
+                    <a href="menuiserie.html" class="footer-link">Menuiserie Moderne</a>
+                    <a href="atelier-photo.html" class="footer-link">Atelier Photo</a>
+                    <a href="librairie.html" class="footer-link">La Librairie</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Réseaux</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-snapchat"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            © 2023 KONOHA - Menuiserie Moderne. Tous droits réservés.
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script>
+        // Initialize Swiper for About Section
+        const aboutSwiper = new Swiper('.about .swiper', {
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.about .swiper-pagination',
+                clickable: true,
+            },
+        });
+
+        // Initialize Swiper for Gallery Section
+        const gallerySwiper = new Swiper('.swiper-gallery', {
+            loop: true,
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            coverflowEffect: {
+                rotate: 20,
+                stretch: 0,
+                depth: 200,
+                modifier: 1,
+                slideShadows: true,
+            },
+            pagination: {
+                el: '.swiper-gallery .swiper-pagination',
+                clickable: true,
+            },
+        });
+
+        // Animation au scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.process-step, .artist-card').forEach(element => {
+            observer.observe(element);
+        });
+        
+        // Navigation holographique
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                document.getElementById(sectionId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

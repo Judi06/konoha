@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="konoha">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>KONOHA - Rejoignez Notre Équipe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Styles de base conservés depuis l'index */
+        :root {
+            --primary: #ff4d00;
+            --secondary: #00ff88;
+            --dark: #0a0a0a;
+            --light: #f0f0f0;
+            --accent: #8a2be2;
+            --font-title: 'Archivo Black', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Header spécifique à la page emploi */
+        .job-header {
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+            position: relative;
+            background: linear-gradient(rgba(10,10,10,0.7), rgba(10,10,10,0.7)), 
+                        url('https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1460&q=80') center/cover;
+        }
+
+        .job-title {
+            font-family: var(--font-title);
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .job-subtitle {
+            font-size: 1.5rem;
+            max-width: 700px;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        /* Section des offres */
+        .job-offers {
+            padding: 5rem 10%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .section-title {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .offer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .offer-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .offer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 77, 0, 0.2);
+            border-color: var(--primary);
+        }
+
+        .offer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,77,0,0.1) 0%, rgba(0,0,0,0) 50%);
+            z-index: -1;
+        }
+
+        .offer-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .badge-new {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+
+        .badge-urgent {
+            background: var(--primary);
+            color: white;
+        }
+
+        .offer-position {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+
+        .offer-department {
+            display: inline-block;
+            margin-bottom: 1rem;
+            padding: 0.3rem 0.8rem;
+            background: rgba(138, 43, 226, 0.2);
+            color: var(--accent);
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .offer-details {
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .offer-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .offer-detail i {
+            color: var(--primary);
+        }
+
+        .offer-description {
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .offer-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .offer-link i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .offer-link:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Section avantages */
+        .benefits {
+            padding: 5rem 10%;
+            background: linear-gradient(135deg, rgba(138,43,226,0.1) 0%, rgba(10,10,10,1) 100%);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .benefit-card {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 77, 0, 0.1);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .benefit-title {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+
+        .benefit-description {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        /* CTA */
+        .job-cta {
+            padding: 5rem 10%;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .cta-title {
+            font-family: var(--font-title);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .cta-text {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            font-weight: bold;
+        }
+
+        .cta-button:hover {
+            background: #e64500;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 77, 0, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 3rem 10%;
+            text-align: center;
+            position: relative;
+        }
+        
+        .footer-logo {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .job-title {
+                font-size: 3rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .offer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .job-header {
+                padding: 0 5%;
+                height: 60vh;
+            }
+            
+            .job-title {
+                font-size: 2.5rem;
+            }
+            
+            .job-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .job-offers, .benefits, .job-cta {
+                padding: 3rem 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="job-header">
+        <h1 class="job-title">Rejoignez KONOHA</h1>
+        <p class="job-subtitle">Faites partie d'un écosystème innovant où mode africaine, créativité et excellence se rencontrent. Nous recherchons des talents passionnés pour façonner l'avenir du lifestyle.</p>
+        <a href="#offres" class="cta-button">Voir nos offres</a>
+    </header>
+
+    <!-- Offres d'emploi -->
+    <section class="job-offers" id="offres">
+        <h2 class="section-title">Nos Offres Actuelles</h2>
+        <div class="offer-grid">
+            <!-- Offre 1 -->
+            <div class="offer-card">
+                <span class="offer-badge badge-urgent">URGENT</span>
+                <h3 class="offer-position">Styliste Senior</h3>
+                <span class="offer-department">MOJO BLACK</span>
+                <div class="offer-details">
+                    <span class="offer-detail"><i class="fas fa-map-marker-alt"></i> Cotonou, Bénin</span>
+                    <span class="offer-detail"><i class="fas fa-briefcase"></i> CDI</span>
+                    <span class="offer-detail"><i class="fas fa-clock"></i> Temps plein</span>
+                </div>
+                <p class="offer-description">
+                    Nous recherchons un.e styliste expérimenté.e pour diriger notre atelier MOJO BLACK. Vous travaillerez sur des collections exclusives mêlant tradition africaine et design contemporain, avec une approche éco-responsable.
+                </p>
+                <a href="postuler.html?ref=STY2023" class="offer-link">Postuler maintenant <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Offre 2 -->
+            <div class="offer-card">
+                <span class="offer-badge badge-new">NOUVEAU</span>
+                <h3 class="offer-position">Coiffeur(se) Afro</h3>
+                <span class="offer-department">Salon de Coiffure</span>
+                <div class="offer-details">
+                    <span class="offer-detail"><i class="fas fa-map-marker-alt"></i> Cotonou, Bénin</span>
+                    <span class="offer-detail"><i class="fas fa-briefcase"></i> CDD</span>
+                    <span class="offer-detail"><i class="fas fa-clock"></i> Temps plein</span>
+                </div>
+                <p class="offer-description">
+                    Talentueux.se coiffeur.se spécialisé.e dans les textures afro recherché.e pour notre salon premium. Maîtrise des techniques modernes et traditionnelles requise. Formation continue offerte.
+                </p>
+                <a href="postuler.html?ref=COI2023" class="offer-link">Postuler maintenant <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Offre 3 -->
+            <div class="offer-card">
+                <h3 class="offer-position">Consultant.e Bien-être</h3>
+                <span class="offer-department">Boutique Bien-être</span>
+                <div class="offer-details">
+                    <span class="offer-detail"><i class="fas fa-map-marker-alt"></i> Cotonou, Bénin</span>
+                    <span class="offer-detail"><i class="fas fa-briefcase"></i> CDI</span>
+                    <span class="offer-detail"><i class="fas fa-clock"></i> Temps partiel</span>
+                </div>
+                <p class="offer-description">
+                    Pour notre nouvelle boutique bien-être, nous cherchons un.e consultant.e discret.e et professionnel.le, avec une excellente connaissance des produits et une approche bienveillante.
+                </p>
+                <a href="postuler.html?ref=CON2023" class="offer-link">Postuler maintenant <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Offre 4 -->
+            <div class="offer-card">
+                <h3 class="offer-position">Formateur(trice) en Maquillage</h3>
+                <span class="offer-department">Formations</span>
+                <div class="offer-details">
+                    <span class="offer-detail"><i class="fas fa-map-marker-alt"></i> Cotonou, Bénin</span>
+                    <span class="offer-detail"><i class="fas fa-briefcase"></i> Freelance</span>
+                    <span class="offer-detail"><i class="fas fa-clock"></i> Horaires flexibles</span>
+                </div>
+                <p class="offer-description">
+                    Artiste maquilleur.se expérimenté.e recherché.e pour animer nos formations professionnelles. Vous transmettrez votre expertise des peaux mates et foncées à la nouvelle génération.
+                </p>
+                <a href="postuler.html?ref=FOR2023" class="offer-link">Postuler maintenant <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Offre 5 -->
+            <div class="offer-card">
+                <span class="offer-badge badge-new">NOUVEAU</span>
+                <h3 class="offer-position">Photographe Mode</h3>
+                <span class="offer-department">Atelier Photo</span>
+                <div class="offer-details">
+                    <span class="offer-detail"><i class="fas fa-map-marker-alt"></i> Cotonou, Bénin</span>
+                    <span class="offer-detail"><i class="fas fa-briefcase"></i> Stage</span>
+                    <span class="offer-detail"><i class="fas fa-clock"></i> Temps plein</span>
+                </div>
+                <p class="offer-description">
+                    Stage passionnant pour photographe débutant.e souhaitant se spécialiser en mode et portrait. Vous travaillerez sur nos collections et campagnes sous la direction de notre directeur artistique.
+                </p>
+                <a href="postuler.html?ref=PHO2023" class="offer-link">Postuler maintenant <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Offre 6 -->
+            <div class="offer-card">
+                <h3 class="offer-position">Responsable Retail</h3>
+                <span class="offer-department">Boutique Mode</span>
+                <div class="offer-details">
+                    <span class="offer-detail"><i class="fas fa-map-marker-alt"></i> Cotonou, Bénin</span>
+                    <span class="offer-detail"><i class="fas fa-briefcase"></i> CDI</span>
+                    <span class="offer-detail"><i class="fas fa-clock"></i> Temps plein</span>
+                </div>
+                <p class="offer-description">
+                    Nous cherchons un.e responsable boutique dynamique pour diriger notre espace mode. Expérience en retail de luxe et passion pour la mode africaine contemporaine requises.
+                </p>
+                <a href="postuler.html?ref=RET2023" class="offer-link">Postuler maintenant <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Avantages -->
+    <section class="benefits">
+        <h2 class="section-title">Pourquoi Nous Rejoindre ?</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <h4 class="benefit-title">Environnement Créatif</h4>
+                <p class="benefit-description">
+                    Évoluez dans un écosystème unique où mode, art et innovation se rencontrent, avec une liberté créative rare.
+                </p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h4 class="benefit-title">Évolution Rapide</h4>
+                <p class="benefit-description">
+                    Chez KONOHA, nous croyons en la croissance interne et offrons des opportunités d'évolution à tous nos talents.
+                </p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-globe-africa"></i>
+                </div>
+                <h4 class="benefit-title">Impact Panafricain</h4>
+                <p class="benefit-description">
+                    Contribuez à redéfinir les standards de la mode et du lifestyle africain à l'échelle continentale et internationale.
+                </p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <h4 class="benefit-title">Culture Collaborative</h4>
+                <p class="benefit-description">
+                    Une équipe soudée où chaque voix compte, avec des échanges permanents entre nos différents métiers.
+                </p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h4 class="benefit-title">Approche Durable</h4>
+                <p class="benefit-description">
+                    Participez à notre démarche éco-responsable, du recyclage des textiles à nos pratiques quotidiennes.
+                </p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-umbrella-beach"></i>
+                </div>
+                <h4 class="benefit-title">Avantages Exclusifs</h4>
+                <p class="benefit-description">
+                    Discount sur nos collections, accès à nos espaces bien-être, et bien d'autres avantages réservés à nos équipes.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="job-cta">
+        <h3 class="cta-title">Votre Profil Ne Correspond à Aucune Offre ?</h3>
+        <p class="cta-text">
+            KONOHA est en perpétuelle recherche de talents exceptionnels. Si vous pensez avoir ce qu'il faut pour rejoindre notre aventure, envoyez-nous une candidature spontanée. Nous étudions chaque profil avec attention.
+        </p>
+        <a href="candidature-spontanee.html" class="cta-button">Déposer une candidature spontanée</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">KONOHA</div>
+        <div class="footer-links">
+            <a href="index.html" class="footer-link">Accueil</a>
+            <a href="offres-emploi.html" class="footer-link">Offres d'emploi</a>
+            <a href="formations.html" class="footer-link">Formations</a>
+            <a href="a-propos.html" class="footer-link">À propos</a>
+            <a href="contact.html" class="footer-link">Contact</a>
+        </div>
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-snapchat-ghost"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <p class="copyright">© 2023 KONOHA. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Animation au scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.offer-card, .benefit-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Effet de survol audacieux (uniquement sur desktop)
+        if (!/Mobi|Android/i.test(navigator.userAgent)) {
+            document.querySelectorAll('a, button').forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    const x = Math.random() * 10 - 5;
+                    const y = Math.random() * 10 - 5;
+                    element.style.transform = `translate(${x}px, ${y}px)`;
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    element.style.transform = 'translate(0, 0)';
+                });
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="konoha">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>KONOHA Restaurant-Glacier | Expérience Culinaire Unique</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d00;
+            --secondary: #00ff88;
+            --dark: #0a0a0a;
+            --light: #f0f0f0;
+            --accent: #8a2be2;
+            --font-title: 'Archivo Black', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        /* Background Video */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+        }
+        
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Navigation */
+        .restaurant-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem 10%;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        
+        .restaurant-logo {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        /* Hero Restaurant */
+        .restaurant-hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+            position: relative;
+        }
+        
+        .restaurant-title {
+            font-family: var(--font-title);
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            color: var(--primary);
+            line-height: 1;
+        }
+        
+        .restaurant-subtitle {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* About Restaurant */
+        .about-restaurant {
+            padding: 5rem 10%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+        }
+        
+        .section-title {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background: var(--secondary);
+        }
+        
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            max-width: 800px;
+        }
+        
+        .gallery-slider {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding-bottom: 1rem;
+        }
+        
+        .gallery-slider::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .gallery-slider::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .gallery-slider::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+        
+        .gallery-image {
+            min-width: 300px;
+            height: 200px;
+            scroll-snap-align: start;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Menu Section */
+        .menu-section {
+            padding: 5rem 10%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+        }
+        
+        .menu-categories {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+        }
+        
+        .category-btn {
+            background: transparent;
+            color: var(--light);
+            border: none;
+            border-bottom: 2px solid transparent;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .category-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .menu-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 77, 0, 0.2);
+            border-color: var(--primary);
+        }
+        
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,77,0,0.1) 0%, rgba(0,0,0,0) 50%);
+            z-index: -1;
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .item-name {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            color: var(--light);
+        }
+        
+        .item-price {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .item-description {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+        
+        .item-origin {
+            display: inline-block;
+            font-size: 0.7rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .item-ingredients {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .ingredient-tag {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--secondary);
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+        }
+        
+        /* Ice Cream Special */
+        .ice-cream-special {
+            padding: 5rem 10%;
+            background: linear-gradient(135deg, rgba(138,43,226,0.1) 0%, rgba(10,10,10,1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ice-cream-special::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,77,0,0.1) 0%, rgba(255,77,0,0) 70%);
+            animation: pulse 8s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.1;
+            }
+            100% {
+                transform: scale(1.2);
+                opacity: 0.3;
+            }
+        }
+        
+        .special-content {
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .special-image {
+            flex: 1;
+            min-height: 400px;
+            background: url('https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2574&q=80') center/cover;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .special-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(138,43,226,0.3) 0%, rgba(255,77,0,0.3) 100%);
+        }
+        
+        .special-text {
+            flex: 1;
+        }
+        
+        .special-title {
+            font-family: var(--font-title);
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        /* Reservation */
+        .reservation {
+            padding: 5rem 10%;
+            background: rgba(0, 0, 0, 0.8);
+            text-align: center;
+        }
+        
+        .reservation-text {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        
+        .book-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+        
+        .book-btn:hover {
+            background: #e64500;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 77, 0, 0.4);
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: var(--dark);
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--light);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: white;
+            font-family: var(--font-body);
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 77, 0, 0.1);
+        }
+        
+        textarea.form-input {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            background: #e64500;
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        /* Footer */
+        .restaurant-footer {
+            background: #000;
+            padding: 3rem 10%;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .restaurant-title {
+                font-size: 4rem;
+            }
+            
+            .special-content {
+                flex-direction: column;
+                gap: 3rem;
+            }
+            
+            .special-image {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .restaurant-title {
+                font-size: 3rem;
+            }
+            
+            .restaurant-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .special-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .restaurant-hero {
+                padding: 0 5%;
+            }
+            
+            .restaurant-title {
+                font-size: 2.5rem;
+            }
+            
+            .about-restaurant, .menu-section, .ice-cream-special, .reservation {
+                padding: 3rem 5%;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .gallery-image {
+                min-width: 250px;
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="assets/videos/konoha-background.mp4" type="video/mp4">
+        </video>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="restaurant-nav">
+        <div class="restaurant-logo">KONOHA RESTAURANT</div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="restaurant-hero">
+        <h1 class="restaurant-title">SAVOUREZ LE MONDE</h1>
+        <p class="restaurant-subtitle">Un voyage culinaire à travers les continents, avec une attention particulière aux saveurs emblématiques d'Afrique de l'Ouest.</p>
+    </section>
+    
+    <!-- About Restaurant -->
+    <section class="about-restaurant">
+        <h2 class="section-title">Le Restaurant</h2>
+        <p class="about-text">
+            Niché au cœur de KONOHA, notre restaurant est bien plus qu'un simple lieu de restauration. C'est une expérience sensorielle où se mêlent l'art culinaire mondial et les traditions gastronomiques ouest-africaines. Notre cadre élégant et contemporain, conçu par des artisans locaux, offre une ambiance chaleureuse et sophistiquée.
+        </p>
+        <p class="about-text">
+            Notre équipe, dirigée par le Chef Éric Adjahouin, réunit des talents venus des quatre coins du monde, unis par une passion commune pour l'excellence culinaire. Chaque plat est une œuvre, chaque service un ballet parfaitement orchestré, dans le respect des produits et des traditions.
+        </p>
+        
+        <div class="gallery-slider">
+            <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')"></div>
+            <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80')"></div>
+            <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80')"></div>
+            <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')"></div>
+            <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')"></div>
+            <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')"></div>
+        </div>
+    </section>
+    
+    <!-- Menu Section -->
+    <section class="menu-section">
+        <h2 class="section-title">Notre Menu</h2>
+        
+        <div class="menu-categories">
+            <button class="category-btn active" data-category="entrees">Entrées</button>
+            <button class="category-btn" data-category="plats">Plats Principaux</button>
+            <button class="category-btn" data-category="desserts">Desserts</button>
+            <button class="category-btn" data-category="boissons">Boissons</button>
+            <button class="category-btn" data-category="specialites">Spécialités</button>
+        </div>
+        
+        <div class="menu-items">
+            <!-- Entrées -->
+            <div class="menu-item" data-category="entrees">
+                <div class="item-header">
+                    <h3 class="item-name">Accras de Morue</h3>
+                    <span class="item-price">8.500 FCFA</span>
+                </div>
+                <span class="item-origin">Spécialité Béninoise</span>
+                <p class="item-description">Beignets légers de morue marinée, accompagnés d'une sauce pimentée à la mangue.</p>
+                <div class="item-ingredients">
+                    <span class="ingredient-tag">Morue</span>
+                    <span class="ingredient-tag">Farine</span>
+                    <span class="ingredient-tag">Épices</span>
+                    <span class="ingredient-tag">Mangue</span>
+                </div>
+            </div>
+            
+            <div class="menu-item" data-category="entrees">
+                <div class="item-header">
+                    <h3 class="item-name">Bruschetta Italienne</h3>
+                    <span class="item-price">9.800 FCFA</span>
+                </div>
+                <span class="item-origin">Spécialité Italienne</span>
+                <p class="item-description">Pain grillé à l'ail, tomates fraîches, basilic et huile d'olive extra vierge.</p>
+                <div class="item-ingredients">
+                    <span class="ingredient-tag">Pain</span>
+                    <span class="ingredient-tag">Tomates</span>
+                    <span class="ingredient-tag">Basilic</span>
+                    <span class="ingredient-tag">Huile d'olive</span>
+                </div>
+            </div>
+            
+            <!-- Plats Principaux -->
+            <div class="menu-item" data-category="plats">
+                <div class="item-header">
+                    <h3 class="item-name">Poulet DG</h3>
+                    <span class="item-price">14.900 FCFA</span>
+                </div>
+                <span class="item-origin">Spécialité Camerounaise</span>
+                <p class="item-description">Poulet sauté avec des légumes frais, plantains et une sauce riche aux épices.</p>
+                <div class="item-ingredients">
+                    <span class="ingredient-tag">Poulet</span>
+                    <span class="ingredient-tag">Plantains</span>
+                    <span class="ingredient-tag">Légumes</span>
+                    <span class="ingredient-tag">Épices</span>
+                </div>
+            </div>
+            
+            <div class="menu-item" data-category="plats">
+                <div class="item-header">
+                    <h3 class="item-name">Risotto aux Champignons</h3>
+                    <span class="item-price">16.500 FCFA</span>
+                </div>
+                <span class="item-origin">Spécialité Italienne</span>
+                <p class="item-description">Risotto crémeux aux cèpes et truffe noire, parmesan reggiano.</p>
+                <div class="item-ingredients">
+                    <span class="ingredient-tag">Riz Arborio</span>
+                    <span class="ingredient-tag">Cèpes</span>
+                    <span class="ingredient-tag">Truffe</span>
+                    <span class="ingredient-tag">Parmesan</span>
+                </div>
+            </div>
+            
+            <!-- Desserts -->
+            <div class="menu-item" data-category="desserts">
+                <div class="item-header">
+                    <h3 class="item-name">Glace Baobab</h3>
+                    <span class="item-price">6.500 FCFA</span>
+                </div>
+                <span class="item-origin">Création KONOHA</span>
+                <p class="item-description">Glace artisanale à la pulpe de baobab, accompagnée de fruits secs locaux.</p>
+                <div class="item-ingredients">
+                    <span class="ingredient-tag">Baobab</span>
+                    <span class="ingredient-tag">Lait de coco</span>
+                    <span class="ingredient-tag">Fruits secs</span>
+                    <span class="ingredient-tag">Miel</span>
+                </div>
+            </div>
+            
+            <div class="menu-item" data-category="desserts">
+                <div class="item-header">
+                    <h3 class="item-name">Tiramisu</h3>
+                    <span class="item-price">8.000 FCFA</span>
+                </div>
+                <span class="item-origin">Spécialité Italienne</span>
+                <p class="item-description">Classique italien revisité avec du café d'Éthiopie et cacao ghanéen.</p>
+                <div class="item-ingredients">
+                    <span class="ingredient-tag">Mascarpone</span>
+                    <span class="ingredient-tag">Café</span>
+                    <span class="ingredient-tag">Cacao</span>
+                    <span class="ingredient-tag">Biscuits</span>
+                </div>
+            </div>
+            
+            <!-- Boissons -->
+            <div class="menu-item" data-category="boissons">
+                <div class="item-header">
+                    <h3 class="item-name">Cocktail Djolof</h3>
+                    <span class="item-price">8.000 FCFA</span>
+                </div>
+                <span class="item-origin">Création KONOHA</span>
+                <p class="item-description">Mélange de jus de bissap, gingembre frais et une touche de piment.</p>
+                <div class="item-ingredients">
+                    <span class="ingredient-tag">Bissap</span>
+                    <span class="ingredient-tag">Gingembre</span>
+                    <span class="ingredient-tag">Citron vert</span>
+                    <span class="ingredient-tag">Piment</span>
+                </div>
+            </div>
+            
+            <div class="menu-item" data-category="boissons">
+                <div class="item-header">
+                    <h3 class="item-name">Vin Rouge d'Afrique du Sud</h3>
+                    <span class="item-price">12.000 FCFA</span>
+                </div>
+                <span class="item-origin">Afrique du Sud</span>
+                <p class="item-description">Pinotage 2018, arômes de fruits rouges et épices douces.</p>
+                <div class="item-ingredients">
+                    <span class="ingredient-tag">Pinotage</span>
+                    <span class="ingredient-tag">Raisins</span>
+                </div>
+            </div>
+            
+            <!-- Spécialités -->
+            <div class="menu-item" data-category="specialites">
+                <div class="item-header">
+                    <h3 class="item-name">Fufu & Sauce Gombo</h3>
+                    <span class="item-price">11.500 FCFA</span>
+                </div>
+                <span class="item-origin">Spécialité Togolaise</span>
+                <p class="item-description">Fufu maison accompagné de sauce gombo frais et viande au choix.</p>
+                <div class="item-ingredients">
+                    <span class="ingredient-tag">Fufu</span>
+                    <span class="ingredient-tag">Gombo</span>
+                    <span class="ingredient-tag">Viande</span>
+                    <span class="ingredient-tag">Épices</span>
+                </div>
+            </div>
+            
+            <div class="menu-item" data-category="specialites">
+                <div class="item-header">
+                    <h3 class="item-name">Plat Végétarien Aboudjan</h3>
+                    <span class="item-price">13.500 FCFA</span>
+                </div>
+                <span class="item-origin">Spécialité Ivoirienne</span>
+                <p class="item-description">Mélange de légumes locaux, tofu fumé et sauce arachide.</p>
+                <div class="item-ingredients">
+                    <span class="ingredient-tag">Légumes</span>
+                    <span class="ingredient-tag">Tofu</span>
+                    <span class="ingredient-tag">Arachide</span>
+                    <span class="ingredient-tag">Épices</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Ice Cream Special -->
+    <section class="ice-cream-special">
+        <div class="special-content">
+            <div class="special-image"></div>
+            <div class="special-text">
+                <h2 class="special-title">GLACERIE ARTISANALE</h2>
+                <p class="item-description">Nos glaces sont préparées quotidiennement avec des ingrédients locaux d'exception. Découvrez nos parfums uniques qui changent au rythme des saisons et des inspirations de nos chefs.</p>
+                <p class="item-description">Cette semaine, ne manquez pas notre spécialité "Dakar by Night" - un mélange de mangue, fruit de la passion et une touche de noix de kola pour l'énergie.</p>
+                <div class="item-ingredients">
+                    <span class="ingredient-tag">Produits locaux</span>
+                    <span class="ingredient-tag">Fait maison</span>
+                    <span class="ingredient-tag">Parfums uniques</span>
+                    <span class="ingredient-tag">Végétalien option</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Reservation -->
+    <section class="reservation">
+        <h2 class="section-title">Réservez Votre Table</h2>
+        <p class="reservation-text">
+            Prêt pour une expérience culinaire inoubliable ? Réservez dès maintenant votre table et laissez-nous prendre soin de vous. Que ce soit pour un dîner romantique, une réunion d'affaires ou une célébration spéciale, notre équipe s'engage à rendre votre visite exceptionnelle.
+        </p>
+        <button class="book-btn" id="openReservationModal">Réserver Maintenant</button>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="restaurant-footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>Navigation</h3>
+                <div class="footer-links">
+                    <a href="index.html" class="footer-link">Accueil</a>
+                    <a href="restaurant.html" class="footer-link">Restaurant</a>
+                    <a href="a-propos.html" class="footer-link">A Propos</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Services</h3>
+                <div class="footer-links">
+                    <a href="boutique-mode.html" class="footer-link">Boutique Mode</a>
+                    <a href="salon-coiffure.html" class="footer-link">Salon de Coiffure</a>
+                    <a href="salon-beaute.html" class="footer-link">Salon de Beauté</a>
+                    <a href="mojo-black.html" class="footer-link">MOJO BLACK</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Plus</h3>
+                <div class="footer-links">
+                    <a href="formations.html" class="footer-link">Formations</a>
+                    <a href="portfolio.html" class="footer-link">Atelier Photo</a>
+                    <a href="menuiserie.html" class="footer-link">Menuiserie</a>
+                    <a href="boutique-bienetre.html" class="footer-link">Boutique Bien-être</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <div class="footer-links">
+                    <a href="tel:+22912345678" class="footer-link">+229 12 34 56 78</a>
+                    <a href="mailto:restaurant@konoha.bj" class="footer-link">restaurant@konoha.bj</a>
+                    <a href="restaurant.html#reservation" class="footer-link">Formulaire de Contact</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-snapchat"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+        </div>
+        
+        <p class="copyright">© 2023 KONOHA Restaurant. Tous droits réservés.</p>
+    </footer>
+    
+    <!-- Reservation Modal -->
+    <div class="modal" id="reservationModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Réservation</h3>
+            <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="reservationForm">
+                <div class="form-group">
+                    <label for="reservation-name" class="form-label">Votre nom complet</label>
+                    <input type="text" id="reservation-name" name="name" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reservation-email" class="form-label">Votre email</label>
+                    <input type="email" id="reservation-email" name="email" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reservation-phone" class="form-label">Téléphone</label>
+                    <input type="tel" id="reservation-phone" name="phone" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reservation-date" class="form-label">Date</label>
+                    <input type="date" id="reservation-date" name="date" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reservation-time" class="form-label">Heure</label>
+                    <input type="time" id="reservation-time" name="time" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reservation-guests" class="form-label">Nombre de personnes</label>
+                    <select id="reservation-guests" name="guests" class="form-input" required>
+                        <option value="1">1 personne</option>
+                        <option value="2">2 personnes</option>
+                        <option value="3">3 personnes</option>
+                        <option value="4">4 personnes</option>
+                        <option value="5">5 personnes</option>
+                        <option value="6+">6+ personnes</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reservation-notes" class="form-label">Demandes spéciales (allergies, occasion, etc.)</label>
+                    <textarea id="reservation-notes" name="notes" class="form-input"></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Confirmer la Réservation</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        Merci pour votre réservation ! Nous vous contacterons pour confirmation.
+    </div>
+    
+    <script>
+        // Menu filtering
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const menuItems = document.querySelectorAll('.menu-item');
+        
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const category = btn.getAttribute('data-category');
+                
+                // Show/hide menu items based on category
+                menuItems.forEach(item => {
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Initialize - show only entrees
+        document.querySelector('.category-btn[data-category="entrees"]').click();
+        
+        // Modal functionality
+        const reservationModal = document.getElementById('reservationModal');
+        const openModalBtn = document.getElementById('openReservationModal');
+        const closeModal = document.querySelector('.close-modal');
+        const notification = document.getElementById('notification');
+        
+        openModalBtn.addEventListener('click', () => {
+            reservationModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeModal.addEventListener('click', () => {
+            reservationModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === reservationModal) {
+                reservationModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Form submission
+        const reservationForm = document.getElementById('reservationForm');
+        reservationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Here you would normally send the form data to Formspree
+            // For demo, we'll just show the notification
+            
+            reservationModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            
+            // Show notification
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+            
+            // Reset form
+            reservationForm.reset();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="konoha-parfum">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Parfumerie KONOHA - L'art du parfum sur mesure</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B5A2B; /* Ambre profond */
+            --secondary: #E6D5B8; /* Crème doré */
+            --dark: #1A120B; /* Noir chocolat */
+            --light: #F5F5F0; /* Blanc ivoire */
+            --accent: #7A4E27; /* Cuir vieilli */
+            --font-title: 'Playfair Display', serif;
+            --font-body: 'Raleway', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Video Background Parfum */
+        .parfum-video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.3;
+        }
+        
+        .parfum-video-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Overlay Parfum */
+        .parfum-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(26,18,11,0.2) 0%, rgba(26,18,11,0.8) 100%);
+            z-index: -1;
+        }
+        
+        /* Navigation Holographique */
+        .holographic-nav {
+            position: fixed;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .nav-item {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-item:hover {
+            transform: scale(1.2);
+            background: var(--primary);
+        }
+        
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-item:hover::before {
+            opacity: 0.3;
+        }
+        
+        .nav-item i {
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        /* Fleurs Animées */
+        .floating-flower {
+            position: absolute;
+            opacity: 0.7;
+            z-index: -1;
+            animation: floatFlower linear infinite;
+        }
+        
+        @keyframes floatFlower {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+            }
+        }
+        
+        /* Hero Section Parfum */
+        .parfum-hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .parfum-title {
+            font-family: var(--font-title);
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(139, 90, 43, 0.5);
+        }
+        
+        .parfum-subtitle {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            color: rgba(245, 245, 240, 0.9);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--primary);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            margin-top: 2rem;
+            text-decoration: none;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            color: var(--dark);
+            background: var(--primary);
+        }
+        
+        .parfum-scroll {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--secondary);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .parfum-scroll::after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 50px;
+            background: var(--secondary);
+            margin-top: 1rem;
+            animation: scrollPulse 2s infinite;
+        }
+        
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        /* Collection Section */
+        .parfum-collection {
+            padding: 8rem 10%;
+            background: rgba(26, 18, 11, 0.7);
+            backdrop-filter: blur(5px);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+        
+        .section-title {
+            font-family: var(--font-title);
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+        }
+        
+        .section-subtitle {
+            font-size: 1rem;
+            color: rgba(230, 213, 184, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        
+        .collection-slider {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 2rem;
+        }
+        
+        .collection-slider::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .collection-slider::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .collection-slider::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+        
+        .parfum-card {
+            background: rgba(122, 78, 39, 0.1);
+            border: 1px solid rgba(139, 90, 43, 0.3);
+            padding: 2rem;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            scroll-snap-align: start;
+        }
+        
+        .parfum-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(139,90,43,0.1) 0%, rgba(0,0,0,0) 50%);
+            z-index: -1;
+        }
+        
+        .parfum-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(139, 90, 43, 0.2);
+            border-color: var(--primary);
+        }
+        
+        .parfum-image {
+            width: 100%;
+            height: 200px;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin-bottom: 1.5rem;
+            transition: all 0.5s ease;
+        }
+        
+        .parfum-card:hover .parfum-image {
+            transform: scale(1.05);
+        }
+        
+        .parfum-name {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .parfum-origin {
+            font-size: 0.8rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+        
+        .parfum-description {
+            font-size: 0.9rem;
+            color: rgba(230, 213, 184, 0.7);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .parfum-notes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .note-tag {
+            background: rgba(139, 90, 43, 0.3);
+            color: var(--secondary);
+            padding: 0.3rem 0.8rem;
+            font-size: 0.7rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .parfum-price {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .parfum-btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            color: var(--secondary);
+            border: 1px solid var(--secondary);
+            font-family: var(--font-body);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .parfum-btn:hover {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+        
+        /* Exclusivité Section */
+        .exclusivity-section {
+            padding: 8rem 10%;
+            background: rgba(26, 18, 11, 0.9);
+        }
+        
+        .exclusivity-slider {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 2rem;
+        }
+        
+        .exclusivity-slider::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .exclusivity-slider::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .exclusivity-slider::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+        
+        .exclusive-card {
+            background: rgba(122, 78, 39, 0.1);
+            border: 1px solid rgba(139, 90, 43, 0.3);
+            padding: 2rem;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            scroll-snap-align: start;
+        }
+        
+        .exclusive-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(139,90,43,0.1) 0%, rgba(0,0,0,0) 50%);
+            z-index: -1;
+        }
+        
+        .exclusive-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(139, 90, 43, 0.2);
+            border-color: var(--primary);
+        }
+        
+        .exclusive-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary);
+            color: var(--dark);
+            padding: 0.3rem 0.8rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Conseil Section */
+        .advice-section {
+            padding: 8rem 10%;
+            background: linear-gradient(to bottom, rgba(26,18,11,0.9) 0%, rgba(26,18,11,1) 100%);
+            text-align: center;
+        }
+        
+        .advice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 5rem;
+        }
+        
+        .advice-card {
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .advice-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 1px solid rgba(139, 90, 43, 0.3);
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+        
+        .advice-card:hover::before {
+            border-color: var(--primary);
+            transform: rotate(2deg);
+        }
+        
+        .advice-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .advice-card h3 {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .advice-card p {
+            font-size: 0.9rem;
+            color: rgba(230, 213, 184, 0.7);
+            line-height: 1.6;
+        }
+        
+        /* Call Button */
+        .call-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: var(--dark);
+            padding: 1rem 1.5rem;
+            border-radius: 5px;
+            font-family: var(--font-body);
+            text-decoration: none;
+            margin-top: 3rem;
+            transition: all 0.3s ease;
+        }
+        
+        .call-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(139, 90, 43, 0.4);
+        }
+        
+        /* Footer */
+        .parfum-footer {
+            background: #1A120B;
+            padding: 5rem 10% 3rem;
+            border-top: 1px solid rgba(139, 90, 43, 0.3);
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-column h3 {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .footer-link {
+            color: rgba(230, 213, 184, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(139, 90, 43, 0.3);
+        }
+        
+        .footer-logo {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(230, 213, 184, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--secondary);
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            color: rgba(230, 213, 184, 0.5);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .parfum-title {
+                font-size: 4rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .parfum-title {
+                font-size: 3rem;
+            }
+            
+            .parfum-subtitle {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .holographic-nav {
+                right: 1rem;
+            }
+            
+            .nav-item {
+                width: 40px;
+                height: 40px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .parfum-hero, .parfum-collection, .exclusivity-section, .advice-section {
+                padding: 5rem 5%;
+            }
+            
+            .parfum-title {
+                font-size: 2.5rem;
+            }
+        }
+
+
+
+    /* Pyramid Section */
+    .pyramid-section {
+        padding: 8rem 10%;
+        background: rgba(26, 18, 11, 0.9);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .pyramid-container {
+        display: flex;
+        align-items: center;
+        gap: 5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .pyramid-visual {
+        flex: 1;
+        min-height: 400px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .pyramid {
+        width: 300px;
+        height: 300px;
+        position: relative;
+    }
+    
+    .pyramid-layer {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        transition: all 0.5s ease;
+        opacity: 0.8;
+        color: var(--secondary);
+        font-family: var(--font-title);
+    }
+    
+    .pyramid-layer.active {
+        opacity: 1;
+        transform: scale(1.05);
+        color: var(--primary);
+    }
+    
+    .pyramid-layer.top {
+        top: 0;
+        font-size: 1.5rem;
+    }
+    
+    .pyramid-layer.middle {
+        top: 40%;
+        font-size: 2rem;
+    }
+    
+    .pyramid-layer.base {
+        bottom: 0;
+        font-size: 2.2rem;
+    }
+    
+    .pyramid-content {
+        flex: 1;
+    }
+    
+    .pyramid-selector {
+        display: flex;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid rgba(139, 90, 43, 0.3);
+    }
+    
+    .pyramid-tab {
+        padding: 1rem 1.5rem;
+        cursor: pointer;
+        color: rgba(230, 213, 184, 0.5);
+        position: relative;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-family: var(--font-body);
+    }
+    
+    .pyramid-tab.active {
+        color: var(--secondary);
+    }
+    
+    .pyramid-tab.active::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--primary);
+    }
+    
+    .pyramid-details {
+        display: none;
+    }
+    
+    .pyramid-details.active {
+        display: block;
+    }
+    
+    .pyramid-details h3 {
+        font-family: var(--font-title);
+        font-size: 1.8rem;
+        color: var(--secondary);
+        margin-bottom: 1.5rem;
+    }
+    
+    .pyramid-details p {
+        font-size: 1rem;
+        color: rgba(230, 213, 184, 0.7);
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+    }
+    
+    .note-list {
+        margin: 1.5rem 0;
+        padding-left: 1.5rem;
+        color: rgba(230, 213, 184, 0.7);
+    }
+    
+    .note-list li {
+        margin-bottom: 0.5rem;
+        position: relative;
+    }
+    
+    .note-list li::before {
+        content: '•';
+        color: var(--primary);
+        position: absolute;
+        left: -1rem;
+    }
+    
+    .pyramid-cta {
+        max-width: 800px;
+        margin: 3rem auto 0;
+        text-align: center;
+    }
+    
+    .pyramid-cta p {
+        font-size: 1.1rem;
+        color: rgba(230, 213, 184, 0.8);
+        line-height: 1.8;
+        margin-bottom: 2rem;
+    }
+    
+    @media (max-width: 1024px) {
+        .pyramid-container {
+            flex-direction: column;
+            gap: 3rem;
+        }
+        
+        .pyramid-visual {
+            min-height: 300px;
+        }
+        
+        .pyramid-selector {
+            justify-content: center;
+        }
+    }
+
+        @media (max-width: 768px) {
+        .pyramid-section {
+            padding: 5rem 5%;
+        }
+        
+        .pyramid-layer.top {
+            font-size: 1.2rem !important;
+        }
+        
+        .pyramid-layer.middle {
+            font-size: 1.5rem !important;
+        }
+        
+        .pyramid-layer.base {
+            font-size: 1.7rem !important;
+        }
+        
+        .pyramid-details h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .pyramid-details p,
+        .pyramid-details li {
+            font-size: 0.9rem;
+        }
+        
+        .pyramid-tab {
+            padding: 0.8rem 1rem;
+            font-size: 0.8rem;
+        }
+        
+        .pyramid-cta p {
+            font-size: 1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .pyramid-container {
+            gap: 2rem;
+        }
+        
+        .pyramid {
+            width: 250px;
+            height: 250px;
+        }
+        
+        .pyramid-selector {
+            flex-direction: column;
+            border-bottom: none;
+            gap: 0.5rem;
+        }
+        
+        .pyramid-tab {
+            border-bottom: 1px solid rgba(139, 90, 43, 0.3);
+            padding: 0.8rem 0;
+        }
+        
+        .pyramid-tab.active::after {
+            display: none;
+        }
+        
+        .pyramid-tab.active {
+            color: var(--primary);
+        }
+        
+        .note-list {
+            margin: 1rem 0;
+            padding-left: 1rem;
+        }
+    }
+
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="parfum-video-bg">
+        <video autoplay muted loop>
+            <source src="assets/videos/parfum-background.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la vidéo.
+        </video>
+    </div>
+    
+    <div class="parfum-overlay"></div>
+    
+    <!-- Fleurs Animées -->
+    <div id="floating-flowers"></div>
+    
+    <!-- Navigation Holographique -->
+<nav class="holographic-nav">
+    <div class="nav-item" data-section="hero">
+        <i class="fas fa-home"></i>
+    </div>
+    <div class="nav-item" data-section="collection">
+        <i class="fas fa-spray-can"></i>
+    </div>
+    <div class="nav-item" data-section="exclusivite">
+        <i class="fas fa-crown"></i>
+    </div>
+    <div class="nav-item" data-section="pyramide">
+        <i class="fas fa-chart-pie"></i>
+    </div>
+    <div class="nav-item" data-section="conseils">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+    <div class="nav-item" data-section="contact">
+        <i class="fas fa-phone"></i>
+    </div>
+</nav>
+    
+    <!-- Hero Section -->
+    <section class="parfum-hero">
+        <h1 class="parfum-title">L'Art du Parfum</h1>
+        <p class="parfum-subtitle">Découvrez notre sélection exclusive des plus belles fragrances internationales, accompagnées par nos experts en olfaction pour trouver le parfum qui vous ressemble.</p>
+        <a href="tel:+22912345678" class="cta-button">Prendre rendez-vous</a>
+        <div class="parfum-scroll">Explorer</div>
+    </section>
+    
+    <!-- Collection Section -->
+    <section class="parfum-collection" id="collection">
+        <div class="section-header">
+            <h2 class="section-title">Notre Sélection</h2>
+            <p class="section-subtitle">Une curation experte des plus belles fragrances internationales, des classiques intemporels aux créations niche les plus exclusives.</p>
+        </div>
+        
+        <div class="collection-slider">
+            <div class="parfum-card">
+                <div class="parfum-image" style="background-image: url('https://images.unsplash.com/photo-1594035910387-fea47794261f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80');"></div>
+                <h3 class="parfum-name">Santal 33</h3>
+                <p class="parfum-origin">Le Labo - New York</p>
+                <p class="parfum-description">Un iconique moderne alliant le santal australien, des notes boisées et une touche de violette pour une fragrance androgyne et envoûtante.</p>
+                <div class="parfum-notes">
+                    <span class="note-tag">Santal</span>
+                    <span class="note-tag">Cardamome</span>
+                    <span class="note-tag">Violette</span>
+                    <span class="note-tag">Cuir</span>
+                </div>
+                <p class="parfum-price">95.000 FCFA</p>
+                <a href="#" class="parfum-btn">Découvrir</a>
+            </div>
+            
+            <div class="parfum-card">
+                <div class="parfum-image" style="background-image: url('https://images.unsplash.com/photo-1615228939092-c6c31aa6e52a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80');"></div>
+                <h3 class="parfum-name">Baccarat Rouge 540</h3>
+                <p class="parfum-origin">Maison Francis Kurkdjian - Paris</p>
+                <p class="parfum-description">Une alchimie entre l'ambre et le safran, relevée par des notes de jasmin et de bois d'amande pour une fragrance lumineuse et sophistiquée.</p>
+                <div class="parfum-notes">
+                    <span class="note-tag">Ambre</span>
+                    <span class="note-tag">Safran</span>
+                    <span class="note-tag">Jasmin</span>
+                    <span class="note-tag">Bois d'amande</span>
+                </div>
+                <p class="parfum-price">120.000 FCFA</p>
+                <a href="#" class="parfum-btn">Découvrir</a>
+            </div>
+            
+            <div class="parfum-card">
+                <div class="parfum-image" style="background-image: url('https://images.unsplash.com/photo-1615368144592-6a8d1f8201f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80');"></div>
+                <h3 class="parfum-name">Terre d'Hermès</h3>
+                <p class="parfum-origin">Hermès - Paris</p>
+                <p class="parfum-description">Une ode à la terre, alliant les agrumes vibrants aux notes minérales et boisées pour une fragrance virile et racée.</p>
+                <div class="parfum-notes">
+                    <span class="note-tag">Pamplemousse</span>
+                    <span class="note-tag">Poivre</span>
+                    <span class="note-tag">Vétiver</span>
+                    <span class="note-tag">Cèdre</span>
+                </div>
+                <p class="parfum-price">85.000 FCFA</p>
+                <a href="#" class="parfum-btn">Découvrir</a>
+            </div>
+            
+            <div class="parfum-card">
+                <div class="parfum-image" style="background-image: url('https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80');"></div>
+                <h3 class="parfum-name">Black Orchid</h3>
+                <p class="parfum-origin">Tom Ford - New York</p>
+                <p class="parfum-description">Une fragrance mystérieuse et sensuelle autour de l'orchidée noire, avec des accents de truffe noire et de bois précieux.</p>
+                <div class="parfum-notes">
+                    <span class="note-tag">Orchidée</span>
+                    <span class="note-tag">Truffe</span>
+                    <span class="note-tag">Patchouli</span>
+                    <span class="note-tag">Vanille</span>
+                </div>
+                <p class="parfum-price">110.000 FCFA</p>
+                <a href="#" class="parfum-btn">Découvrir</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Exclusivité Section -->
+    <section class="exclusivity-section" id="exclusivite">
+        <div class="section-header">
+            <h2 class="section-title">Exclusivités</h2>
+            <p class="section-subtitle">Des éditions limitées et des créations rares que vous ne trouverez nulle part ailleurs dans la région.</p>
+        </div>
+        
+        <div class="exclusivity-slider">
+            <div class="exclusive-card">
+                <div class="exclusive-badge">Édition Limitée</div>
+                <div class="parfum-image" style="background-image: url('https://images.unsplash.com/photo-1594035910387-fea47794261f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80');"></div>
+                <h3 class="parfum-name">Oud Wood</h3>
+                <p class="parfum-origin">Tom Ford Private Blend</p>
+                <p class="parfum-description">Un oud rare du Moyen-Orient combiné à des notes épicées et boisées pour une fragrance riche et envoûtante.</p>
+                <div class="parfum-notes">
+                    <span class="note-tag">Oud</span>
+                    <span class="note-tag">Cardamome</span>
+                    <span class="note-tag">Rose</span>
+                    <span class="note-tag">Bois de santal</span>
+                </div>
+                <p class="parfum-price">150.000 FCFA</p>
+                <a href="#" class="parfum-btn">En savoir plus</a>
+            </div>
+            
+            <div class="exclusive-card">
+                <div class="exclusive-badge">Exclusif</div>
+                <div class="parfum-image" style="background-image: url('https://images.unsplash.com/photo-1615228939092-c6c31aa6e52a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80');"></div>
+                <h3 class="parfum-name">Grand Soir</h3>
+                <p class="parfum-origin">Maison Francis Kurkdjian</p>
+                <p class="parfum-description">Une fragrance ambrée et vanillée d'une grande élégance, inspirée par les nuits parisiennes.</p>
+                <div class="parfum-notes">
+                    <span class="note-tag">Ambre</span>
+                    <span class="note-tag">Vanille</span>
+                    <span class="note-tag">Benjoin</span>
+                    <span class="note-tag">Tonka</span>
+                </div>
+                <p class="parfum-price">135.000 FCFA</p>
+                <a href="#" class="parfum-btn">En savoir plus</a>
+            </div>
+            
+            <div class="exclusive-card">
+                <div class="exclusive-badge">Nouveauté</div>
+                <div class="parfum-image" style="background-image: url('https://images.unsplash.com/photo-1615368144592-6a8d1f8201f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80');"></div>
+                <h3 class="parfum-name">Gris Dior</h3>
+                <p class="parfum-origin">Dior Privée</p>
+                <p class="parfum-description">Une interprétation moderne du cuir, alliant iris et notes musquées pour une élégance intemporelle.</p>
+                <div class="parfum-notes">
+                    <span class="note-tag">Iris</span>
+                    <span class="note-tag">Cuir</span>
+                    <span class="note-tag">Musc</span>
+                    <span class="note-tag">Vétiver</span>
+                </div>
+                <p class="parfum-price">125.000 FCFA</p>
+                <a href="#" class="parfum-btn">En savoir plus</a>
+            </div>
+        </div>
+    </section>
+
+
+<!-- Pyramide Olfactive Section -->
+<section class="pyramid-section" id="pyramide">
+    <div class="section-header">
+        <h2 class="section-title">Guide Olfactif</h2>
+        <p class="section-subtitle">Apprenez à décrypter les parfums comme un expert grâce à notre pyramide olfactive interactive</p>
+    </div>
+    
+    <div class="pyramid-container">
+        <div class="pyramid-visual">
+            <div class="pyramid">
+                <div class="pyramid-layer top active">Notes de Tête</div>
+                <div class="pyramid-layer middle">Notes de Cœur</div>
+                <div class="pyramid-layer base">Notes de Fond</div>
+            </div>
+        </div>
+        
+        <div class="pyramid-content">
+            <div class="pyramid-selector">
+                <div class="pyramid-tab active" data-layer="top">Premières Impressions</div>
+                <div class="pyramid-tab" data-layer="middle">Caractère</div>
+                <div class="pyramid-tab" data-layer="base">Signature</div>
+            </div>
+            
+            <div class="pyramid-details active" id="top-details">
+                <h3>Les Notes de Tête</h3>
+                <p>Ces notes volatiles créent la première impression d'un parfum. Nous vous conseillerons pour identifier celles qui vous séduisent immédiatement :</p>
+                <ul class="note-list">
+                    <li>Agrumes (bergamote, citron, pamplemousse)</li>
+                    <li>Fruits (poire, cassis, litchi)</li>
+                    <li>Herbes aromatiques (lavande, romarin)</li>
+                </ul>
+                <p>Exemple de parfums avec de belles notes de tête : <em>Dior Sauvage</em>, <em>Chanel Chance Eau Fraîche</em></p>
+            </div>
+            
+            <div class="pyramid-details" id="middle-details">
+                <h3>Les Notes de Cœur</h3>
+                <p>Elles constituent l'âme du parfum et apparaissent après 10-30 minutes. Nos experts vous aideront à trouver celles qui résonnent avec votre personnalité :</p>
+                <ul class="note-list">
+                    <li>Fleurs (jasmin, rose, tubéreuse)</li>
+                    <li>Épices (cardamome, cannelle, safran)</li>
+                    <li>Fruits mûrs (pêche, prune, figue)</li>
+                </ul>
+                <p>Exemple de parfums avec un cœur remarquable : <em>Jo Malone Peony & Blush Suede</em>, <em>Tom Ford Noir pour Femme</em></p>
+            </div>
+            
+            <div class="pyramid-details" id="base-details">
+                <h3>Les Notes de Fond</h3>
+                <p>Elles persistent jusqu'à 24h et créent la signature mémorable. Nous sélectionnons pour vous les plus belles bases :</p>
+                <ul class="note-list">
+                    <li>Bois (santal, cèdre, vétiver)</li>
+                    <li>Ambrés (vanille, tonka, labdanum)</li>
+                    <li>Mousses et cuirs</li>
+                </ul>
+                <p>Exemple de parfums avec une base exceptionnelle : <em>Maison Francis Kurkdjian Baccarat Rouge 540</em>, <em>Le Labo Santal 33</em></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="pyramid-cta">
+        <p>Nos conseillers sont formés pour vous guider dans la compréhension de cette pyramide et trouver les parfums qui correspondent à vos préférences olfactives.</p>
+        <a href="tel:+22912345678" class="call-button">
+            <i class="fas fa-phone"></i> Contacter un expert
+        </a>
+    </div>
+</section>
+
+    
+    <!-- Conseil Section -->
+    <section class="advice-section" id="conseils">
+        <div class="section-header">
+            <h2 class="section-title">Conseil Expert</h2>
+            <p class="section-subtitle">Nos parfumeurs-conseils vous guident pour trouver la fragrance qui vous correspond.</p>
+        </div>
+        
+        <div class="advice-grid">
+            <div class="advice-card">
+                <div class="advice-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <h3>Consultation Personnalisée</h3>
+                <p>Un entretien approfondi pour comprendre votre personnalité, vos goûts et vos habitudes afin de vous recommander les fragrances les plus adaptées.</p>
+            </div>
+            
+            <div class="advice-card">
+                <div class="advice-icon">
+                    <i class="fas fa-spa"></i>
+                </div>
+                <h3>Découverte Olfactive</h3>
+                <p>Apprenez à reconnaître les différentes familles olfactives et à identifier les notes qui vous séduisent le plus.</p>
+            </div>
+            
+            <div class="advice-card">
+                <div class="advice-icon">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <h3>Conseil pour Offrir</h3>
+                <p>Nos experts vous aident à choisir le parfum idéal pour vos proches, même en leur absence.</p>
+            </div>
+        </div>
+        
+        <a href="tel:+22912345678" class="call-button">
+            <i class="fas fa-phone"></i> Prendre rendez-vous
+        </a>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="parfum-footer" id="contact">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>KONOHA</h3>
+                <div class="footer-links">
+                    <a href="index.html" class="footer-link">Accueil</a>
+                    <a href="a-propos.html" class="footer-link">À propos</a>
+                    <a href="blog.html" class="footer-link">Blog</a>
+                    <a href="formations.html" class="footer-link">Formations</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Mode & Style</h3>
+                <div class="footer-links">
+                    <a href="boutique-mode.html" class="footer-link">Boutique Mode</a>
+                    <a href="mojo-black.html" class="footer-link">MOJO BLACK</a>
+                    <a href="atelier-styliste.html" class="footer-link">Atelier Styliste</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Beauté & Soins</h3>
+                <div class="footer-links">
+                    <a href="salon-coiffure.html" class="footer-link">Salon de Coiffure</a>
+                    <a href="salon-beaute.html" class="footer-link">Salon de Beauté</a>
+                    <a href="parfumerie.html" class="footer-link">Parfumerie</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Lifestyle</h3>
+                <div class="footer-links">
+                    <a href="restaurant.html" class="footer-link">Restaurant-Glacier</a>
+                    <a href="menuiserie.html" class="footer-link">Menuiserie Moderne</a>
+                    <a href="atelier-photo.html" class="footer-link">Atelier Photo</a>
+                    <a href="librairie.html" class="footer-link">La Librairie</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-logo">KONOHA</div>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <p class="copyright">© 2023 KONOHA. Tous droits réservés.<br>123 Rue des Artisans, Cotonou, Bénin</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Fleurs Animées
+        const flowerIcons = ['🌸', '🌺', '🌼', '🏵️', '🌹', '🌻', '🌷'];
+        const flowersContainer = document.getElementById('floating-flowers');
+        
+        for (let i = 0; i < 15; i++) {
+            const flower = document.createElement('div');
+            flower.className = 'floating-flower';
+            flower.innerHTML = flowerIcons[Math.floor(Math.random() * flowerIcons.length)];
+            
+            // Position aléatoire
+            flower.style.left = `${Math.random() * 100}vw`;
+            flower.style.bottom = `-50px`;
+            
+            // Animation aléatoire
+            const duration = 20 + Math.random() * 30;
+            const delay = Math.random() * 15;
+            const size = 0.5 + Math.random() * 1.5;
+            
+            flower.style.fontSize = `${size}rem`;
+            flower.style.animationDuration = `${duration}s`;
+            flower.style.animationDelay = `${delay}s`;
+            
+            flowersContainer.appendChild(flower);
+        }
+        
+        // Navigation Holographique
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                document.getElementById(sectionId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Animation au scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.parfum-card, .exclusive-card, .advice-card').forEach(element => {
+            observer.observe(element);
+        });
+
+
+
+    // Pyramid Tabs
+    const pyramidTabs = document.querySelectorAll('.pyramid-tab');
+    const pyramidLayers = document.querySelectorAll('.pyramid-layer');
+    
+    pyramidTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const layer = this.getAttribute('data-layer');
+            
+            // Update tabs
+            pyramidTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Update pyramid visual
+            pyramidLayers.forEach(l => l.classList.remove('active'));
+            document.querySelector(`.pyramid-layer.${layer}`).classList.add('active');
+            
+            // Update content
+            document.querySelectorAll('.pyramid-details').forEach(d => d.classList.remove('active'));
+            document.getElementById(`${layer}-details`).classList.add('active');
+        });
+    });
+
+    </script>
+</body>
+</html>

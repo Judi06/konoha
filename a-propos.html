@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="konoha">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>À Propos - KONOHA | L'écosystème mode & lifestyle</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d00;
+            --secondary: #00ff88;
+            --dark: #0a0a0a;
+            --light: #f0f0f0;
+            --accent: #8a2be2;
+            --font-title: 'Archivo Black', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Header */
+        .header {
+            padding: 2rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            background: var(--dark);
+            z-index: 100;
+        }
+        
+        .header-logo {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            color: var(--primary);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero About */
+        .about-hero {
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+            position: relative;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') center/cover;
+        }
+        
+        .about-title {
+            font-family: var(--font-title);
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            line-height: 1;
+        }
+        
+        .about-subtitle {
+            font-size: 1.5rem;
+            max-width: 800px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+        
+        /* Mission Section */
+        .mission {
+            padding: 5rem 10%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .section-title {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background: var(--secondary);
+        }
+        
+        .mission-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .mission-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .mission-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        
+        .mission-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .mission-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Values Section */
+        .values {
+            padding: 5rem 10%;
+            background: linear-gradient(135deg, rgba(138,43,226,0.1) 0%, rgba(10,10,10,1) 100%);
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .value-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 20px rgba(255, 77, 0, 0.2);
+        }
+        
+        .value-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .value-title {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+        
+        .value-description {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Team Section */
+        .team {
+            padding: 5rem 10%;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .member-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .member-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 77, 0, 0.3);
+            border-color: var(--primary);
+        }
+        
+        .member-image {
+            height: 320px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .member-card:hover .member-image img {
+            transform: scale(1.1);
+        }
+        
+        .member-info {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .member-name {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .member-position {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .member-bio {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+        }
+        
+        .member-socials {
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        .member-social {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .member-social:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 3rem 10%;
+            text-align: center;
+            position: relative;
+        }
+        
+        .footer-logo {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .mission-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .mission-image {
+                order: -1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .about-title {
+                font-size: 3rem;
+            }
+            
+            .about-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .nav-menu {
+                display: none; /* Masquer la nav sur mobile */
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1.5rem;
+            }
+            
+            .about-hero {
+                height: auto;
+                padding: 2rem 5%;
+            }
+            
+            .about-title {
+                font-size: 2.5rem;
+            }
+            
+            .mission, .values, .team {
+                padding: 3rem 5%;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .team-members {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <a href="index.html" class="header-logo">KONOHA</a>
+        <nav class="nav-menu">
+            <a href="#histoire" class="nav-link">Notre Histoire</a>
+            <a href="#mission" class="nav-link">Notre Mission</a>
+            <a href="#valeurs" class="nav-link">Nos Valeurs</a>
+            <a href="#equipe" class="nav-link">Notre Équipe</a>
+            <a href="index.html#contact" class="nav-link">Contact</a>
+        </nav>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="about-hero" id="histoire">
+        <h1 class="about-title">Notre Histoire</h1>
+        <p class="about-subtitle">KONOHA est bien plus qu'un simple espace commercial - c'est un écosystème dédié à l'expression de soi, à l'artisanat local et à l'innovation africaine dans le domaine du lifestyle.</p>
+    </section>
+    
+    <!-- Mission Section -->
+    <section class="mission" id="mission">
+        <h2 class="section-title">Notre Mission</h2>
+        <div class="mission-content">
+            <div class="mission-text">
+                <p>Fondé en 2018 à Cotonou, KONOHA est né d'une vision audacieuse : créer un hub où la mode africaine contemporaine, les services de beauté, la librairie spécialisée et l'artisanat local pourraient coexister en parfaite synergie.</p>
+                <p>Notre mission est de redéfinir l'expérience shopping en offrant un environnement où chaque client peut explorer, expérimenter et exprimer son style unique, tout en soutenant les créateurs et artisans locaux.</p>
+                <p>Nous croyons en une mode responsable qui célèbre notre héritage culturel tout en embrassant les innovations modernes. C'est pourquoi MOJO BLACK, notre marque signature, intègre des techniques de recyclage et de redesign dans toutes ses créations.</p>
+                <p>KONOHA n'est pas simplement une destination, c'est une communauté où les talents se rencontrent, où les idées fusionnent, et où la culture béninoise s'exprime à travers des créations uniques.</p>
+            </div>
+            <div class="mission-image">
+                <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Atelier MOJO BLACK">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Values Section -->
+    <section class="values" id="valeurs">
+        <h2 class="section-title">Nos Valeurs</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-africa"></i>
+                </div>
+                <h3 class="value-title">Authenticité Africaine</h3>
+                <p class="value-description">Nous puisons notre inspiration dans le riche patrimoine culturel béninois et africain, tout en le réinterprétant pour le monde moderne.</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-recycle"></i>
+                </div>
+                <h3 class="value-title">Mode Responsable</h3>
+                <p class="value-description">Chez MOJO BLACK, nous transformons les textiles existants en pièces uniques, réduisant ainsi notre impact environnemental.</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <h3 class="value-title">Communauté</h3>
+                <p class="value-description">Nous soutenons et formons les artisans locaux, créant ainsi des opportunités économiques tout en préservant les savoir-faire traditionnels.</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3 class="value-title">Innovation</h3>
+                <p class="value-description">Nous repoussons constamment les limites en fusionnant techniques ancestrales et designs avant-gardistes.</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3 class="value-title">Excellence</h3>
+                <p class="value-description">Chaque service, chaque produit est le résultat d'un engagement sans compromis envers la qualité et l'artisanat.</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3 class="value-title">Bien-être</h3>
+                <p class="value-description">Nous croyons que la mode, la beauté et la culture doivent contribuer à l'épanouissement personnel et à la confiance en soi.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Team Section -->
+    <section class="team" id="equipe">
+        <h2 class="section-title">Notre Équipe</h2>
+        <div class="team-members">
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=761&q=80" alt="Aïcha Diallo">
+                </div>
+                <div class="member-info">
+                    <h3 class="member-name">Aïcha Diallo</h3>
+                    <span class="member-position">Fondatrice & Directrice Créative</span>
+                    <p class="member-bio">Styliste de formation avec 15 ans d'expérience dans la mode africaine contemporaine, Aïcha a créé KONOHA pour rassembler les talents locaux sous un même toit.</p>
+                    <div class="member-socials">
+                        <a href="#" class="member-social"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="member-social"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="member-social"><i class="fab fa-snapchat"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Koffi Mensah">
+                </div>
+                <div class="member-info">
+                    <h3 class="member-name">Koffi Mensah</h3>
+                    <span class="member-position">Directeur MOJO BLACK</span>
+                    <p class="member-bio">Expert en design durable, Koffi supervise notre atelier de stylisme et développe nos collections sur mesure et upcyclées.</p>
+                    <div class="member-socials">
+                        <a href="#" class="member-social"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="member-social"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Fatou N'Diaye">
+                </div>
+                <div class="member-info">
+                    <h3 class="member-name">Fatou N'Diaye</h3>
+                    <span class="member-position">Responsable Beauté & Bien-être</span>
+                    <p class="member-bio">Spécialiste des soins adaptés aux peaux africaines, Fatou a développé nos protocoles uniques de beauté et de bien-être.</p>
+                    <div class="member-socials">
+                        <a href="#" class="member-social"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="member-social"><i class="fab fa-snapchat"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Jean-Luc Adéoti">
+                </div>
+                <div class="member-info">
+                    <h3 class="member-name">Jean-Luc Adéoti</h3>
+                    <span class="member-position">Chef Artisan Menuisier</span>
+                    <p class="member-bio">Maître artisan formé aux techniques traditionnelles béninoises, Jean-Luc crée nos pièces de mobilier uniques qui marient tradition et modernité.</p>
+                    <div class="member-socials">
+                        <a href="#" class="member-social"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">KONOHA</div>
+        <div class="footer-links">
+            <a href="index.html" class="footer-link">Accueil</a>
+            <a href="services.html" class="footer-link">Services</a>
+            <a href="mojo-black.html" class="footer-link">MOJO BLACK</a>
+            <a href="a-propos.html" class="footer-link">À Propos</a>
+            <a href="index.html#contact" class="footer-link">Contact</a>
+            <a href="formations.html" class="footer-link">Formations</a>
+            <a href="blog.html" class="footer-link">Blog</a>
+        </div>
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-snapchat"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <p class="copyright">© 2023 KONOHA. Tous droits réservés. Cotonou, Bénin</p>
+    </footer>
+    
+    <script>
+        // Animation au scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.value-card, .member-card').forEach(card => {
+            observer.observe(card);
+        });
+        
+        // Effet de survol audacieux (uniquement sur desktop)
+        if (!/Mobi|Android/i.test(navigator.userAgent)) {
+            document.querySelectorAll('a, button').forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    const x = Math.random() * 20 - 10;
+                    const y = Math.random() * 20 - 10;
+                    element.style.transform = `translate(${x}px, ${y}px)`;
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    element.style.transform = 'translate(0, 0)';
+                });
+            });
+        }
+        
+        // Navigation fluide
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

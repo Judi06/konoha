@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="konoha">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Collection Femmes | KONOHA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* [Insérer ici tous les styles CSS de collections-hommes.html] */
+        /* Modifier uniquement les éléments spécifiques ci-dessous */
+
+        .collection-hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80') no-repeat center center/cover;
+        }
+
+        .lookbook-grid {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .collection-badge {
+            background: var(--accent);
+        }
+
+        .lookbook-title {
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <a href="index.html" class="header-logo">KONOHA</a>
+        <nav class="header-nav">
+            <a href="index.html" class="header-link">Accueil</a>
+            <a href="boutique-mode.html" class="header-link">Mode</a>
+            <a href="salon-coiffure.html" class="header-link">Coiffure</a>
+            <a href="salon-beaute.html" class="header-link">Beauté</a>
+            <a href="atelier-photo.html" class="header-link">Photographie</a>
+            <a href="mojo-black.html" class="header-link">MOJO BLACK</a>
+        </nav>
+        <a href="https://www.jumia.sn/" target="_blank" class="header-cart">
+            <i class="fas fa-shopping-bag"></i>
+        </a>
+    </header>
+
+    <!-- Hero Collection -->
+    <section class="collection-hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Collection Femmes</h1>
+            <p class="hero-subtitle">Élégance intemporelle et audace moderne pour la femme d'aujourd'hui</p>
+            <a href="#featured" class="hero-cta">Découvrir</a>
+        </div>
+    </section>
+
+    <!-- Robes -->
+    <section class="collection-section" id="featured">
+        <div class="section-header">
+            <h2 class="section-title">Robes</h2>
+            <a href="#" class="view-all">Tout voir <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="collection-slider">
+            <button class="slider-control slider-prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-control slider-next"><i class="fas fa-chevron-right"></i></button>
+            <div class="collection-track">
+                <div class="collection-item">
+                    <span class="collection-badge">Nouveau</span>
+                    <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=686&q=80" alt="Robe longue soirée" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Robe Longue Soirée</h3>
+                        <span class="collection-price">75.000 FCFA</span>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=746&q=80" alt="Robe d'été" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Robe d'Été Fluide</h3>
+                        <span class="collection-price">45.000 FCFA</span>
+                    </div>
+                </div>
+                
+                <!-- Ajouter 2 autres robes -->
+            </div>
+        </div>
+    </section>
+
+<!-- Jupes & Shorts -->
+<section class="collection-section">
+    <div class="section-header">
+        <h2 class="section-title">Jupes & Shorts</h2>
+        <a href="#" class="view-all">Tout voir <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="collection-slider">
+        <button class="slider-control slider-prev" aria-label="Précédent"><i class="fas fa-chevron-left"></i></button>
+        <button class="slider-control slider-next" aria-label="Suivant"><i class="fas fa-chevron-right"></i></button>
+        <div class="collection-track">
+            <!-- Article 1 - Jupe plissée -->
+            <div class="collection-item">
+                <span class="collection-badge">Best-seller</span>
+                <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Jupe plissée" class="collection-image">
+                <div class="collection-overlay">
+                    <h3 class="collection-name">Jupe Plissée Midi</h3>
+                    <span class="collection-price">35.000 FCFA</span>
+                </div>
+            </div>
+            
+            <!-- Article 2 - Short en jean -->
+            <div class="collection-item">
+                <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80" alt="Short en jean" class="collection-image">
+                <div class="collection-overlay">
+                    <h3 class="collection-name">Short Jean Détruit</h3>
+                    <span class="collection-price">28.000 FCFA</span>
+                </div>
+            </div>
+            
+            <!-- Article 3 - Jupe crayon -->
+            <div class="collection-item">
+                <span class="collection-badge">Nouveau</span>
+                <img src="https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Jupe crayon" class="collection-image">
+                <div class="collection-overlay">
+                    <h3 class="collection-name">Jupe Crayon Cuir</h3>
+                    <span class="collection-price">42.000 FCFA</span>
+                </div>
+            </div>
+            
+            <!-- Article 4 - Short élégant -->
+            <div class="collection-item">
+                <span class="collection-badge">-20%</span>
+                <img src="https://images.unsplash.com/photo-1475178626620-a4d074967452?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Short élégant" class="collection-image">
+                <div class="collection-overlay">
+                    <h3 class="collection-name">Short Taille Haute</h3>
+                    <span class="collection-price">32.000 FCFA <small style="text-decoration: line-through; color: rgba(255,255,255,0.5); margin-left: 0.5rem;">40.000 FCFA</small></span>
+                </div>
+            </div>
+            
+            <!-- Article 5 - Jupe longue -->
+            <div class="collection-item">
+                <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Jupe longue" class="collection-image">
+                <div class="collection-overlay">
+                    <h3 class="collection-name">Jupe Longue Bohème</h3>
+                    <span class="collection-price">38.000 FCFA</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tops & Blouses -->
+<section class="collection-section">
+    <div class="section-header">
+        <h2 class="section-title">Tops & Blouses</h2>
+        <a href="#" class="view-all">Tout voir <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="collection-slider">
+        <button class="slider-control slider-prev" aria-label="Précédent"><i class="fas fa-chevron-left"></i></button>
+        <button class="slider-control slider-next" aria-label="Suivant"><i class="fas fa-chevron-right"></i></button>
+        <div class="collection-track">
+            <!-- Article 1 - Top crochet -->
+            <div class="collection-item">
+                <span class="collection-badge">Best-seller</span>
+                <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80" alt="Top crochet" class="collection-image">
+                <div class="collection-overlay">
+                    <h3 class="collection-name">Top Crochet Éthique</h3>
+                    <span class="collection-price">32.000 FCFA</span>
+                </div>
+            </div>
+            
+            <!-- Article 2 - Blouse soie -->
+            <div class="collection-item">
+                <span class="collection-badge">-20%</span>
+                <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Blouse en soie" class="collection-image">
+                <div class="collection-overlay">
+                    <h3 class="collection-name">Blouse en Soie Naturelle</h3>
+                    <span class="collection-price">48.000 FCFA <small style="text-decoration: line-through; color: rgba(255,255,255,0.5); margin-left: 0.5rem;">60.000 FCFA</small></span>
+                </div>
+            </div>
+            
+            <!-- Article 3 - Top asymétrique -->
+            <div class="collection-item">
+                <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Top asymétrique" class="collection-image">
+                <div class="collection-overlay">
+                    <h3 class="collection-name">Top Asymétrique</h3>
+                    <span class="collection-price">28.000 FCFA</span>
+                </div>
+            </div>
+            
+            <!-- Article 4 - Blouse brodée -->
+            <div class="collection-item">
+                <span class="collection-badge">Nouveau</span>
+                <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=686&q=80" alt="Blouse brodée" class="collection-image">
+                <div class="collection-overlay">
+                    <h3 class="collection-name">Blouse Brodée Main</h3>
+                    <span class="collection-price">65.000 FCFA</span>
+                </div>
+            </div>
+            
+            <!-- Article 5 - Top sportif -->
+            <div class="collection-item">
+                <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=746&q=80" alt="Top sportif" class="collection-image">
+                <div class="collection-overlay">
+                    <h3 class="collection-name">Top Sportif Respirant</h3>
+                    <span class="collection-price">22.000 FCFA</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Accessoires Femmes -->
+<section class="collection-section">
+    <div class="section-header">
+        <h2 class="section-title">Accessoires</h2>
+        <a href="#" class="view-all">Tout voir <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="collection-slider">
+        <button class="slider-control slider-prev" aria-label="Précédent"><i class="fas fa-chevron-left"></i></button>
+        <button class="slider-control slider-next" aria-label="Suivant"><i class="fas fa-chevron-right"></i></button>
+        <div class="collection-track">
+            <!-- Sac à main premium -->
+            <div class="collection-item">
+                <span class="collection-badge">Best-seller</span>
+                <img src="https://images.unsplash.com/photo-1595341595379-cf406e5b04f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Sac à main cuir noir" class="collection-image">
+                <div class="collection-overlay">
+                    <h3 class="collection-name">Sac "Élégance" Cuir Noir</h3>
+                    <span class="collection-price">85.000 FCFA</span>
+                </div>
+            </div>
+            
+            <!-- Boucles d'oreilles -->
+            <div class="collection-item">
+                <img src="https://images.unsplash.com/photo-1611591437281-4608be122683?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Boucles dorées" class="collection-image">
+                <div class="collection-overlay">
+                    <h3 class="collection-name">Boucles Dorées "Lumina"</h3>
+                    <span class="collection-price">32.000 FCFA</span>
+                </div>
+            </div>
+            
+            <!-- Écharpe en soie -->
+            <div class="collection-item">
+                <span class="collection-badge">Nouveau</span>
+                <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Écharpe soie imprimée" class="collection-image">
+                <div class="collection-overlay">
+                    <h3 class="collection-name">Écharpe Soie "Botanica"</h3>
+                    <span class="collection-price">28.000 FCFA</span>
+                </div>
+            </div>
+            
+            <!-- Montre élégante -->
+            <div class="collection-item">
+                <span class="collection-badge">-20%</span>
+                <img src="https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Montre bracelet" class="collection-image">
+                <div class="collection-overlay">
+                    <h3 class="collection-name">Montre "Minérale"</h3>
+                    <span class="collection-price">65.000 FCFA <small style="text-decoration: line-through; color: rgba(255,255,255,0.5); margin-left: 0.5rem;">82.000 FCFA</small></span>
+                </div>
+            </div>
+            
+            <!-- Ceinture designer -->
+            <div class="collection-item">
+                <img src="https://images.unsplash.com/photo-1592155931584-901ac15763e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Ceinture cuir" class="collection-image">
+                <div class="collection-overlay">
+                    <h3 class="collection-name">Ceinture "Signature"</h3>
+                    <span class="collection-price">45.000 FCFA</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Section Chaussures Femmes -->
+<section class="collection-section">
+    <div class="section-header">
+        <h2 class="section-title">Chaussures Femmes</h2>
+        <a href="#" class="view-all">Tout voir <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="collection-slider">
+        <button class="slider-control slider-prev" aria-label="Précédent"><i class="fas fa-chevron-left"></i></button>
+        <button class="slider-control slider-next" aria-label="Suivant"><i class="fas fa-chevron-right"></i></button>
+        <div class="collection-track">
+            <!-- Article 1 - Escarpins -->
+            <div class="collection-item">
+                <span class="collection-badge">Best-seller</span>
+                <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Escarpins nude" class="collection-image">
+                <div class="collection-overlay">
+                    <h3 class="collection-name">Escarpins Nude 10cm</h3>
+                    <span class="collection-price">65.000 FCFA</span>
+                </div>
+            </div>
+            
+            <!-- Article 2 - Sneakers -->
+            <div class="collection-item">
+                <span class="collection-badge">Nouveau</span>
+                <img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=765&q=80" alt="Sneakers blanches" class="collection-image">
+                <div class="collection-overlay">
+                    <h3 class="collection-name">Sneakers Urban White</h3>
+                    <span class="collection-price">55.000 FCFA</span>
+                </div>
+            </div>
+            
+            <!-- Article 3 - Sandales -->
+            <div class="collection-item">
+                <img src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Sandales plateforme" class="collection-image">
+                <div class="collection-overlay">
+                    <h3 class="collection-name">Sandales Plateforme</h3>
+                    <span class="collection-price">48.000 FCFA</span>
+                </div>
+            </div>
+            
+            <!-- Article 4 - Bottes -->
+            <div class="collection-item">
+                <span class="collection-badge">-30%</span>
+                <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=812&q=80" alt="Bottes cuir" class="collection-image">
+                <div class="collection-overlay">
+                    <h3 class="collection-name">Bottes en Cuir Noir</h3>
+                    <span class="collection-price">85.000 FCFA <small style="text-decoration: line-through; color: rgba(255,255,255,0.5); margin-left: 0.5rem;">120.000 FCFA</small></span>
+                </div>
+            </div>
+            
+            <!-- Article 5 - Mules -->
+            <div class="collection-item">
+                <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1025&q=80" alt="Mules en daim" class="collection-image">
+                <div class="collection-overlay">
+                    <h3 class="collection-name">Mules en Daim</h3>
+                    <span class="collection-price">52.000 FCFA</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Lookbook Femme -->
+<section class="lookbook">
+    <div class="section-header">
+        <h2 class="section-title">Lookbook Femme</h2>
+        <a href="#" class="view-all">Voir tous les looks <i class="fas fa-arrow-right"></i></a>
+    </div>
+    
+    <p class="section-intro">
+        Inspirez-vous de nos combinaisons stylées pour toutes les occasions. De l'élégance intemporelle aux tendances urbaines.
+    </p>
+    
+    <div class="lookbook-grid">
+        <!-- Look 1 - Élégance Urbaine -->
+        <div class="lookbook-item">
+            <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Élégance Urbaine" class="lookbook-image">
+            <div class="lookbook-overlay">
+                <div class="lookbook-content">
+                    <h3 class="lookbook-title">Élégance Urbaine</h3>
+                    <ul class="lookbook-products">
+                        <li>Robe en satin - 45.000 FCFA</li>
+                        <li>Veste en cuir - 85.000 FCFA</li>
+                        <li>Bottes cuir - 75.000 FCFA</li>
+                    </ul>
+                    <a href="#" class="lookbook-cta">Créer ce look</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Look 2 - Chic Minimaliste -->
+        <div class="lookbook-item">
+            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Chic Minimaliste" class="lookbook-image">
+            <div class="lookbook-overlay">
+                <div class="lookbook-content">
+                    <h3 class="lookbook-title">Chic Minimaliste</h3>
+                    <ul class="lookbook-products">
+                        <li>Combinaison lin - 55.000 FCFA</li>
+                        <li>Ceinture large - 22.000 FCFA</li>
+                        <li>Sandales cuir - 65.000 FCFA</li>
+                    </ul>
+                    <a href="#" class="lookbook-cta">Créer ce look</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Look 3 - Soirée Glamour -->
+        <div class="lookbook-item">
+            <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=686&q=80" alt="Soirée Glamour" class="lookbook-image">
+            <div class="lookbook-overlay">
+                <div class="lookbook-content">
+                    <h3 class="lookbook-title">Soirée Glamour</h3>
+                    <ul class="lookbook-products">
+                        <li>Robe sequins - 95.000 FCFA</li>
+                        <li>Clutch strass - 35.000 FCFA</li>
+                        <li>Escarpins vernis - 60.000 FCFA</li>
+                    </ul>
+                    <a href="#" class="lookbook-cta">Créer ce look</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Look 4 - Weekend Casual -->
+        <div class="lookbook-item">
+            <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=746&q=80" alt="Weekend Casual" class="lookbook-image">
+            <div class="lookbook-overlay">
+                <div class="lookbook-content">
+                    <h3 class="lookbook-title">Weekend Casual</h3>
+                    <ul class="lookbook-products">
+                        <li>Jean boyfriend - 50.000 FCFA</li>
+                        <li>Top cropped - 25.000 FCFA</li>
+                        <li>Baskets premium - 70.000 FCFA</li>
+                    </ul>
+                    <a href="#" class="lookbook-cta">Créer ce look</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Look 5 - Power Office -->
+        <div class="lookbook-item">
+            <img src="https://images.unsplash.com/photo-1595341888016-a392ef81b7de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1479&q=80" alt="Power Office" class="lookbook-image">
+            <div class="lookbook-overlay">
+                <div class="lookbook-content">
+                    <h3 class="lookbook-title">Power Office</h3>
+                    <ul class="lookbook-products">
+                        <li>Tailleur pantalon - 120.000 FCFA</li>
+                        <li>Chemise soie - 45.000 FCFA</li>
+                        <li>Escarpins nude - 55.000 FCFA</li>
+                    </ul>
+                    <a href="#" class="lookbook-cta">Créer ce look</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Footer Identique -->
+    <footer class="footer">
+        <!-- Insérer le même footer que collections-hommes -->
+    </footer>
+
+    <script>
+        // [Insérer ici le même JavaScript que collections-hommes]
+    </script>
+</body>
+</html>

@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="konoha">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MOJO BLACK - La marque signature de KONOHA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d00;
+            --secondary: #00ff88;
+            --dark: #0a0a0a;
+            --light: #f0f0f0;
+            --accent: #8a2be2;
+            --font-title: 'Archivo Black', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Background Video */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 100;
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .mojo-hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+            position: relative;
+        }
+        
+        .mojo-logo {
+            font-family: var(--font-title);
+            font-size: 8rem;
+            line-height: 0.9;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--accent);
+            letter-spacing: -0.5rem;
+            position: relative;
+        }
+        
+        .mojo-logo::after {
+            content: 'MOJO BLACK';
+            position: absolute;
+            top: 0.3rem;
+            left: 0.3rem;
+            color: var(--accent);
+            z-index: -1;
+        }
+        
+        .mojo-tagline {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        .mojo-tagline::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+        }
+        
+        /* Philosophy Section */
+        .philosophy {
+            padding: 8rem 10%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+        
+        .philosophy::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(138,43,226,0.1) 0%, rgba(255,77,0,0.1) 100%);
+            z-index: -1;
+        }
+        
+        .section-title {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            color: var(--accent);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background: var(--secondary);
+        }
+        
+        .philosophy-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .philosophy-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .philosophy-text p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .philosophy-image {
+            position: relative;
+            min-height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .philosophy-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 8rem 10%;
+            background: linear-gradient(135deg, rgba(10,10,10,0.9) 0%, rgba(30,30,30,0.9) 100%);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+        
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 2.5rem;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(138, 43, 226, 0.3);
+            border-color: var(--accent);
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(138,43,226,0.1) 0%, rgba(0,0,0,0) 50%);
+            z-index: -1;
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-title {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--light);
+        }
+        
+        .service-description {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Portfolio Section */
+        .portfolio {
+            padding: 8rem 10%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            aspect-ratio: 1/1.5;
+            transition: all 0.5s ease;
+        }
+        
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        .portfolio-title {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+        
+        .portfolio-category {
+            font-size: 0.9rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 10%;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(138,43,226,0.1) 0%, rgba(255,77,0,0.1) 100%);
+        }
+        
+        .cta-title {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--accent);
+        }
+        
+        .cta-text {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 2.5rem;
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--accent);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            color: var(--dark);
+            background: var(--accent);
+        }
+        
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 5rem 10%;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--accent);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .mojo-logo {
+                font-size: 6rem;
+            }
+            
+            .philosophy-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .philosophy-image {
+                order: -1;
+                min-height: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mojo-logo {
+                font-size: 4rem;
+                letter-spacing: -0.3rem;
+            }
+            
+            nav {
+                top: 1.5rem;
+                right: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .mojo-logo {
+                font-size: 3rem;
+                letter-spacing: -0.2rem;
+                -webkit-text-stroke: 1px var(--accent);
+            }
+            
+            .mojo-tagline {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="assets/videos/mojo-black-background.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la vidéo.
+        </video>
+    </div>
+    
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="nav-link">Retour à KONOHA</a>
+        <a href="#philosophy" class="nav-link">Philosophie</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#portfolio" class="nav-link">Créations</a>
+        <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="mojo-hero">
+        <h1 class="mojo-logo">MOJO BLACK</h1>
+        <p class="mojo-tagline">L'art du vêtement sur mesure, où tradition africaine et modernité s'entrelacent pour créer des pièces uniques qui racontent votre histoire.</p>
+    </section>
+    
+    <!-- Philosophy Section -->
+    <section class="philosophy" id="philosophy">
+        <h2 class="section-title">Notre Philosophie</h2>
+        <div class="philosophy-content">
+            <div class="philosophy-text">
+                <p>MOJO BLACK est bien plus qu'une marque de vêtements - c'est un manifeste culturel, une célébration de l'artisanat africain réinventé pour le monde contemporain.</p>
+                
+                <p>Née dans l'écosystème créatif de KONOHA, notre marque puise son inspiration dans les riches textiles du Bénin tout en intégrant des silhouettes avant-gardistes. Chaque pièce est conçue comme une œuvre d'art portative, mêlant savoir-faire ancestral et vision futuriste.</p>
+                
+                <p>Notre engagement va au-delà de la mode : nous transformons vos vêtements existants en pièces uniques grâce à notre atelier de redesign, réduisant ainsi l'impact environnemental tout en vous offrant une garde-robe qui vous ressemble.</p>
+                
+                <p>Chez MOJO BLACK, nous croyons que le vêtement doit magnifier la personne, pas l'inverse. C'est pourquoi chaque création est le fruit d'un dialogue entre notre équipe de designers et vous.</p>
+            </div>
+            <div class="philosophy-image">
+                <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Designer MOJO BLACK au travail">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <h2 class="section-title">Nos Services Exclusifs</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-ruler-combined"></i>
+                </div>
+                <h3 class="service-title">Couture Sur Mesure</h3>
+                <p class="service-description">Des vêtements conçus exclusivement pour vous, à partir de vos mesures exactes et de vos préférences stylistiques. Utilisation de textiles premium africains et internationaux.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-recycle"></i>
+                </div>
+                <h3 class="service-title">Redesign Vestimentaire</h3>
+                <p class="service-description">Donnez une seconde vie à vos pièces préférées. Notre atelier transforme vos vêtements existants en créations uniques qui épousent les dernières tendances.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <h3 class="service-title">Collections Limitées</h3>
+                <p class="service-description">Découvrez nos collections saisonnières en édition limitée, où chaque pièce est numérotée. Des designs audacieux inspirés du patrimoine culturel béninois.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <h3 class="service-title">Consultation Stylisme</h3>
+                <p class="service-description">Un service personnalisé pour définir votre signature vestimentaire. Nos experts analysent votre morphologie et votre style de vie pour des recommandations sur mesure.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3 class="service-title">Garde-robe Événementielle</h3>
+                <p class="service-description">Des tenues exceptionnelles pour vos moments spéciaux. Mariages, galas ou soirées importantes - nous créons la tenue qui fera sensation.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <h3 class="service-title">Accessoires Customisés</h3>
+                <p class="service-description">Complétez votre look avec des accessoires faits main, des ceintures aux chapeaux, chacun conçu pour s'harmoniser parfaitement avec vos tenues MOJO BLACK.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <h2 class="section-title">Nos Créations</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Collection Printemps 2023">
+                <div class="portfolio-overlay">
+                    <h3 class="portfolio-title">Collection Printemps</h3>
+                    <p class="portfolio-category">Sur mesure</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item">
+                <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1172&q=80" alt="Redesign d'une veste en pagne">
+                <div class="portfolio-overlay">
+                    <h3 class="portfolio-title">Redesign Pagne</h3>
+                    <p class="portfolio-category">Recyclage créatif</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item">
+                <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Tenue de mariage">
+                <div class="portfolio-overlay">
+                    <h3 class="portfolio-title">Mariage Royal</h3>
+                    <p class="portfolio-category">Événementiel</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item">
+                <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1172&q=80" alt="Collection Afro-Futuriste">
+                <div class="portfolio-overlay">
+                    <h3 class="portfolio-title">Afro-Futurisme</h3>
+                    <p class="portfolio-category">Collection Limitée</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item">
+                <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Accessoires sur mesure">
+                <div class="portfolio-overlay">
+                    <h3 class="portfolio-title">Accessoires</h3>
+                    <p class="portfolio-category">Pièces uniques</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item">
+                <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Collection Homme">
+                <div class="portfolio-overlay">
+                    <h3 class="portfolio-title">Gentleman Moderne</h3>
+                    <p class="portfolio-category">Style masculin</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <h2 class="cta-title">Prêt à créer votre pièce signature ?</h2>
+        <p class="cta-text">Que vous souhaitiez une tenue sur mesure, redonner vie à un vêtement existant ou simplement redéfinir votre style, notre équipe est à votre écoute pour concrétiser votre vision.</p>
+        <button class="cta-button">Prendre rendez-vous</button>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">MOJO BLACK</div>
+        <div class="footer-links">
+            <a href="index.html" class="footer-link">KONOHA</a>
+            <a href="#philosophy" class="footer-link">Philosophie</a>
+            <a href="#services" class="footer-link">Services</a>
+            <a href="#portfolio" class="footer-link">Portfolio</a>
+            <a href="contact.html" class="footer-link">Contact</a>
+            <a href="mentions-legales.html" class="footer-link">Mentions légales</a>
+        </div>
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-snapchat-ghost"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <p class="copyright">© 2023 MOJO BLACK by KONOHA. Tous droits réservés.</p>
+    </footer>
+    
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // CTA button click handler
+        document.querySelector('.cta-button').addEventListener('click', function() {
+            window.location.href = 'contact.html';
+        });
+        
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.service-card, .portfolio-item').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="konoha">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Boutique Mode - KONOHA | L'élégance Afro-Urban</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d00;
+            --secondary: #00ff88;
+            --dark: #0a0a0a;
+            --light: #f0f0f0;
+            --accent: #8a2be2;
+            --gold: #FFD700;
+            --font-title: 'Archivo Black', sans-serif;
+            --font-elegant: 'Playfair Display', serif;
+            --font-body: 'Space Grotesk', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Effet de texture subtile */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255,77,0,0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(0,255,136,0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* Navigation Luxe */
+        .mode-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 77, 0, 0.2);
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .mode-nav.scrolled {
+            padding: 1rem 3rem;
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 1px solid rgba(255, 77, 0, 0.4);
+        }
+        
+        .mode-nav-logo {
+            font-family: var(--font-title);
+            color: var(--primary);
+            text-transform: uppercase;
+            font-size: 1.8rem;
+            text-decoration: none;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .mode-nav-logo::after {
+            content: 'MODE';
+            position: absolute;
+            bottom: -8px;
+            right: -25px;
+            font-size: 0.7rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+        }
+        
+        .mode-nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+        
+        .mode-nav-link {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            transition: all 0.4s ease;
+            position: relative;
+            font-weight: bold;
+        }
+        
+        .mode-nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .mode-nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.4s ease;
+        }
+        
+        .mode-nav-link:hover::before {
+            width: 100%;
+        }
+
+        /* Hero Cinématique */
+        .mode-hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 10%;
+            position: relative;
+            margin-top: 80px;
+            overflow: hidden;
+        }
+        
+        .mode-hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0.6;
+        }
+
+        .mode-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(10,10,10,0.8) 0%, rgba(10,10,10,0.5) 100%);
+            z-index: -1;
+        }
+        
+        .mode-hero-title {
+            font-family: var(--font-elegant);
+            font-size: 6rem;
+            margin-bottom: 1.5rem;
+            color: var(--light);
+            line-height: 1.1;
+            text-shadow: 0 0 20px rgba(0,0,0,0.5);
+            max-width: 800px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .mode-hero-subtitle {
+            font-size: 1.5rem;
+            max-width: 600px;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.9);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease-out 0.6s forwards;
+        }
+        
+        .mode-hero-cta {
+            display: inline-flex;
+            align-items: center;
+            padding: 1.2rem 2.5rem;
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--primary);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease-out 0.9s forwards;
+        }
+        
+        .mode-hero-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            transition: all 0.8s ease;
+            z-index: -1;
+        }
+        
+        .mode-hero-cta:hover::before {
+            left: 100%;
+        }
+        
+        .mode-hero-cta:hover {
+            color: var(--dark);
+            background: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 77, 0, 0.4);
+        }
+
+        .mode-hero-cta i {
+            margin-left: 10px;
+            transition: transform 0.4s ease;
+        }
+
+        .mode-hero-cta:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Collection Signature */
+        .mode-signature {
+            padding: 8rem 10%;
+            background: url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80') center/cover;
+            position: relative;
+        }
+
+        .mode-signature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.7);
+        }
+
+        .mode-signature-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+        }
+
+        .mode-signature-tag {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: var(--primary);
+            color: var(--dark);
+            font-family: var(--font-title);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        .mode-signature-title {
+            font-family: var(--font-elegant);
+            font-size: 4rem;
+            color: var(--light);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .mode-signature-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .mode-signature-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            transition: all 0.4s ease;
+        }
+
+        .mode-signature-link i {
+            margin-left: 10px;
+            transition: transform 0.4s ease;
+        }
+
+        .mode-signature-link:hover {
+            color: var(--primary);
+        }
+
+        .mode-signature-link:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Gallery Luxe */
+        .mode-gallery {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: repeat(6, 200px);
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .mode-gallery-item {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .mode-gallery-item:hover {
+            transform: scale(0.98);
+            box-shadow: 0 0 30px rgba(255, 77, 0, 0.2);
+        }
+
+        .mode-gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s ease;
+        }
+
+        .mode-gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .mode-gallery-item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .mode-gallery-item:hover .mode-gallery-item-overlay {
+            opacity: 1;
+        }
+
+        .mode-gallery-item-title {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 0.5rem;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+
+        .mode-gallery-item:hover .mode-gallery-item-title {
+            transform: translateY(0);
+        }
+
+        .mode-gallery-item-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease 0.1s;
+        }
+
+        .mode-gallery-item:hover .mode-gallery-item-link {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mode-gallery-item-link i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .mode-gallery-item-link:hover i {
+            transform: translateX(5px);
+        }
+
+        .mode-gallery-item:nth-child(1) {
+            grid-column: 1 / span 4;
+            grid-row: 1 / span 3;
+        }
+
+        .mode-gallery-item:nth-child(2) {
+            grid-column: 5 / span 4;
+            grid-row: 1 / span 2;
+        }
+
+        .mode-gallery-item:nth-child(3) {
+            grid-column: 9 / span 4;
+            grid-row: 1 / span 3;
+        }
+
+        .mode-gallery-item:nth-child(4) {
+            grid-column: 1 / span 3;
+            grid-row: 4 / span 3;
+        }
+
+        .mode-gallery-item:nth-child(5) {
+            grid-column: 4 / span 3;
+            grid-row: 4 / span 3;
+        }
+
+        .mode-gallery-item:nth-child(6) {
+            grid-column: 7 / span 3;
+            grid-row: 3 / span 4;
+        }
+
+        .mode-gallery-item:nth-child(7) {
+            grid-column: 10 / span 3;
+            grid-row: 4 / span 3;
+        }
+
+        /* Lookbook */
+        .mode-lookbook {
+            padding: 8rem 10%;
+            background: var(--dark);
+            text-align: center;
+        }
+
+        .mode-lookbook-title {
+            font-family: var(--font-elegant);
+            font-size: 3.5rem;
+            color: var(--light);
+            margin-bottom: 1rem;
+        }
+
+        .mode-lookbook-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .mode-lookbook-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            gap: 2rem;
+            padding-bottom: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .mode-lookbook-slide {
+            scroll-snap-align: start;
+            flex: 0 0 80%;
+            position: relative;
+        }
+
+        .mode-lookbook-slide img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .mode-lookbook-slide-content {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            text-align: left;
+        }
+
+        .mode-lookbook-slide-title {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .mode-lookbook-slide-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .mode-lookbook-slide-link:hover {
+            color: var(--primary);
+        }
+
+        .mode-lookbook-slide-link i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .mode-lookbook-slide-link:hover i {
+            transform: translateX(5px);
+        }
+
+        .mode-lookbook-cta {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-weight: bold;
+        }
+
+        .mode-lookbook-cta:hover {
+            background: var(--gold);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 77, 0, 0.4);
+        }
+
+        /* Experience */
+        .mode-experience {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .mode-experience-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        .mode-experience-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+
+        .mode-experience-content {
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .mode-experience-tag {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: var(--primary);
+            color: var(--dark);
+            font-family: var(--font-title);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        .mode-experience-title {
+            font-family: var(--font-elegant);
+            font-size: 4.5rem;
+            margin-bottom: 2rem;
+            line-height: 1.2;
+        }
+
+        .mode-experience-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+
+        .mode-experience-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--light);
+            text-decoration: none;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            transition: all 0.4s ease;
+        }
+
+        .mode-experience-link:hover {
+            color: var(--primary);
+        }
+
+        .mode-experience-link i {
+            margin-left: 10px;
+            transition: transform 0.4s ease;
+        }
+
+        .mode-experience-link:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Online Access */
+        .mode-online {
+            padding: 8rem 10%;
+            background: var(--dark);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mode-online::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,77,0,0.05) 0%, rgba(255,77,0,0) 70%);
+            animation: pulse 8s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.1;
+            }
+            100% {
+                transform: scale(1.2);
+                opacity: 0.3;
+            }
+        }
+
+        .mode-online-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .mode-online-icon {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+
+        .mode-online-title {
+            font-family: var(--font-elegant);
+            font-size: 3rem;
+            color: var(--light);
+            margin-bottom: 1.5rem;
+        }
+
+        .mode-online-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .mode-online-cta {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mode-online-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .mode-online-cta:hover::before {
+            left: 100%;
+        }
+
+        .mode-online-cta:hover {
+            background: var(--gold);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 77, 0, 0.4);
+        }
+
+        /* Footer Luxe */
+        .mode-footer {
+            background: #000;
+            padding: 5rem 10% 3rem;
+            position: relative;
+            border-top: 1px solid rgba(255, 77, 0, 0.2);
+        }
+
+        .mode-footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .mode-footer-col-title {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            color: var(--light);
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .mode-footer-col-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .mode-footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mode-footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .mode-footer-link:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .mode-footer-social {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .mode-footer-social-link {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .mode-footer-social-link:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .mode-footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mode-footer-logo {
+            font-family: var(--font-title);
+            color: var(--primary);
+            text-transform: uppercase;
+            font-size: 1.5rem;
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .mode-footer-copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .mode-gallery {
+                grid-template-rows: repeat(6, 150px);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .mode-hero-title {
+                font-size: 4.5rem;
+            }
+
+            .mode-signature-title, .mode-experience-title {
+                font-size: 3.5rem;
+            }
+
+            .mode-footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mode-nav {
+                padding: 1rem 2rem;
+            }
+
+            .mode-nav-links {
+                gap: 1.5rem;
+            }
+
+            .mode-hero-title {
+                font-size: 3.5rem;
+            }
+
+            .mode-hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .mode-gallery {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(7, 250px);
+            }
+
+            .mode-gallery-item {
+                grid-column: auto !important;
+                grid-row: auto !important;
+            }
+
+            .mode-lookbook-slide {
+                flex: 0 0 90%;
+            }
+
+            .mode-footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .mode-nav {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .mode-nav-logo {
+                margin-bottom: 1rem;
+            }
+
+            .mode-hero {
+                padding: 0 5%;
+                margin-top: 120px;
+            }
+
+            .mode-hero-title {
+                font-size: 2.5rem;
+            }
+
+            .mode-signature-title, .mode-experience-title, .mode-lookbook-title, .mode-online-title {
+                font-size: 2.5rem;
+            }
+
+            .mode-gallery {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(7, 300px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Luxe -->
+    <nav class="mode-nav">
+        <a href="index-fr.html" class="mode-nav-logo">KONOHA</a>
+        <div class="mode-nav-links">
+            <a href="#collections" class="mode-nav-link">Collections</a>
+            <a href="#lookbook" class="mode-nav-link">Lookbook</a>
+            <a href="#experience" class="mode-nav-link">Experience</a>
+            <a href="#online" class="mode-nav-link">Online</a>
+        </div>
+    </nav>
+    
+    <!-- Hero Cinématique -->
+    <section class="mode-hero">
+        <video autoplay muted loop class="mode-hero-video">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-woman-walking-in-a-modern-clothing-store-39853-large.mp4" type="video/mp4">
+        </video>
+        <div class="mode-hero-overlay"></div>
+        <h1 class="mode-hero-title">L'Art de Vêtir <br>l'Âme Africaine</h1>
+        <p class="mode-hero-subtitle">Découvrez notre collection exclusive où le style urbain rencontre l'héritage culturel dans une symphonie de couleurs et de textures.</p>
+        <a href="#collections" class="mode-hero-cta">Explorer les collections <i class="fas fa-arrow-right"></i></a>
+    </section>
+    
+    <!-- Collection Signature -->
+    <section class="mode-signature" id="collections">
+        <div class="mode-signature-content">
+            <span class="mode-signature-tag">Nouvelle Collection</span>
+            <h2 class="mode-signature-title">Empire Stat <br>Édition Limitée</h2>
+            <p class="mode-signature-text">Inspirée par les rues vibrantes de Cotonou et l'énergie de la jeunesse africaine, cette collection capture l'essence du style afro-urbain contemporain. Des pièces uniques qui racontent une histoire.</p>
+            <a href="#" class="mode-signature-link">Découvrir la collection <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+    
+    <!-- Gallery Luxe -->
+    <div class="mode-gallery">
+        <div class="mode-gallery-item">
+            <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80" alt="Collection Homme">
+            <div class="mode-gallery-item-overlay">
+                <h3 class="mode-gallery-item-title">Style Urbain</h3>
+                <a href="#" class="mode-gallery-item-link">Voir la collection <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+        
+        <div class="mode-gallery-item">
+            <img src="assets/images/e20b139f6c090921d103ceef619a3245.jpg" alt="Collection Femme">
+            <div class="mode-gallery-item-overlay">
+                <h3 class="mode-gallery-item-title">Élégance Afro</h3>
+                <a href="#" class="mode-gallery-item-link">Découvrir <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+        
+        <div class="mode-gallery-item">
+            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Kimonos">
+            <div class="mode-gallery-item-overlay">
+                <h3 class="mode-gallery-item-title">Kimonos Artisanaux</h3>
+                <a href="#" class="mode-gallery-item-link">Explorer <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+        
+        <div class="mode-gallery-item">
+            <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=725&q=80" alt="T-shirts Graphiques">
+            <div class="mode-gallery-item-overlay">
+                <h3 class="mode-gallery-item-title">T-shirts Signature</h3>
+                <a href="#" class="mode-gallery-item-link">Voir les designs <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+        
+        <div class="mode-gallery-item">
+            <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1026&q=80" alt="Chaussures">
+            <div class="mode-gallery-item-overlay">
+                <h3 class="mode-gallery-item-title">Chaussures Premium</h3>
+                <a href="#" class="mode-gallery-item-link">Découvrir <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+        
+        <div class="mode-gallery-item">
+            <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Accessoires">
+            <div class="mode-gallery-item-overlay">
+                <h3 class="mode-gallery-item-title">Accessoires Exclusifs</h3>
+                <a href="#" class="mode-gallery-item-link">Voir la sélection <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+        
+        <div class="mode-gallery-item">
+            <img src="https://images.unsplash.com/photo-1604917018610-3848a3a6dc42?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Collection Enfant">
+            <div class="mode-gallery-item-overlay">
+                <h3 class="mode-gallery-item-title">Style Junior</h3>
+                <a href="#" class="mode-gallery-item-link">Explorer <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Lookbook -->
+    <section class="mode-lookbook" id="lookbook">
+        <h2 class="mode-lookbook-title">Lookbook Automne 2023</h2>
+        <p class="mode-lookbook-subtitle">Découvrez comment nos clients stylisent leurs pièces KONOHA pour des looks uniques qui marquent les esprits.</p>
+        
+        <div class="mode-lookbook-slider">
+            <div class="mode-lookbook-slide">
+                <img src="assets/images/FB_IMG_16203090610392566.jpg" alt="Look 1">
+                <div class="mode-lookbook-slide-content">
+                    <h3 class="mode-lookbook-slide-title">Élégance Urbaine</h3>
+                    <a href="#" class="mode-lookbook-slide-link">Voir les pièces <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="mode-lookbook-slide">
+                <img src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Look 2">
+                <div class="mode-lookbook-slide-content">
+                    <h3 class="mode-lookbook-slide-title">Chic Afro</h3>
+                    <a href="#" class="mode-lookbook-slide-link">Découvrir <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="mode-lookbook-slide">
+                <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Look 3">
+                <div class="mode-lookbook-slide-content">
+                    <h3 class="mode-lookbook-slide-title">Streetwear Premium</h3>
+                    <a href="#" class="mode-lookbook-slide-link">Explorer <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <a href="#" class="mode-lookbook-cta">Voir tout le lookbook</a>
+    </section>
+    
+    <!-- Experience Boutique -->
+    <section class="mode-experience" id="experience">
+        <video autoplay muted loop class="mode-experience-video">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-young-woman-looking-at-the-clothes-in-a-store-39854-large.mp4" type="video/mp4">
+        </video>
+        <div class="mode-experience-overlay"></div>
+        
+        <div class="mode-experience-content">
+            <span class="mode-experience-tag">Expérience Unique</span>
+            <h2 class="mode-experience-title">L'Essence KONOHA</h2>
+            <p class="mode-experience-text">Notre boutique physique à Cotonou est plus qu'un simple magasin - c'est un espace où la mode prend vie, où chaque détail a été pensé pour vous offrir une expérience shopping inoubliable.</p>
+            <a href="#" class="mode-experience-link">Visiter la boutique <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+    
+    <!-- Online Access -->
+    <section class="mode-online" id="online">
+        <div class="mode-online-content">
+            <div class="mode-online-icon">
+                <i class="fas fa-globe-africa"></i>
+            </div>
+            <h2 class="mode-online-title">Accès Global</h2>
+            <p class="mode-online-text">Vous ne pouvez pas vous rendre en boutique ? Commandez nos pièces exclusives en ligne et recevez-les où que vous soyez au Bénin.</p>
+            <p class="mode-online-text">Notre service de livraison express vous permet de profiter de vos achats en moins de 48h dans la région de Cotonou.</p>
+            <a href="#" class="mode-online-cta">Accéder à la boutique en ligne</a>
+        </div>
+    </section>
+    
+    <!-- Footer Luxe -->
+    <footer class="mode-footer">
+        <div class="mode-footer-grid">
+            <div class="mode-footer-col">
+                <h3 class="mode-footer-col-title">Boutique</h3>
+                <div class="mode-footer-links">
+                    <a href="#" class="mode-footer-link">Nouveautés</a>
+                    <a href="#" class="mode-footer-link">Hommes</a>
+                    <a href="#" class="mode-footer-link">Femmes</a>
+                    <a href="#" class="mode-footer-link">Enfants</a>
+                    <a href="#" class="mode-footer-link">Accessoires</a>
+                </div>
+            </div>
+            
+            <div class="mode-footer-col">
+                <h3 class="mode-footer-col-title">KONOHA</h3>
+                <div class="mode-footer-links">
+                    <a href="#" class="mode-footer-link">Notre Histoire</a>
+                    <a href="#" class="mode-footer-link">MOJO BLACK</a>
+                    <a href="#" class="mode-footer-link">Événements</a>
+                    <a href="#" class="mode-footer-link">Carrières</a>
+                    <a href="#" class="mode-footer-link">Contact</a>
+                </div>
+            </div>
+            
+            <div class="mode-footer-col">
+                <h3 class="mode-footer-col-title">Services</h3>
+                <div class="mode-footer-links">
+                    <a href="#" class="mode-footer-link">Livraison</a>
+                    <a href="#" class="mode-footer-link">Retours</a>
+                    <a href="#" class="mode-footer-link">Guide des tailles</a>
+                    <a href="#" class="mode-footer-link">FAQ</a>
+                    <a href="#" class="mode-footer-link">RDV Personal Shopper</a>
+                </div>
+            </div>
+            
+            <div class="mode-footer-col">
+                <h3 class="mode-footer-col-title">Contact</h3>
+                <p style="color: rgba(255,255,255,0.7); margin-bottom: 1rem; font-size: 0.9rem;">123 Rue des Artisans<br>Cotonou, Bénin</p>
+                <p style="color: rgba(255,255,255,0.7); margin-bottom: 1rem; font-size: 0.9rem;">+229 12 34 56 78<br>contact@konoha.bj</p>
+                
+                <div class="mode-footer-social">
+                    <a href="#" class="mode-footer-social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="mode-footer-social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="mode-footer-social-link"><i class="fab fa-snapchat"></i></a>
+                    <a href="#" class="mode-footer-social-link"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mode-footer-bottom">
+            <a href="index-fr.html" class="mode-footer-logo">KONOHA</a>
+            <p class="mode-footer-copyright">© 2023 KONOHA. Tous droits réservés.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Navigation scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.mode-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Gallery item animation
+        const galleryItems = document.querySelectorAll('.mode-gallery-item');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        galleryItems.forEach(item => {
+            item.style.opacity = 0;
+            item.style.transform = 'translateY(30px)';
+            item.style.transition = 'all 0.6s cubic-bezier(0.19, 1, 0.22, 1)';
+            observer.observe(item);
+        });
+
+        // Lookbook slider navigation
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        const slider = document.querySelector('.mode-lookbook-slider');
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.style.cursor = 'grabbing';
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.style.cursor = 'grab';
+        });
+
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.style.cursor = 'grab';
+        });
+
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2;
+            slider.scrollLeft = scrollLeft - walk;
+        });
+
+        // Mobile touch events
+        slider.addEventListener('touchstart', (e) => {
+            isDown = true;
+            startX = e.touches[0].pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+
+        slider.addEventListener('touchend', () => {
+            isDown = false;
+        });
+
+        slider.addEventListener('touchmove', (e) => {
+            if (!isDown) return;
+            const x = e.touches[0].pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2;
+            slider.scrollLeft = scrollLeft - walk;
+        });
+    </script>
+</body>
+</html>

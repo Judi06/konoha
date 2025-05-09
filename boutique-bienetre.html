@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="konoha-wellness">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Boutique Bien-Être | KONOHA - Épanouissement intime</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e83e8c;
+            --secondary: #6a3093;
+            --dark: #0a0a0a;
+            --light: #f8f1f5;
+            --accent: #c71585;
+            --font-title: 'Archivo Black', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+            --font-elegant: 'Playfair Display', serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Background Video */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.2;
+        }
+        
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Navigation Holographique */
+        .holographic-nav {
+            position: fixed;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .nav-item {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-item:hover {
+            transform: scale(1.2);
+            background: var(--primary);
+        }
+        
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-item:hover::before {
+            opacity: 0.3;
+        }
+        
+        .nav-item i {
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        /* Hero Section */
+        .wellness-hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+            position: relative;
+        }
+        
+        .wellness-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(232,62,140,0.1) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+        }
+        
+        .wellness-title {
+            font-family: var(--font-elegant);
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+            font-weight: 700;
+            line-height: 1.1;
+        }
+        
+        .wellness-subtitle {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .wellness-cta {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--primary);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            margin-top: 1rem;
+        }
+        
+        .wellness-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+        
+        .wellness-cta:hover::before {
+            left: 100%;
+        }
+        
+        .wellness-cta:hover {
+            color: var(--dark);
+            background: var(--primary);
+        }
+        
+        /* Boutique Presentation */
+        .boutique-presentation {
+            padding: 5rem 10%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+        }
+        
+        .presentation-title {
+            font-family: var(--font-elegant);
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .presentation-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 50%;
+            height: 2px;
+            background: var(--secondary);
+        }
+        
+        .presentation-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 800px;
+        }
+        
+        .gallery-carousel {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-top: 3rem;
+        }
+        
+        .gallery-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .gallery-slide.active {
+            opacity: 1;
+        }
+        
+        /* Categories */
+        .wellness-categories {
+            padding: 5rem 10%;
+            background: linear-gradient(180deg, rgba(10,10,10,0.9) 0%, rgba(30,30,30,0.9) 100%);
+        }
+        
+        .section-title {
+            font-family: var(--font-elegant);
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 50%;
+            height: 2px;
+            background: var(--secondary);
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .category-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(0deg, rgba(106,48,147,0.3) 0%, rgba(0,0,0,0) 50%);
+            z-index: -1;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(232, 62, 140, 0.3);
+            border-color: var(--primary);
+        }
+        
+        .category-1 {
+            background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%), url('https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80') center/cover;
+        }
+        
+        .category-2 {
+            background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%), url('https://images.unsplash.com/photo-1621146026656-5ba2a5c75728?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80') center/cover;
+        }
+        
+        .category-3 {
+            background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%), url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80') center/cover;
+        }
+        
+        .category-4 {
+            background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%), url('https://images.unsplash.com/photo-1576072446584-4955dfe17b46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80') center/cover;
+        }
+        
+        .category-title {
+            font-family: var(--font-elegant);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+        
+        .category-description {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .category-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--primary);
+            padding-bottom: 0.3rem;
+        }
+        
+        .category-link i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .category-link:hover {
+            color: var(--primary);
+        }
+        
+        .category-link:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* Featured Products */
+        .exclusive-products {
+            padding: 5rem 10%;
+            background: linear-gradient(135deg, rgba(106,48,147,0.1) 0%, rgba(10,10,10,1) 100%);
+            overflow: hidden;
+        }
+        
+        .products-carousel {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 1rem;
+        }
+        
+        .products-carousel::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .products-carousel::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .products-carousel::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+        
+        .product-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            min-width: 250px;
+            scroll-snap-align: start;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(232, 62, 140, 0.2);
+            border-color: var(--primary);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary);
+            color: var(--dark);
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 5px;
+        }
+        
+        .product-title {
+            font-family: var(--font-elegant);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+        
+        .product-price {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .product-rating {
+            color: gold;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .product-cta {
+            display: block;
+            width: 100%;
+            padding: 0.7rem;
+            background: transparent;
+            color: var(--light);
+            border: 1px solid var(--primary);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+        
+        .product-cta:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+        
+        /* Wellness Guide */
+        .wellness-guide {
+            padding: 5rem 10%;
+            background: linear-gradient(135deg, rgba(232,62,140,0.1) 0%, rgba(10,10,10,1) 100%);
+        }
+        
+        .guide-container {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .guide-image {
+            flex: 1;
+            min-height: 400px;
+            background: url('https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80') center/cover;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .guide-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(106,48,147,0.3) 0%, rgba(232,62,140,0.3) 100%);
+        }
+        
+        .guide-content {
+            flex: 1;
+        }
+        
+        .guide-title {
+            font-family: var(--font-elegant);
+            font-size: 2.5rem;
+            color: var(--light);
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+        
+        .guide-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .guide-list {
+            margin-bottom: 2rem;
+        }
+        
+        .guide-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+        }
+        
+        .guide-list i {
+            color: var(--primary);
+            margin-top: 0.3rem;
+        }
+        
+        .call-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: var(--dark);
+            font-family: var(--font-body);
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .call-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(232, 62, 140, 0.4);
+        }
+        
+        /* Footer */
+        .wellness-footer {
+            background: #000;
+            padding: 3rem 10%;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-family: var(--font-elegant);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .wellness-title {
+                font-size: 4rem;
+            }
+            
+            .guide-container {
+                flex-direction: column;
+            }
+            
+            .guide-image {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .wellness-title {
+                font-size: 3rem;
+            }
+            
+            .holographic-nav {
+                right: 1rem;
+            }
+            
+            .nav-item {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .section-title, .presentation-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .wellness-hero {
+                padding: 0 5%;
+            }
+            
+            .wellness-title {
+                font-size: 2.5rem;
+            }
+            
+            .wellness-subtitle {
+                font-size: 1rem;
+            }
+            
+            .section-title, .presentation-title {
+                font-size: 2rem;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="assets/videos/wellness-background.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la vidéo.
+        </video>
+    </div>
+    
+    <!-- Navigation Holographique -->
+    <nav class="holographic-nav">
+        <div class="nav-item" data-section="presentation">
+            <i class="fas fa-store"></i>
+        </div>
+        <div class="nav-item" data-section="categories">
+            <i class="fas fa-th-large"></i>
+        </div>
+        <div class="nav-item" data-section="exclusive">
+            <i class="fas fa-crown"></i>
+        </div>
+        <div class="nav-item" data-section="guide">
+            <i class="fas fa-book-open"></i>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="wellness-hero">
+        <h1 class="wellness-title">L'Art de l'Épanouissement</h1>
+        <p class="wellness-subtitle">Découvrez une sélection raffinée de produits de bien-être intime, conçus pour sublimer votre sensualité dans le respect et la discrétion.</p>
+        <a href="#categories" class="wellness-cta">Explorer la collection</a>
+    </section>
+    
+    <!-- Boutique Presentation -->
+    <section class="boutique-presentation" id="presentation">
+        <h2 class="presentation-title">Notre Philosophie</h2>
+        <p class="presentation-text">La Boutique Bien-Être KONOHA est un espace dédié à l'épanouissement personnel, où élégance et discrétion se rencontrent. Nous sélectionnons avec soin des produits haut de gamme qui allient qualité, sécurité et design raffiné.</p>
+        <p class="presentation-text">Notre équipe d'experts est formée pour vous guider avec professionnalisme et bienveillance, dans le respect total de votre intimité.</p>
+        
+        <div class="gallery-carousel">
+            <div class="gallery-slide active" style="background-image: url('https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80')"></div>
+            <div class="gallery-slide" style="background-image: url('https://images.unsplash.com/photo-1621146026656-5ba2a5c75728?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80')"></div>
+            <div class="gallery-slide" style="background-image: url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80')"></div>
+        </div>
+    </section>
+    
+    <!-- Categories -->
+    <section class="wellness-categories" id="categories">
+        <h2 class="section-title">Nos Univers</h2>
+        <div class="categories-grid">
+            <div class="category-card category-1">
+                <h3 class="category-title">Plaisir Solitaire</h3>
+                <p class="category-description">Des accessoires premium pour explorer votre sensualité en toute intimité.</p>
+                <a href="#" class="category-link">Découvrir <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="category-card category-2">
+                <h3 class="category-title">Complicité à Deux</h3>
+                <p class="category-description">Des jeux et accessoires pour intensifier votre connexion et explorer de nouveaux plaisirs.</p>
+                <a href="#" class="category-link">Découvrir <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="category-card category-3">
+                <h3 class="category-title">Lingerie Sensorielle</h3>
+                <p class="category-description">Des pièces uniques qui célèbrent votre corps et stimulent les sens.</p>
+                <a href="#" class="category-link">Découvrir <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="category-card category-4">
+                <h3 class="category-title">Bien-être Intime</h3>
+                <p class="category-description">Soins et accessoires pour prendre soin de votre intimité au quotidien.</p>
+                <a href="#" class="category-link">Découvrir <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Exclusive Products -->
+    <section class="exclusive-products" id="exclusive">
+        <h2 class="section-title">En Exclusivité</h2>
+        <div class="products-carousel">
+            <div class="product-card">
+                <span class="product-badge">Nouveau</span>
+                <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Produit bien-être" class="product-image">
+                <h3 class="product-title">Ondes Sensorielles</h3>
+                <div class="product-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <p class="product-price">25,900 FCFA</p>
+                <button class="product-cta">Ajouter au panier</button>
+            </div>
+            
+            <div class="product-card">
+                <span class="product-badge">Best-seller</span>
+                <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Produit bien-être" class="product-image">
+                <h3 class="product-title">Dualité Vibrante</h3>
+                <div class="product-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="product-price">32,500 FCFA</p>
+                <button class="product-cta">Ajouter au panier</button>
+            </div>
+            
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Produit bien-être" class="product-image">
+                <h3 class="product-title">Lien de Soie</h3>
+                <div class="product-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                </div>
+                <p class="product-price">18,900 FCFA</p>
+                <button class="product-cta">Ajouter au panier</button>
+            </div>
+            
+            <div class="product-card">
+                <span class="product-badge">Édition limitée</span>
+                <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Produit bien-être" class="product-image">
+                <h3 class="product-title">Nuit Étoilée</h3>
+                <div class="product-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <p class="product-price">45,000 FCFA</p>
+                <button class="product-cta">Ajouter au panier</button>
+            </div>
+            
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Produit bien-être" class="product-image">
+                <h3 class="product-title">Éveil des Sens</h3>
+                <div class="product-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                </div>
+                <p class="product-price">28,500 FCFA</p>
+                <button class="product-cta">Ajouter au panier</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Wellness Guide -->
+    <section class="wellness-guide" id="guide">
+        <div class="guide-container">
+            <div class="guide-image"></div>
+            <div class="guide-content">
+                <h2 class="guide-title">Guide du Bien-Être Intime</h2>
+                <p class="guide-text">Notre mission chez KONOHA est de briser les tabous tout en maintenant une approche élégante et respectueuse de la sexualité et du bien-être intime.</p>
+                
+                <ul class="guide-list">
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Conseils personnalisés par nos experts en bien-être</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Produits sélectionnés pour leur qualité et sécurité</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Emballages discrets pour respecter votre intimité</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Service client disponible pour toutes vos questions</span>
+                    </li>
+                </ul>
+                
+                <a href="tel:+22912345678" class="call-btn">
+                    <i class="fas fa-phone-alt"></i> Prendre rendez-vous
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="wellness-footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>KONOHA</h3>
+                <div class="footer-links">
+                    <a href="index.html" class="footer-link">Accueil</a>
+                    <a href="a-propos.html" class="footer-link">À Propos</a>
+                    <a href="blog.html" class="footer-link">Blog</a>
+                    <a href="formations.html" class="footer-link">Formations</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>MODE & STYLE</h3>
+                <div class="footer-links">
+                    <a href="boutique-mode.html" class="footer-link">Boutique Mode</a>
+                    <a href="mojo-black.html" class="footer-link">MOJO BLACK</a>
+                    <a href="atelier-styliste.html" class="footer-link">Atelier Styliste</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>BEAUTÉ & SOINS</h3>
+                <div class="footer-links">
+                    <a href="salon-coiffure.html" class="footer-link">Salon de Coiffure</a>
+                    <a href="salon-beaute.html" class="footer-link">Salon de Beauté</a>
+                    <a href="parfumerie.html" class="footer-link">Parfumerie</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>LIFESTYLE</h3>
+                <div class="footer-links">
+                    <a href="restaurant.html" class="footer-link">Restaurant-Glacier</a>
+                    <a href="menuiserie.html" class="footer-link">Menuiserie Moderne</a>
+                    <a href="atelier-photo.html" class="footer-link">Atelier Photo</a>
+                    <a href="librairie.html" class="footer-link">La Librairie</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+        </div>
+        
+        <p class="copyright">© 2023 KONOHA. Tous droits réservés.</p>
+    </footer>
+    
+    <script>
+        // Navigation holographique
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                document.getElementById(sectionId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Gallery Carousel Auto-Slide
+        const gallerySlides = document.querySelectorAll('.gallery-slide');
+        let currentSlide = 0;
+        
+        function showSlide(index) {
+            gallerySlides.forEach(slide => slide.classList.remove('active'));
+            gallerySlides[index].classList.add('active');
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % gallerySlides.length;
+            showSlide(currentSlide);
+        }
+        
+        // Change slide every 3 seconds
+        setInterval(nextSlide, 3000);
+        
+        // Animation au scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.category-card, .product-card').forEach(card => {
+            observer.observe(card);
+        });
+        
+        // Effet de survol audacieux (uniquement sur desktop)
+        if (!/Mobi|Android/i.test(navigator.userAgent)) {
+            document.querySelectorAll('a, button').forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    const x = Math.random() * 10 - 5;
+                    const y = Math.random() * 10 - 5;
+                    element.style.transform = `translate(${x}px, ${y}px)`;
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    element.style.transform = 'translate(0, 0)';
+                });
+            });
+        }
+    </script>
+</body>
+</html>

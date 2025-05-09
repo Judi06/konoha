@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="mojo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MOJO BLACK | Marque Signature de KONOHA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mojo-black: #000000;
+            --mojo-gold: #D4AF37;
+            --mojo-cream: #F5F5F0;
+            --mojo-red: #8B0000;
+            --font-title: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--mojo-cream);
+            color: var(--mojo-black);
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            line-height: 1.6;
+        }
+        
+        /* Navigation Holographique */
+        .mojo-nav-holo {
+            position: fixed;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .mojo-nav-item {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--mojo-gold);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mojo-nav-item:hover {
+            transform: scale(1.2);
+            background: var(--mojo-gold);
+        }
+        
+        .mojo-nav-item i {
+            font-size: 1.2rem;
+            color: var(--mojo-cream);
+        }
+        
+        /* Hero Section Cinématique */
+        .mojo-hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mojo-hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        
+        .mojo-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%);
+        }
+        
+        .mojo-hero-content {
+            position: absolute;
+            bottom: 15%;
+            left: 10%;
+            max-width: 600px;
+        }
+        
+        .mojo-hero-title {
+            font-family: var(--font-title);
+            font-size: 5rem;
+            font-weight: 900;
+            color: var(--mojo-cream);
+            margin-bottom: 1.5rem;
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .mojo-hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--mojo-cream);
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+        }
+        
+        .mojo-hero-cta {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: transparent;
+            color: var(--mojo-cream);
+            border: 2px solid var(--mojo-gold);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .mojo-hero-cta:hover {
+            background: var(--mojo-gold);
+            color: var(--mojo-black);
+        }
+        
+        /* Section Manifeste */
+        .mojo-manifesto {
+            padding: 8rem 10%;
+            background: var(--mojo-black);
+            color: var(--mojo-cream);
+            position: relative;
+        }
+        
+        .mojo-section-title {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .mojo-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50%;
+            height: 2px;
+            background: var(--mojo-gold);
+        }
+        
+        .mojo-manifesto-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .mojo-manifesto-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .mojo-manifesto-text p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .mojo-manifesto-image {
+            width: 100%;
+            height: 500px;
+            background: url('https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') center/cover;
+            position: relative;
+        }
+        
+        .mojo-manifesto-image::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: -20px;
+            bottom: -20px;
+            border: 1px solid var(--mojo-gold);
+            z-index: -1;
+        }
+        
+        /* Collections de la Maison */
+        .mojo-house-collections {
+            padding: 8rem 10%;
+            background: var(--mojo-cream);
+        }
+        
+        .mojo-house-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .mojo-house-card {
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mojo-house-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .mojo-house-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+            color: var(--mojo-cream);
+        }
+        
+        .mojo-house-title {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .mojo-house-link {
+            color: var(--mojo-gold);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .mojo-house-link:hover {
+            gap: 1rem;
+        }
+        
+        /* Collection Signature - Carrousel */
+        .mojo-collection {
+            padding: 8rem 10%;
+            background: var(--mojo-black);
+            color: var(--mojo-cream);
+            overflow: hidden;
+        }
+        
+        .mojo-collection-container {
+            position: relative;
+        }
+        
+        .mojo-collection-slider {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 1rem;
+        }
+        
+        .mojo-collection-slider::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .mojo-collection-slider::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .mojo-collection-slider::-webkit-scrollbar-thumb {
+            background: var(--mojo-gold);
+            border-radius: 4px;
+        }
+        
+        .mojo-collection-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-width: calc(33.333% - 1.333rem);
+            scroll-snap-align: start;
+        }
+        
+        .mojo-collection-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        
+        .mojo-collection-info {
+            padding: 1.5rem;
+        }
+        
+        .mojo-collection-name {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .mojo-collection-price {
+            font-size: 1.2rem;
+            color: var(--mojo-gold);
+        }
+        
+        /* Exclusivité - Carrousel */
+        .mojo-exclusivity {
+            padding: 8rem 10%;
+            background: var(--mojo-cream);
+            overflow: hidden;
+        }
+        
+        .mojo-exclusivity-slider {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 1rem;
+        }
+        
+        .mojo-exclusivity-slider::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .mojo-exclusivity-slider::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.1);
+        }
+        
+        .mojo-exclusivity-slider::-webkit-scrollbar-thumb {
+            background: var(--mojo-black);
+            border-radius: 4px;
+        }
+        
+        .mojo-exclusivity-item {
+            background: var(--mojo-cream);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            min-width: calc(33.333% - 1.333rem);
+            scroll-snap-align: start;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .mojo-exclusivity-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        
+        .mojo-exclusivity-info {
+            padding: 1.5rem;
+        }
+        
+        .mojo-exclusivity-name {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--mojo-black);
+        }
+        
+        .mojo-exclusivity-price {
+            font-size: 1.2rem;
+            color: var(--mojo-red);
+        }
+        
+        /* Savoir-Faire */
+        .mojo-craft {
+            padding: 8rem 10%;
+            background: var(--mojo-black);
+            color: var(--mojo-cream);
+        }
+        
+        .mojo-craft-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .mojo-craft-image {
+            width: 100%;
+            height: 600px;
+            background: url('https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80') center/cover;
+        }
+        
+        .mojo-craft-content {
+            padding-left: 2rem;
+        }
+        
+        .mojo-craft-title {
+            font-family: var(--font-title);
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--mojo-gold);
+        }
+        
+        .mojo-craft-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        
+        .mojo-craft-list {
+            list-style: none;
+        }
+        
+        .mojo-craft-list li {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .mojo-craft-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--mojo-gold);
+        }
+        
+        /* Footer Luxueux */
+        .mojo-footer {
+            background: var(--mojo-black);
+            color: var(--mojo-cream);
+            padding: 5rem 10% 3rem;
+        }
+        
+        .mojo-footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .mojo-footer-title {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--mojo-gold);
+        }
+        
+        .mojo-footer-links {
+            list-style: none;
+        }
+        
+        .mojo-footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .mojo-footer-link {
+            color: var(--mojo-cream);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .mojo-footer-link:hover {
+            color: var(--mojo-gold);
+        }
+        
+        .mojo-footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .mojo-footer-copyright {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        .mojo-footer-social {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .mojo-social-link {
+            color: var(--mojo-cream);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .mojo-social-link:hover {
+            color: var(--mojo-gold);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .mojo-hero-title {
+                font-size: 4rem;
+            }
+            
+            .mojo-manifesto-content,
+            .mojo-craft-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .mojo-manifesto-image {
+                height: 400px;
+                order: -1;
+            }
+            
+            .mojo-craft-image {
+                height: 400px;
+            }
+            
+            .mojo-collection-item,
+            .mojo-exclusivity-item {
+                min-width: calc(50% - 1rem);
+            }
+            
+            .mojo-footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mojo-hero-title {
+                font-size: 3rem;
+            }
+            
+            .mojo-hero-content {
+                left: 5%;
+                right: 5%;
+                bottom: 10%;
+            }
+            
+            .mojo-nav-holo {
+                right: 1rem;
+            }
+            
+            .mojo-collection-item,
+            .mojo-exclusivity-item {
+                min-width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .mojo-hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .mojo-section-title {
+                font-size: 2.5rem;
+            }
+            
+            .mojo-footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .mojo-footer-bottom {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+        }
+
+
+                /* Nouvelle Section CTA */
+        .mojo-cta {
+            padding: 6rem 10%;
+            background: var(--mojo-black);
+            color: var(--mojo-cream);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mojo-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80') center/cover;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .mojo-cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .mojo-cta-title {
+            font-family: var(--font-title);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--mojo-gold);
+        }
+
+        .mojo-cta-text {
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        .mojo-cta-button {
+            display: inline-block;
+            padding: 1.2rem 2.5rem;
+            background: var(--mojo-gold);
+            color: var(--mojo-black);
+            border: none;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 700;
+            margin: 0 1rem;
+        }
+
+        .mojo-cta-button:hover {
+            background: var(--mojo-cream);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .mojo-cta-button.secondary {
+            background: transparent;
+            color: var(--mojo-cream);
+            border: 2px solid var(--mojo-gold);
+        }
+
+        .mojo-cta-button.secondary:hover {
+            background: var(--mojo-gold);
+            color: var(--mojo-black);
+        }
+
+        .mojo-cta-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Holographique -->
+    <nav class="mojo-nav-holo">
+        <div class="mojo-nav-item" data-section="manifesto">
+            <i class="fas fa-book-open"></i>
+        </div>
+        <div class="mojo-nav-item" data-section="house-collections">
+            <i class="fas fa-tshirt"></i>
+        </div>
+        <div class="mojo-nav-item" data-section="collection">
+            <i class="fas fa-star"></i>
+        </div>
+        <div class="mojo-nav-item" data-section="exclusivity">
+            <i class="fas fa-crown"></i>
+        </div>
+        <div class="mojo-nav-item" data-section="craft">
+            <i class="fas fa-hands"></i>
+        </div>
+    </nav>
+    
+    <!-- Hero Section Cinématique -->
+    <section class="mojo-hero" id="home">
+        <video autoplay muted loop class="mojo-hero-video">
+            <source src="assets/videos/mojo-hero.mp4" type="video/mp4">
+        </video>
+        <div class="mojo-hero-overlay"></div>
+        <div class="mojo-hero-content">
+            <h1 class="mojo-hero-title">L'Art du Vêtement Réinventé</h1>
+            <p class="mojo-hero-subtitle">MOJO BLACK incarne l'excellence du design africain contemporain, mêlant tradition et modernité dans chaque pièce unique.</p>
+            <a href="#collection" class="mojo-hero-cta">Découvrir la Collection</a>
+        </div>
+    </section>
+    
+    <!-- Section Manifeste -->
+    <section class="mojo-manifesto" id="manifesto">
+        <h2 class="mojo-section-title">Notre Manifeste</h2>
+        <div class="mojo-manifesto-content">
+            <div class="mojo-manifesto-text">
+                <p>MOJO BLACK n'est pas simplement une marque de vêtements. C'est une philosophie, une manière de voir le monde à travers le prisme du textile et du design.</p>
+                <p>Née au cœur de KONOHA, notre marque puise son inspiration dans les riches traditions textiles africaines tout en embrassant une esthétique resolument contemporaine.</p>
+                <p>Chaque pièce MOJO BLACK raconte une histoire - celle des artisans qui la créent, des matériaux qui la composent, et de la personne qui la portera. Nous croyons en une mode consciente, où chaque détail compte et où rien n'est laissé au hasard.</p>
+                <p>Notre engagement : créer des vêtements qui transcendent les tendances éphémères pour devenir des pièces intemporelles dans votre garde-robe.</p>
+            </div>
+            <div class="mojo-manifesto-image"></div>
+        </div>
+    </section>
+    
+    <!-- Collections de la Maison -->
+    <section class="mojo-house-collections" id="house-collections">
+        <h2 class="mojo-section-title">Collections de la Maison</h2>
+        <div class="mojo-house-grid">
+            <div class="mojo-house-card">
+                <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Collection Homme" class="mojo-house-image">
+                <div class="mojo-house-overlay">
+                    <h3 class="mojo-house-title">Homme</h3>
+                    <a href="#" class="mojo-house-link">Explorer <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="mojo-house-card">
+                <img src="https://images.unsplash.com/photo-1539533018447-63fcce2678e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Collection Femme" class="mojo-house-image">
+                <div class="mojo-house-overlay">
+                    <h3 class="mojo-house-title">Femme</h3>
+                    <a href="#" class="mojo-house-link">Explorer <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="mojo-house-card">
+                <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" alt="Accessoires" class="mojo-house-image">
+                <div class="mojo-house-overlay">
+                    <h3 class="mojo-house-title">Accessoires</h3>
+                    <a href="#" class="mojo-house-link">Explorer <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="mojo-house-card">
+                <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Maison" class="mojo-house-image">
+                <div class="mojo-house-overlay">
+                    <h3 class="mojo-house-title">Maison</h3>
+                    <a href="#" class="mojo-house-link">Explorer <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Collection Signature - Carrousel -->
+    <section class="mojo-collection" id="collection">
+        <h2 class="mojo-section-title">Collection Signature</h2>
+        <div class="mojo-collection-container">
+            <div class="mojo-collection-slider">
+                <div class="mojo-collection-item">
+                    <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Veste MOJO BLACK" class="mojo-collection-image">
+                    <div class="mojo-collection-info">
+                        <h3 class="mojo-collection-name">Veste "Sankofa"</h3>
+                        <p class="mojo-collection-price">250,000 XOF</p>
+                    </div>
+                </div>
+                <div class="mojo-collection-item">
+                    <img src="https://images.unsplash.com/photo-1539533018447-63fcce2678e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Robe MOJO BLACK" class="mojo-collection-image">
+                    <div class="mojo-collection-info">
+                        <h3 class="mojo-collection-name">Robe "Yèvi"</h3>
+                        <p class="mojo-collection-price">180,000 XOF</p>
+                    </div>
+                </div>
+                <div class="mojo-collection-item">
+                    <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" alt="Costume MOJO BLACK" class="mojo-collection-image">
+                    <div class="mojo-collection-info">
+                        <h3 class="mojo-collection-name">Costume "Gbèto"</h3>
+                        <p class="mojo-collection-price">320,000 XOF</p>
+                    </div>
+                </div>
+                <div class="mojo-collection-item">
+                    <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Accessoire MOJO BLACK" class="mojo-collection-image">
+                    <div class="mojo-collection-info">
+                        <h3 class="mojo-collection-name">Écharpe "Adinkra"</h3>
+                        <p class="mojo-collection-price">75,000 XOF</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Exclusivité - Carrousel -->
+    <section class="mojo-exclusivity" id="exclusivity">
+        <h2 class="mojo-section-title">Exclusivités</h2>
+        <div class="mojo-collection-container">
+            <div class="mojo-exclusivity-slider">
+                <div class="mojo-exclusivity-item">
+                    <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Exclusivité 1" class="mojo-exclusivity-image">
+                    <div class="mojo-exclusivity-info">
+                        <h3 class="mojo-exclusivity-name">Ensemble "Nubia"</h3>
+                        <p class="mojo-exclusivity-price">290,000 XOF</p>
+                    </div>
+                </div>
+                <div class="mojo-exclusivity-item">
+                    <img src="https://images.unsplash.com/photo-1539533018447-63fcce2678e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Exclusivité 2" class="mojo-exclusivity-image">
+                    <div class="mojo-exclusivity-info">
+                        <h3 class="mojo-exclusivity-name">Robe "Ashanti"</h3>
+                        <p class="mojo-exclusivity-price">210,000 XOF</p>
+                    </div>
+                </div>
+                <div class="mojo-exclusivity-item">
+                    <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" alt="Exclusivité 3" class="mojo-exclusivity-image">
+                    <div class="mojo-exclusivity-info">
+                        <h3 class="mojo-exclusivity-name">Manteau "Zulu"</h3>
+                        <p class="mojo-exclusivity-price">350,000 XOF</p>
+                    </div>
+                </div>
+                <div class="mojo-exclusivity-item">
+                    <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Exclusivité 4" class="mojo-exclusivity-image">
+                    <div class="mojo-exclusivity-info">
+                        <h3 class="mojo-exclusivity-name">Sac "Yoruba"</h3>
+                        <p class="mojo-exclusivity-price">120,000 XOF</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Savoir-Faire -->
+    <section class="mojo-craft" id="craft">
+        <div class="mojo-craft-container">
+            <div class="mojo-craft-image"></div>
+            <div class="mojo-craft-content">
+                <h2 class="mojo-craft-title">L'Excellence Artisanale</h2>
+                <p class="mojo-craft-text">Chez MOJO BLACK, chaque pièce est le fruit d'un savoir-faire minutieux et d'une attention particulière aux détails. Nos artisans maîtrisent des techniques transmises de génération en génération, tout en innovant constamment.</p>
+                <ul class="mojo-craft-list">
+                    <li>Textiles tissés à la main avec des fibres naturelles</li>
+                    <li>Teintures végétales selon des méthodes traditionnelles</li>
+                    <li>Broderies réalisées par des artisans spécialisés</li>
+                    <li>Coupes contemporaines pour une silhouette moderne</li>
+                    <li>Finitions impeccables pour une durabilité exceptionnelle</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+        <!-- Nouvelle Section CTA -->
+    <section class="mojo-cta">
+        <div class="mojo-cta-content">
+            <h2 class="mojo-cta-title">Prêt à vivre l'expérience MOJO BLACK ?</h2>
+            <p class="mojo-cta-text">Que vous souhaitiez découvrir nos collections, prendre rendez-vous avec nos stylistes ou simplement en savoir plus sur notre philosophie, notre équipe se tient à votre disposition pour vous guider.</p>
+            <div class="mojo-cta-buttons">
+                <a href="tel:+22912345678" class="mojo-cta-button">
+                    <i class="fas fa-phone"></i> Appeler maintenant
+                </a>
+                <a href="index-fr.html#contact" class="mojo-cta-button secondary">
+                    <i class="fas fa-calendar"></i> Prendre RDV
+                </a>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- Footer Luxueux -->
+    <footer class="mojo-footer">
+        <div class="mojo-footer-grid">
+            <div>
+                <h3 class="mojo-footer-title">KONOHA</h3>
+                <ul class="mojo-footer-links">
+                    <li><a href="#" class="mojo-footer-link">Accueil</a></li>
+                    <li><a href="#" class="mojo-footer-link">À Propos</a></li>
+                    <li><a href="#" class="mojo-footer-link">Blog</a></li>
+                    <li><a href="#" class="mojo-footer-link">Formations</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="mojo-footer-title">Mode & Style</h3>
+                <ul class="mojo-footer-links">
+                    <li><a href="#" class="mojo-footer-link">Boutique Mode</a></li>
+                    <li><a href="#" class="mojo-footer-link">MOJO BLACK</a></li>
+                    <li><a href="#" class="mojo-footer-link">Atelier Styliste</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="mojo-footer-title">Beauté & Soins</h3>
+                <ul class="mojo-footer-links">
+                    <li><a href="#" class="mojo-footer-link">Salon de Coiffure</a></li>
+                    <li><a href="#" class="mojo-footer-link">Salon de Beauté</a></li>
+                    <li><a href="#" class="mojo-footer-link">Parfumerie</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="mojo-footer-title">Lifestyle</h3>
+                <ul class="mojo-footer-links">
+                    <li><a href="#" class="mojo-footer-link">Restaurant-Glacier</a></li>
+                    <li><a href="#" class="mojo-footer-link">Menuiserie Moderne</a></li>
+                    <li><a href="#" class="mojo-footer-link">Atelier Photo</a></li>
+                    <li><a href="#" class="mojo-footer-link">La Librairie</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="mojo-footer-bottom">
+            <div>
+                <h3 class="mojo-footer-title">MOJO BLACK</h3>
+                <p>La marque signature de KONOHA</p>
+            </div>
+            <p class="mojo-footer-copyright">© 2023 MOJO BLACK. Tous droits réservés.</p>
+            <div class="mojo-footer-social">
+                <a href="#" class="mojo-social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="mojo-social-link"><i class="fab fa-pinterest"></i></a>
+                <a href="#" class="mojo-social-link"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation holographique
+        document.querySelectorAll('.mojo-nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                document.getElementById(sectionId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Animation au scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.mojo-house-card, .mojo-collection-item, .mojo-exclusivity-item').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
